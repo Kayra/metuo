@@ -9,10 +9,17 @@ install:
 	pass
 
 database:
-ifeq (psql -c "SELECT * FROM pg_database where datname='metuo'", 1)
+#	DB := $(psql -c "SELECT * FROM pg_database where datname='metuo'")
+#	psql -c "SELECT * FROM pg_database where datname='metuo'"
+ifneq ($(psql -c "SELECT * FROM pg_roles WHERE rolname='metuo'"),)
 	@psql -c "CREATE USER metuo WITH PASSWORD 'local_insecure_password';"
-	@psql -c "CREATE DATABASE metuo OWNER metuo"
 endif
+
+ifneq ($(psql -c "SELECT * FROM pg_database where datname='metuo'"),)
+	@psql -c "DROP DATABASE metuo"
+endif
+
+	@psql -c "CREATE DATABASE metuo OWNER metuo"
 
 run:
 	pass
