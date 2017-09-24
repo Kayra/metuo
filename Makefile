@@ -25,4 +25,6 @@ database:
 
 
 run:
-	pass
+
+	@export FLASK_APP=api/app.py \
+	@. ./venv/bin/activate; python -m flask run
