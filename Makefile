@@ -13,10 +13,7 @@ ifneq ("$(wildcard $(./venv))",)
 endif
 
 	@virtualenv -p python3 venv
-	@source venv/bin/activate
-	@pip install -r ./requirements.txt
-	@echo "Installed:"
-	@cat ./requirements.txt
+	@. ./venv/bin/activate; pip install -r ./requirements.txt
 
 
 database:
