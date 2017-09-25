@@ -26,5 +26,8 @@ database:
 
 run:
 
-	@export FLASK_APP=api/app.py \
-	@. ./venv/bin/activate; python -m flask run
+ifeq ("$(wildcard $(./venv))",)
+	-${MAKE} install
+endif
+
+	@export FLASK_APP=api/app.py; . ./venv/bin/activate; python -m flask run
