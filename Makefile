@@ -23,6 +23,7 @@ database:
 	@psql -c "CREATE USER metuo WITH PASSWORD 'local_insecure_password';"
 	@psql -c "CREATE DATABASE metuo OWNER metuo"
 
+	@. ./venv/bin/activate; python -c "exec(\"from api.app import db\\ndb.create_all()\")"
 
 run:
 
