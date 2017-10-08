@@ -1,7 +1,7 @@
 from api.app import db
 
 
-class User(db.Model):
+class Picture(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String)
