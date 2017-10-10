@@ -12,3 +12,8 @@ db = SQLAlchemy(app)
 @app.route("/index")
 def index():
     return "Hello world"
+
+
+@app.route("/upload")
+def upload():
+    return "Image uploaded"
