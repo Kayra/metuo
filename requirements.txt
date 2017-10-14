@@ -1,4 +1,5 @@
 click==6.7
+ExifRead==2.1.2
 Flask==0.12.2
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
