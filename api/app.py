@@ -20,4 +20,5 @@ def index():
 
 @app.route("/upload")
 def upload():
+    # Read exif data
     return "Image uploaded"
