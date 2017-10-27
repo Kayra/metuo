@@ -6,16 +6,24 @@
 
 Install and run the application:
 
-    make
+```bash
+make
+```
 
 Run the application:
 
-    make run
+```bash
+make run
+```
 
 Reinstall the application:
 
-    make install
+```bash
+make install
+```
 
 (Re)create the database:
 
+```bash
     make database
+```
