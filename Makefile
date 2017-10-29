@@ -25,6 +25,7 @@ database:
 
 	@. ./venv/bin/activate; python -c "exec(\"from api.app import db\\ndb.create_all()\")"
 
+
 run:
 
 	@export FLASK_APP=api/app.py; . ./venv/bin/activate; python -m flask run
