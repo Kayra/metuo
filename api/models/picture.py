@@ -5,6 +5,7 @@ class Picture(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String)
+    # tags foreign keys
 
     make = db.Column(db.String, nullable=True)
     model = db.Column(db.String, nullable=True)
