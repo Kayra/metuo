@@ -1,21 +1,3 @@
-import os
-
-import exifread
-from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.utils import secure_filename
-
-
-app = Flask(__name__)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://metuo:local_insecure_password@localhost:5432/metuo"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-app.config["UPLOAD_FOLDER"] = "./"
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-db = SQLAlchemy(app)
-
 
 def allowed_image(image_name):
 
@@ -25,12 +7,6 @@ def allowed_image(image_name):
         return False
 
     return image_extension in ALLOWED_EXTENSIONS
-
-
-@app.route("/")
-@app.route("/index")
-def index():
-    return "Hello world"
 
 
 @app.route("/upload", methods=["POST"])
