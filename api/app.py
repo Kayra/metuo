@@ -1,6 +1,8 @@
 import os
+import io
 
 import exifread
+from PIL import Image
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -38,16 +40,26 @@ def upload_image():
 
     # Read exif data
 
-    if "file" not in request.files:
+    if not request.data:
         return "No image found"
 
-    image = request.files["file"]
+    image_stream = io.BytesIO(request.data)
+    image = Image.open(image_stream)
+    image.save('test.jpeg')
+    return "Image uploaded"
 
-    if image.filename == "":
-        return "No image or image name"
+    # with open('test.jpeg', 'w+') as image:
+    #     image.write(request.data.decode('base64'))
 
-    if image and allowed_image(image.filename):
 
-        image_name = secure_filename(image.filename)
-        image.save(os.path.join(app.config["UPLOAD_FOLDER"], image_name))
-        return "Image uploaded"
+    # image = Image.frombytes(request.data)
+    # print("HIT", image)
+    #
+    # if image.filename == "":
+    #     return "No image or image name"
+    #
+    # if image and allowed_image(image.filename):
+    #
+    #     image_name = secure_filename(image.filename)
+    #     image.save(os.path.join(app.config["UPLOAD_FOLDER"], image_name))
+    #
