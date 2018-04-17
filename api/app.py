@@ -44,7 +44,7 @@ def upload_image():
         return "No image found"
 
     try:
-        save_hex_as_image(request.data)
+        save_hex_as_image(request.data, 'test.jpg')
     except:
         return "Unable to upload image"
 
@@ -66,8 +66,8 @@ def upload_image():
     #     image.save(os.path.join(app.config["UPLOAD_FOLDER"], image_name))
     #
 
-def save_hex_as_image(image_hex_bytes, save_location=''):
+def save_hex_as_image(image_hex_bytes, file_name, save_location=''):
 
     image_stream = io.BytesIO(image_hex_bytes)
     image = Image.open(image_stream)
-    image.save(os.path.join(save_location, 'test.jpeg'))
+    image.save(os.path.join(save_location, secure_filename(file_name)))
