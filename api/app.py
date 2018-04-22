@@ -45,8 +45,8 @@ def upload_image():
 
     try:
         save_hex_as_image(request.data, 'test.jpg')
-    except:
-        return "Unable to upload image"
+    except Exception as exception:
+        return f"Unable to upload image due to {exception}"
 
     return "Image uploaded"
 
