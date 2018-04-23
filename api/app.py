@@ -1,8 +1,7 @@
 import os
 import io
 
-import exifread
-from PIL import Image
+from PIL import Image, ExifTags
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -44,9 +43,12 @@ def upload_image():
         return "No image found"
 
     try:
-        save_hex_as_image(request.data, 'test.jpg')
+        image = save_hex_as_image(request.data, 'test.jpg')
     except Exception as exception:
         return f"Unable to upload image due to {exception}"
+
+    exif_data = format_exif_data(image._getexif())
+    print(exif_data)
 
     return "Image uploaded"
 
@@ -71,3 +73,14 @@ def save_hex_as_image(image_hex_bytes, file_name, save_location=''):
     image_stream = io.BytesIO(image_hex_bytes)
     image = Image.open(image_stream)
     image.save(os.path.join(save_location, secure_filename(file_name)))
+
+    return image
+
+
+def format_exif_data(unformatted_exif_data):
+
+    return {
+        ExifTags.TAGS[exif_index]: exif_data
+        for exif_index, exif_data in unformatted_exif_data.items()
+        if exif_index in ExifTags.TAGS
+    }
