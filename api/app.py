@@ -43,12 +43,13 @@ def upload_image():
         return "No image found"
 
     try:
-        image = save_hex_as_image(request.data, 'test.jpg')
+        image = hex_to_image(request.data)
+        image.save(os.path.join('./', secure_filename('test.jpg')))
+
     except Exception as exception:
         return f"Unable to upload image due to {exception}"
 
-    exif_data = format_exif_data(image._getexif())
-    print(exif_data)
+    exif_data = format_exif_data(image.getexif())
 
     return "Image uploaded"
 
@@ -68,11 +69,10 @@ def upload_image():
     #     image.save(os.path.join(app.config["UPLOAD_FOLDER"], image_name))
     #
 
-def save_hex_as_image(image_hex_bytes, file_name, save_location=''):
+def hex_to_image(image_hex_bytes):
 
     image_stream = io.BytesIO(image_hex_bytes)
     image = Image.open(image_stream)
-    image.save(os.path.join(save_location, secure_filename(file_name)))
 
     return image
 
