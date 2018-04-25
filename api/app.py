@@ -37,8 +37,6 @@ def index():
 @app.route("/upload", methods=["POST"])
 def upload_image():
 
-    # Read exif data
-
     if not request.data:
         return "No image found"
 
@@ -53,21 +51,6 @@ def upload_image():
 
     return "Image uploaded"
 
-    # with open('test.jpeg', 'w+') as image:
-    #     image.write(request.data.decode('base64'))
-
-
-    # image = Image.frombytes(request.data)
-    # print("HIT", image)
-    #
-    # if image.filename == "":
-    #     return "No image or image name"
-    #
-    # if image and allowed_image(image.filename):
-    #
-    #     image_name = secure_filename(image.filename)
-    #     image.save(os.path.join(app.config["UPLOAD_FOLDER"], image_name))
-    #
 
 def hex_to_image(image_hex_bytes):
 
