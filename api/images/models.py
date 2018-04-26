@@ -1,44 +1,9 @@
-from api.app import db
+# from api.app import db
 
 
-class Picture(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String)
-    # tags foreign keys
-
-    make = db.Column(db.String, nullable=True)
-    model = db.Column(db.String, nullable=True)
-    aperture = db.Column(db.String, nullable=True)
-    exposure_time = db.Column(db.String, nullable=True)
-    lens_id = db.Column(db.String, nullable=True)
-    focal_length = db.Column(db.String, nullable=True)
-    flash = db.Column(db.Boolean, nullable=True)
-    file_size = db.Column(db.String, nullable=True)
-    mime_type = db.Column(db.String, nullable=True)
-    image_width = db.Column(db.String, nullable=True)
-    image_height = db.Column(db.String, nullable=True)
-    encoding_process = db.Column(db.String, nullable=True)
-    bits_per_sample = db.Column(db.String, nullable=True)
-    color_components = db.Column(db.String, nullable=True)
-    x_resolution = db.Column(db.String, nullable=True)
-    y_resolution = db.Column(db.String, nullable=True)
-    software = db.Column(db.String, nullable=True)
-    ycbcr_sub_sampling = db.Column(db.String, nullable=True)
-    exposure_program = db.Column(db.String, nullable=True)
-    created_at = db.Column(db.String, nullable=True)
-    maximum_aperture_value = db.Column(db.String, nullable=True)
-    metering_mode = db.Column(db.String, nullable=True)
-    color_space = db.Column(db.String, nullable=True)
-    custom_rendered = db.Column(db.String, nullable=True)
-    exposure_mode = db.Column(db.String, nullable=True)
-    white_balance = db.Column(db.String, nullable=True)
-    screen_capture_type = db.Column(db.String, nullable=True)
-    saturation = db.Column(db.String, nullable=True)
-    sharpness = db.Column(db.String, nullable=True)
-    f_number = db.Column(db.String, nullable=True)
-    exposure_compensation = db.Column(db.String, nullable=True)
-    iso = db.Column(db.String, nullable=True)
-    compression = db.Column(db.String, nullable=True)
-    xmp_toolkit = db.Column(db.String, nullable=True)
-    creator_tool = db.Column(db.String, nullable=True)
+# class Image(db.Model):
+#
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String)
+#     location = db.Column(db.String)
+#     exif_data = db.Column(db.JSON)
