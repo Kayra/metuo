@@ -70,7 +70,7 @@ def hex_to_image(image_hex_bytes):
 def format_exif_data(unformatted_exif_data):
 
     return {
-        ExifTags.TAGS[exif_index]: exif_data
+        ExifTags.TAGS[exif_index]: str(exif_data, 'utf-8') if isinstance(exif_data, bytes) else exif_data
         for exif_index, exif_data in unformatted_exif_data.items()
         if exif_index in ExifTags.TAGS
     }
@@ -83,7 +83,7 @@ def save_image(image, exif_data):
     image_location = os.path.join(upload_directory, image_name)
 
     image.save(image_location)
-    print(type(exif_data))
+    
     db_image = Image(
         name=image_name,
         location=image_location,
