@@ -83,7 +83,7 @@ def save_image(image, exif_data):
     image_location = os.path.join(upload_directory, image_name)
 
     image.save(image_location)
-    
+
     db_image = Image(
         name=image_name,
         location=image_location,
