@@ -3,4 +3,4 @@
 .idea
 __pycache__/
 venv/
-uploads/
+image_uploads/
