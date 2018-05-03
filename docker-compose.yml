@@ -12,7 +12,7 @@ services:
     volumes:
       - ./postgres-data/postgres:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   app:
     restart: always
@@ -21,3 +21,6 @@ services:
       - 5000:5000
     volumes:
       - .:/app
+    depends_on:
+      - postgres
+    entrypoint: ["python", "manage.py", "runserver"]
