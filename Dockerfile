@@ -9,5 +9,5 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV FLASK_ENV="docker"
+ENV FLASK_APP=api/app.py
 EXPOSE 5000

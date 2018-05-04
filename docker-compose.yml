@@ -13,6 +13,7 @@ services:
       - ./postgres-data/postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    env_file: .env
 
   app:
     restart: always
@@ -23,4 +24,4 @@ services:
       - .:/app
     depends_on:
       - postgres
-    entrypoint: ["python", "manage.py", "runserver"]
+    entrypoint: ["python", "-m", "flask", "run", "--host", "0.0.0.0"]

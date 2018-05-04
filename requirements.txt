@@ -6,6 +6,7 @@ Flask-Uploads==0.2.1
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
+Pillow==6.0.0
 psycopg2-binary==2.7.4
 SQLAlchemy==1.2.6
 Werkzeug==0.14.1
