@@ -11,28 +11,12 @@ Features:
 
 ## Development set up
 
-*Requires local installation of [postgres](https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/) and [python3](http://docs.python-guide.org/en/latest/starting/installation/)*
+**Requires local installation of [docker-compose.](https://docs.docker.com/compose/install/)**
 
 Install and run the application:
 
 ```bash
-make
+docker-compose up -d
+docker exec -it metuo_app_1 python create_database.py
 ```
 
-Run the application:
-
-```bash
-make run
-```
-
-Reinstall the application:
-
-```bash
-make install
-```
-
-(Re)create the database:
-
-```bash
-    make database
-```
