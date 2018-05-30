@@ -28,7 +28,7 @@ class Image(db.Model):
 @app.route("/")
 @app.route("/index")
 def index():
-    return "Hello world"
+    return "Hello world!;"
 
 
 @app.route("/upload", methods=["POST"])
@@ -60,7 +60,7 @@ def get_images():
     print(images)
 
     images_data = [PILImage.open(image_location) for image_location in image_locations]
-    print("DATA", images_data)
+    print("DATA", images_data, flush=True)
     # image_location = os.path.join(dir_path, image_locations[0])
     print('IMAGE', image_locations[0])
 

@@ -11,7 +11,7 @@ services:
       - .:/app
     depends_on:
       - postgres
-    entrypoint: ["python", "-m", "flask", "run", "--host", "0.0.0.0"]
+    entrypoint: ["flask", "run", "--host", "0.0.0.0"]
 
   postgres:
     restart: always

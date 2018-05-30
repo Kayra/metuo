@@ -32,4 +32,5 @@ run:
 
 	@export PYTHONPATH=$(shell pwd); \
 	export FLASK_APP=api/app.py; \
-	. venv/bin/activate; python -m flask run
+	export FLASK_ENV=development; \
+	. venv/bin/activate; flask run
