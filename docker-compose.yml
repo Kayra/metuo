@@ -9,6 +9,8 @@ services:
       - 5000:5000
     volumes:
       - .:/app
+    environment:
+      - FLASK_DEBUG=${FLASK_DEBUG}
     depends_on:
       - postgres
     entrypoint: ["flask", "run", "--host", "0.0.0.0"]

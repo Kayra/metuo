@@ -28,7 +28,7 @@ class Image(db.Model):
 @app.route("/")
 @app.route("/index")
 def index():
-    return "Hello world!;"
+    return "Hello world"
 
 
 @app.route("/upload", methods=["POST"])
