@@ -34,3 +34,13 @@ run:
 	export FLASK_APP=api/app.py; \
 	export FLASK_ENV=development; \
 	. venv/bin/activate; flask run
+
+
+dotenv:
+
+	@printf "POSTGRES_DB=metuo\n \
+			 POSTGRES_USER=metuo\n \
+          	 POSTGRES_PASSWORD=local_insecure_password\n \
+          	 FLASK_DEBUG=1" \
+    | tr -d "[:blank:]" \
+    > .env
