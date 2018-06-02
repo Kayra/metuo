@@ -1,7 +1,7 @@
 .PHONY: all install run database
 
 all:
-	-${MAKE} install
+	-${MAKE} dotenv
 	-${MAKE} database
 	-${MAKE} run
 
@@ -18,14 +18,7 @@ endif
 
 database:
 
-	@psql -c "DROP DATABASE IF EXISTS metuo"
-	@psql -c "DROP USER IF EXISTS metuo"
-	@psql -c "CREATE USER metuo WITH PASSWORD 'local_insecure_password';"
-	@psql -c "CREATE DATABASE metuo OWNER metuo"
-
-	@. venv/bin/activate; \
-	export PYTHONPATH=$(shell pwd); \
-	python -c "exec(\"from api.app import db\\ndb.create_all()\")"
+	docker exec -it metuo_app_1 python create_database.py
 
 
 run:
