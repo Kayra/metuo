@@ -8,6 +8,11 @@ install:
 	-${MAKE} database
 
 
+start:
+
+	docker-compose up
+
+
 database:
 
 	docker exec -it metuo_app_1 python create_database.py
