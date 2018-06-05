@@ -1,4 +1,4 @@
-.PHONY: all install run database
+.PHONY: install start restart database dotenv
 
 
 install:
@@ -11,6 +11,11 @@ install:
 start:
 
 	docker-compose up
+
+
+restart:
+
+	docker-compose down; docker-compose up
 
 
 database:
