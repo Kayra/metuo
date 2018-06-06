@@ -10,17 +10,17 @@ install:
 
 start:
 
-	docker-compose up
+	@docker-compose up
 
 
 restart:
 
-	docker-compose down; docker-compose up
+	@docker-compose down; docker-compose up
 
 
 database:
 
-	docker exec -it metuo_app_1 python create_database.py
+	@docker exec -it metuo_app_1 python create_database.py
 
 
 dotenv:

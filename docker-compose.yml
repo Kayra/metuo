@@ -11,6 +11,7 @@ services:
       - .:/app
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
+      - PYTHONUNBUFFERED=${PYTHONUNBUFFERED}
     depends_on:
       - postgres
     entrypoint: ["flask", "run", "--host", "0.0.0.0"]

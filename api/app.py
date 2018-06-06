@@ -17,6 +17,10 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 db = SQLAlchemy(app)
 
+if os.environ['FLASK_DEBUG'] == '1':
+    import functools
+    print = functools.partial(print, flush=True)
+
 
 class Image(db.Model):
 
@@ -28,6 +32,7 @@ class Image(db.Model):
 @app.route("/")
 @app.route("/index")
 def index():
+    print("HI")
     return "Hello world"
 
 
