@@ -31,3 +31,8 @@ dotenv:
           	 FLASK_DEBUG=1" \
     | tr -d "[:blank:]" \
     > .env
+
+
+apibash:
+
+	docker exec -it metuo_app_1 bash
