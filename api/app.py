@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 import io
 
@@ -12,7 +13,8 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://metuo:local_insecure_password@postgres:5432/metuo"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-app.config["IMAGE_DIRECTORY"] = "image_uploads/"
+PATH = Path(__file__).parent.parent.absolute()
+app.config["IMAGE_DIRECTORY"] = os.path.join(PATH, "image_uploads/")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 db = SQLAlchemy(app)
@@ -38,16 +40,11 @@ def index():
 @app.route("/upload", methods=["POST"])
 def upload_image():
 
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    print("PATH", dir_path)
-
     if not request.data:
         return "No image found"
 
     try:
-        image = hex_to_image(request.data)
-        exif_data = format_exif_data(image.getexif())
-        save_image(image, exif_data)
+        save_image(request.data)
 
     except Exception as exception:
         return f"Unable to upload image due to {exception}"
@@ -61,17 +58,10 @@ def get_images():
     image_directory = app.config["IMAGE_DIRECTORY"]
     images = Image.query.all()
     image_locations = [os.path.join(image_directory, image.name) for image in images]
-    print(images)
 
-    images_data = [PILImage.open(image_location) for image_location in image_locations]
-    print("DATA", images_data, flush=True)
-    # image_location = os.path.join(dir_path, image_locations[0])
-    print('IMAGE', image_locations[0])
-
-    return send_file(io.BytesIO(images_data[0]),
+    return send_file(image_locations[0],
                      attachment_filename=images[0].name,
                      mimetype='image/jpg')
-    # return
 
 
 def allowed_image(image_name):
@@ -101,7 +91,10 @@ def format_exif_data(unformatted_exif_data):
     }
 
 
-def save_image(image, exif_data):
+def save_image(image_hex_bytes):
+
+    image = hex_to_image(image_hex_bytes)
+    exif_data = format_exif_data(image.getexif())
 
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_name = secure_filename('test.jpg')
