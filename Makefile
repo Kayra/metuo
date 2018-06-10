@@ -15,7 +15,9 @@ start:
 
 restart:
 
-	@docker-compose down; docker-compose up
+	@docker-compose down; \
+	docker rmi -f metuo_app; \
+	docker-compose up
 
 
 database:
