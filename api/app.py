@@ -28,13 +28,14 @@ class Image(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    # location
     exif_data = db.Column(db.JSON)
 
 
 @app.route("/")
 @app.route("/index")
 def index():
-    return "Hello world"
+    return "Hello heejer"
 
 
 @app.route("/upload", methods=["POST"])
