@@ -4,6 +4,11 @@ from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
 
+def init_app_db(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
+
+
 def get_db():
 
     if 'db' not in g:
@@ -29,7 +34,7 @@ def init_db():
 @with_appcontext
 def init_db_command():
     """
-        Clear the existing data and create new tables.
+    Clear the existing data and create new tables.
     """
 
     init_db()
