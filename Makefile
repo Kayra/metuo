@@ -35,6 +35,11 @@ dotenv:
     > .env
 
 
-apibash:
+apishell:
 
 	docker exec -it metuo_app_1 bash
+
+
+psqlshell:
+
+	docker exec -it metuo_postgres_1 psql metuo metuo

@@ -27,6 +27,6 @@ def init_db_command():
     """
         Clear the existing data and create new tables.
     """
-
+    from api import models
     init_db()
     click.echo('Successfully initialised the database.')
