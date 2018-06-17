@@ -22,7 +22,7 @@ restart:
 
 database:
 
-	@docker exec -it metuo_app_1 python create_database.py
+	@docker exec -it metuo_app_1 flask init-db
 
 
 dotenv:
@@ -37,9 +37,9 @@ dotenv:
 
 apishell:
 
-	docker exec -it metuo_app_1 bash
+	@docker exec -it metuo_app_1 bash
 
 
 psqlshell:
 
-	docker exec -it metuo_postgres_1 psql metuo metuo
+	@docker exec -it metuo_postgres_1 psql metuo metuo
