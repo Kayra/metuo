@@ -4,6 +4,7 @@ from pathlib import Path
 from flask import Flask
 
 from api.database import init_app_db
+from api.blueprints import images
 
 
 def create_app():
@@ -18,6 +19,10 @@ def create_app():
     app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg', 'gif'}
 
     init_app_db(app)
+
+    app.register_blueprint(images.bp)
+    app.add_url_rule('/upload', endpoint='upload_image')
+    app.add_url_rule('/images', endpoint='get_images')
 
     @app.route("/")
     @app.route("/index")
