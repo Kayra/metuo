@@ -1,10 +1,16 @@
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
-)
+import os
+import io
+
+from flask import Blueprint, flash, g, redirect, render_template, request, url_for, send_file, current_app as app
+from PIL import Image as PILImage, ExifTags
+from werkzeug.utils import secure_filename
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+# from flaskr.auth import login_required
+from api.database import get_db
+
+from api.models import Image
+
 
 bp = Blueprint('images', __name__)
 
@@ -36,14 +42,14 @@ def get_images():
                      mimetype='image/jpg')
 
 
-def allowed_image(image_name):
-
-    try:
-        image_extension = image_name.rsplit(".", 1)[1].lower()
-    except IndexError:
-        return False
-
-    return image_extension in ALLOWED_EXTENSIONS
+# def allowed_image(image_name):
+#
+#     try:
+#         image_extension = image_name.rsplit(".", 1)[1].lower()
+#     except IndexError:
+#         return False
+#
+#     return image_extension in ALLOWED_EXTENSIONS
 
 
 def hex_to_image(image_hex_bytes):
@@ -74,10 +80,10 @@ def save_image(image_hex_bytes):
 
     image.save(image_location)
 
-    db_image = Image(
-        name=image_name,
-        exif_data=exif_data
-    )
+    db_image = Image(name=image_name,
+                     exif_data=exif_data)
+
+    db = get_db()
 
     db.session.add(db_image)
     db.session.commit()
