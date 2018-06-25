@@ -10,6 +10,7 @@ def init_app_db(app):
 
 def get_db():
 
+    # with current_app.app_context():
     if 'db' not in g:
         g.db = SQLAlchemy(current_app)
 

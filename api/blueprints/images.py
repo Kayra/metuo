@@ -7,9 +7,9 @@ from werkzeug.utils import secure_filename
 from werkzeug.exceptions import abort
 
 # from flaskr.auth import login_required
-from api.database import get_db
+# from api.database import get_db
 
-from api.models import Image
+from api.models import Image, db
 
 
 bp = Blueprint('images', __name__)
@@ -82,8 +82,6 @@ def save_image(image_hex_bytes):
 
     db_image = Image(name=image_name,
                      exif_data=exif_data)
-
-    db = get_db()
 
     db.session.add(db_image)
     db.session.commit()
