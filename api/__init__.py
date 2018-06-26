@@ -22,11 +22,9 @@ def create_app():
     app.config["IMAGE_DIRECTORY"] = os.path.join(project_root_path, "image_uploads/")
     app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg', 'gif'}
 
-    # with app.app_context():
-    #     init_app_db(app)
     db.init_app(app)
     app.cli.add_command(init_db_command)
-    
+
     with app.app_context():
         from api.blueprints import images
         app.register_blueprint(images.bp)
