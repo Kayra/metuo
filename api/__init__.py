@@ -1,12 +1,11 @@
 import os
 from pathlib import Path
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import click
+from flask import Flask
 from flask.cli import with_appcontext
+from flask_sqlalchemy import SQLAlchemy
 
-# from api.database import init_app_db
 
 db = SQLAlchemy()
 

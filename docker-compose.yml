@@ -13,7 +13,7 @@ services:
       - FLASK_DEBUG=${FLASK_DEBUG}
     depends_on:
       - postgres
-    entrypoint: ["flask", "run"]
+    entrypoint: ["flask", "run", "--host", "0.0.0.0"]
 
   postgres:
     restart: always
