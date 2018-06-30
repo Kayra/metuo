@@ -25,8 +25,8 @@ def create_app():
     app.cli.add_command(init_db_command)
 
     with app.app_context():
-        from api.blueprints import images
-        app.register_blueprint(images.bp)
+        from api import views
+        app.register_blueprint(views.bp)
         app.add_url_rule('/upload', endpoint='upload_image')
         app.add_url_rule('/images', endpoint='get_images')
 
