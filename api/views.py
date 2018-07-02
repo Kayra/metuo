@@ -34,16 +34,3 @@ def get_images():
     return send_file(image_locations[0],
                      attachment_filename=images[0].name,
                      mimetype='image/jpg')
-
-
-# def allowed_image(image_name):
-#
-#     try:
-#         image_extension = image_name.rsplit(".", 1)[1].lower()
-#     except IndexError:
-#         return False
-#
-#     return image_extension in ALLOWED_EXTENSIONS
-
-
-

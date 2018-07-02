@@ -41,3 +41,13 @@ def _format_exif_data(unformatted_exif_data):
         for exif_index, exif_data in unformatted_exif_data.items()
         if exif_index in ExifTags.TAGS
     }
+
+
+# def allowed_image(image_name):
+#
+#     try:
+#         image_extension = image_name.rsplit(".", 1)[1].lower()
+#     except IndexError:
+#         return False
+#
+#     return image_extension in ALLOWED_EXTENSIONS
