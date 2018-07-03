@@ -16,6 +16,7 @@ def upload_image():
         return "No image found"
 
     try:
+        print(dir(request))
         save_image(request.data)
 
     except Exception as exception:
@@ -27,10 +28,29 @@ def upload_image():
 @bp.route("/images", methods=["GET"])
 def get_images():
 
-    image_directory = app.config["IMAGE_DIRECTORY"]
     images = Image.query.all()
+
+    image_directory = app.config["IMAGE_DIRECTORY"]
     image_locations = [os.path.join(image_directory, image.name) for image in images]
 
     return send_file(image_locations[0],
                      attachment_filename=images[0].name,
+                     mimetype='image/jpg')
+
+
+@bp.route("/image", methods=["GET"])
+def get_image():
+
+    image_name = request.args.get('image_name')
+
+    try:
+        image = Image.query.filter_by(name=image_name).one()
+    except Exception as exception:
+        return f"Unable to get image due to {exception}"
+
+    image_directory = app.config["IMAGE_DIRECTORY"]
+    image_location = os.path.join(image_directory, image.name)
+
+    return send_file(image_location,
+                     attachment_filename=image.name,
                      mimetype='image/jpg')
