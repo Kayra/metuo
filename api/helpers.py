@@ -2,8 +2,8 @@ import os
 import io
 
 from flask import current_app as app
-from PIL import Image as PILImage, ExifTags
 from werkzeug.utils import secure_filename
+from PIL import Image as PILImage, ExifTags
 
 from api.models import Image, db
 

@@ -2,8 +2,8 @@ import os
 
 from flask import Blueprint, request, send_file, current_app as app
 
-from api.helpers import save_image
 from api.models import Image
+from api.helpers import save_image
 
 
 bp = Blueprint('images', __name__)

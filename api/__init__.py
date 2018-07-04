@@ -30,11 +30,6 @@ def create_app():
         app.add_url_rule('/upload', endpoint='upload_image')
         app.add_url_rule('/images', endpoint='get_images')
 
-    @app.route("/")
-    @app.route("/index")
-    def index():
-        return "Hello world"
-
     return app
 
 
