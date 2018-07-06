@@ -21,11 +21,10 @@ def save_image(image: FileStorage, tags: List[str]):
 
     _save_image_locally(image, image_name)
 
-    db_image = Image(name=image_name,
-                     exif_data=exif_data)
+    db_image = Image(name=image_name, exif_data=exif_data)
 
     for tag in tags:
-        tag = Tag.query.filter_by(tag_name=tag).one() if _tag_exists(tag) else Tag(tag_name=tag)
+        tag = Tag.query.filter_by(tag_name=tag).one() if Tag.exists(tag_name=tag) else Tag(tag_name=tag)
         db_image.tags.append(tag)
 
     db.session.add(db_image)
@@ -39,10 +38,6 @@ def _save_image_locally(image, image_name) -> None:
     image_location = os.path.join(image_directory, image_name)
 
     image.save(image_location)
-
-
-def _tag_exists(tag) -> bool:
-    return bool(Tag.query.filter_by(tag_name=tag).scalar())
 
 
 def _hex_to_image(image_hex_bytes) -> JpegImageFile:

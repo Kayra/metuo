@@ -2,7 +2,7 @@ import os
 
 from flask import Blueprint, request, send_file, current_app as app
 
-from api.models import Image
+from api.models import Image, Tag
 from api.helpers import save_image
 
 
@@ -26,7 +26,10 @@ def upload_image():
 @bp.route("/images", methods=["GET"])
 def get_images():
 
-    images = Image.query.all()
+    request_tags = request.args['tags'].split(',')
+
+    tags = Tag.query.filter(Tag.tag_name.in_(request_tags)).distinct()
+    images = set([tag.images for tag in tags][0])
 
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_locations = [os.path.join(image_directory, image.name) for image in images]
