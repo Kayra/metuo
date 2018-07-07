@@ -12,12 +12,12 @@ bp = Blueprint('images', __name__)
 @bp.route("/upload", methods=["POST"])
 def upload_image():
 
-    if not request.data:
+    if not request.files:
         return "No image found"
 
     try:
-        print(dir(request))
-        save_image(request.data)
+        image = request.files.to_dict()['image']
+        save_image(image)
 
     except Exception as exception:
         return f"Unable to upload image due to {exception}"

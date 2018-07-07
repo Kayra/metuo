@@ -8,13 +8,15 @@ from PIL import Image as PILImage, ExifTags
 from api.models import Image, db
 
 
-def save_image(image_hex_bytes):
+def save_image(image):
 
+    image_name = image.filename
+    image_hex_bytes = image.read()
     image = _hex_to_image(image_hex_bytes)
     exif_data = _format_exif_data(image.getexif())
 
     image_directory = app.config["IMAGE_DIRECTORY"]
-    image_name = secure_filename('test.jpg')
+    image_name = secure_filename(image_name)
     image_location = os.path.join(image_directory, image_name)
 
     image.save(image_location)
