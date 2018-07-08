@@ -17,6 +17,11 @@ class Image(db.Model):
     tags = db.relationship('Tag', secondary=association_table, lazy='subquery',
                            backref=db.backref('images', lazy=True))
 
+    def add_tags(self, tags):
+        for tag in tags:
+            tag_object = Tag.query.filter_by(tag_name=tag).one() if Tag.exists(tag_name=tag) else Tag(tag_name=tag)
+            self.tags.append(tag_object)
+
     def __repr__(self):
         return f'<Image {self.name}>'
 

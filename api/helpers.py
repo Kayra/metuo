@@ -22,10 +22,7 @@ def save_image(image: FileStorage, tags: List[str]):
     _save_image_locally(image, image_name)
 
     db_image = Image(name=image_name, exif_data=exif_data)
-
-    for tag in tags:
-        tag = Tag.query.filter_by(tag_name=tag).one() if Tag.exists(tag_name=tag) else Tag(tag_name=tag)
-        db_image.tags.append(tag)
+    db_image.add_tags(tags)
 
     db.session.add(db_image)
     db.session.commit()
