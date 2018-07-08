@@ -1,17 +1,21 @@
 import os
 import io
+from typing import List
 
+from werkzeug import FileStorage
 from flask import current_app as app
 from werkzeug.utils import secure_filename
 from PIL import Image as PILImage, ExifTags
+from PIL.JpegImagePlugin import JpegImageFile
 
-from api.models import Image, db
+from api.models import Image, Tag, db
 
 
-def save_image(image):
+def save_image(image: FileStorage, tags: List[str]):
 
     image_name = image.filename
     image_hex_bytes = image.read()
+
     image = _hex_to_image(image_hex_bytes)
     exif_data = _format_exif_data(image.getexif())
 
@@ -24,11 +28,23 @@ def save_image(image):
     db_image = Image(name=image_name,
                      exif_data=exif_data)
 
+    for tag in tags:
+
+        tag = Tag.query.filter_by(tag_name=tag).one() if _tag_exists(tag) else Tag(tag_name=tag)
+
+        db_image.tags.append(tag)
+
     db.session.add(db_image)
     db.session.commit()
 
 
-def _hex_to_image(image_hex_bytes):
+def _tag_exists(tag) -> bool:
+    print(Tag.query.filter_by(tag_name=tag).scalar())
+
+    return bool(Tag.query.filter_by(tag_name=tag).scalar())
+
+
+def _hex_to_image(image_hex_bytes) -> JpegImageFile:
 
     image_stream = io.BytesIO(image_hex_bytes)
     image = PILImage.open(image_stream)

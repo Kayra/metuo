@@ -15,12 +15,14 @@ def upload_image():
     if not request.files:
         return "No image found"
 
-    try:
-        image = request.files.to_dict()['image']
-        save_image(image)
+    # try:
+    image = request.files['image']
+    tags = request.values['tags']
+    print(type(tags), tags)
+    save_image(image, tags)
 
-    except Exception as exception:
-        return f"Unable to upload image due to {exception}"
+    # except Exception as exception:
+    #     return f"Unable to upload image due to {exception}"
 
     return "Image uploaded"
 
