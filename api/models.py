@@ -1,3 +1,5 @@
+from typing import List
+
 from api import db
 
 
@@ -17,12 +19,12 @@ class Image(db.Model):
     tags = db.relationship('Tag', secondary=association_table, lazy='subquery',
                            backref=db.backref('images', lazy=True))
 
-    def add_tags(self, tags):
+    def add_tags(self, tags: List[str]) -> None:
         for tag in tags:
             tag_object = Tag.query.filter_by(tag_name=tag).one() if Tag.exists(tag_name=tag) else Tag(tag_name=tag)
             self.tags.append(tag_object)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'<Image {self.name}>'
 
 
@@ -34,8 +36,8 @@ class Tag(db.Model):
     tag_name = db.Column(db.String, unique=True)
 
     @classmethod
-    def exists(cls, tag_name):
+    def exists(cls, tag_name: str) -> bool:
         return bool(cls.query.filter_by(tag_name=tag_name).scalar())
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'<Tag {self.tag_name}>'
