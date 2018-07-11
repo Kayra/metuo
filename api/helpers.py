@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image as PILImage, ExifTags
 from PIL.JpegImagePlugin import JpegImageFile
 
-from api.models import Image, Tag, db
+from api.models import Image, db
 
 
 def save_image(image: FileStorage, tags: List[str]):

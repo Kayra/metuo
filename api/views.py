@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, request, send_file, current_app as app
+from flask import Blueprint, request, send_file, url_for, current_app as app
 
 from api.models import Image, Tag
 from api.helpers import save_image
@@ -45,13 +45,8 @@ def get_image():
     image_name = request.args.get('image_name')
 
     try:
-        image = Image.query.filter_by(name=image_name).one()
+        image = Image.query.filter_by(name=image_name).first()
     except Exception as exception:
         return f"Unable to get image due to {exception}"
 
-    image_directory = app.config["IMAGE_DIRECTORY"]
-    image_location = os.path.join(image_directory, image.name)
-
-    return send_file(image_location,
-                     attachment_filename=image.name,
-                     mimetype='image/jpg')
+    return f'<img src="{url_for("static", filename=image.name)}">'
