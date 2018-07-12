@@ -23,22 +23,6 @@ def upload_image():
     return "Image uploaded"
 
 
-@bp.route("/images", methods=["GET"])
-def get_images():
-
-    request_tags = request.args['tags'].split(',')
-
-    tags = Tag.query.filter(Tag.tag_name.in_(request_tags)).distinct()
-    images = set([tag.images for tag in tags][0])
-
-    image_directory = app.config["IMAGE_DIRECTORY"]
-    image_locations = [os.path.join(image_directory, image.name) for image in images]
-
-    return send_file(image_locations[0],
-                     attachment_filename=images[0].name,
-                     mimetype='image/jpg')
-
-
 @bp.route("/image", methods=["GET"])
 def get_image():
 
