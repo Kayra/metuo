@@ -8,6 +8,9 @@ association_table = db.Table('image_tag_association',
                              db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'), primary_key=True))
 
 
+flatten = lambda list_to_flatten: [item for sublist in list_to_flatten for item in sublist]
+
+
 class Image(db.Model):
 
     __tablename__ = 'images'
@@ -38,6 +41,14 @@ class Tag(db.Model):
     @classmethod
     def exists(cls, tag_name: str) -> bool:
         return bool(cls.query.filter_by(tag_name=tag_name).scalar())
+
+    @classmethod
+    def get_images(cls, tags: List[str]) -> List[Image]:
+
+        db_tags = cls.query.filter(cls.tag_name.in_(tags)).all()
+        images = flatten([tag.images for tag in db_tags])
+
+        return images
 
     def __repr__(self) -> str:
         return f'<Tag {self.tag_name}>'

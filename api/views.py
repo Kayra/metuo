@@ -1,8 +1,6 @@
-import os
+from flask import Blueprint, request, url_for, jsonify
 
-from flask import Blueprint, request, send_file, url_for, current_app as app
-
-from api.models import Image, Tag
+from api.models import Tag
 from api.helpers import save_image
 
 
@@ -26,11 +24,19 @@ def upload_image():
 @bp.route("/image", methods=["GET"])
 def get_image():
 
-    image_name = request.args.get('image_name')
+    tags = request.args.get('tags').split(',')
 
     try:
-        image = Image.query.filter_by(name=image_name).first()
+        images = Tag.get_images(tags)
+
     except Exception as exception:
         return f"Unable to get image due to {exception}"
 
-    return f'<img src="{url_for("static", filename=image.name)}">'
+    json_response = {}
+    for image in images:
+        json_response[image.name] = {
+            "location": url_for("static", filename=image.name),
+            "tags": [tag.tag_name for tag in image.tags]
+        }
+
+    return jsonify(json_response)
