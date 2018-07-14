@@ -21,8 +21,8 @@ def upload_image():
     return "Image uploaded"
 
 
-@bp.route("/image", methods=["GET"])
-def get_image():
+@bp.route("/images", methods=["GET"])
+def get_images():
 
     tags = request.args.get('tags').split(',')
 

@@ -33,7 +33,6 @@ def create_app():
         app.register_blueprint(views.bp)
         app.add_url_rule('/upload', endpoint='upload_image')
         app.add_url_rule('/images', endpoint='get_images')
-        app.add_url_rule('/image', endpoint='get_image')
 
     @app.route("/")
     @app.route("/health")
