@@ -36,7 +36,7 @@ def get_images():
     for image in images:
         json_response[image.name] = {
             "location": url_for("static", filename=image.name),
-            "tags": [tag.tag_name for tag in image.tags]
+            "tags": [tag.name for tag in image.tags]
         }
 
     return jsonify(json_response)

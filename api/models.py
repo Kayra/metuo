@@ -24,7 +24,7 @@ class Image(db.Model):
 
     def add_tags(self, tags: List[str]) -> None:
         for tag in tags:
-            tag_object = Tag.query.filter_by(tag_name=tag).one() if Tag.exists(tag_name=tag) else Tag(tag_name=tag)
+            tag_object = Tag.query.filter_by(name=tag).one() if Tag.exists(name=tag) else Tag(name=tag)
             self.tags.append(tag_object)
 
     def __repr__(self) -> str:
@@ -36,19 +36,19 @@ class Tag(db.Model):
     __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
-    tag_name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, unique=True)
 
     @classmethod
-    def exists(cls, tag_name: str) -> bool:
-        return bool(cls.query.filter_by(tag_name=tag_name).scalar())
+    def exists(cls, name: str) -> bool:
+        return bool(cls.query.filter_by(name=name).scalar())
 
     @classmethod
     def get_images(cls, tags: List[str]) -> List[Image]:
 
-        db_tags = cls.query.filter(cls.tag_name.in_(tags)).all()
+        db_tags = cls.query.filter(cls.name.in_(tags)).all()
         images = flatten([tag.images for tag in db_tags])
 
         return images
 
     def __repr__(self) -> str:
-        return f'<Tag {self.tag_name}>'
+        return f'<Tag {self.name}>'
