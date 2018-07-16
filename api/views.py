@@ -40,3 +40,9 @@ def get_images():
         }
 
     return jsonify(json_response)
+
+
+@bp.route("/tags", methods=["GET"])
+def get_tags():
+    tags = Tag.query.all()
+    return jsonify([tag.name for tag in tags])
