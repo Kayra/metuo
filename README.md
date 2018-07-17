@@ -40,7 +40,7 @@ make apibash
 
 ### POST - /upload
 
-Saves an image locally, and to the database and assigns it the tags.
+Saves static image file, and information (name/tags) to the DB.
 
 Example CURL:
 
@@ -48,6 +48,6 @@ Example CURL:
 curl --request POST \
   --url http://127.0.0.1:5000/upload \
   --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' \
-  --form 'tags=hey,mo,stuff' \
-  --form image=
+  --form tags=hey \
+  --form image=path_to_image
 ```
