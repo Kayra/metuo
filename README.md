@@ -38,6 +38,17 @@ make apibash
 
 ## API Endpoints
 
+### GET - /
+
+Returns `Alive`. Simple health check
+
+Example CURL:
+
+```bash
+curl --request GET \
+  --url http://0.0.0.0:5000/
+```
+
 ### POST - /upload
 
 Saves static image file, and information (name/tags) to the DB.
