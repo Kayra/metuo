@@ -49,6 +49,30 @@ curl --request GET \
   --url http://0.0.0.0:5000/
 ```
 
+### GET - /images
+
+Get a list of images. Response will include file name, static serving location and tags.
+
+Example CURL:
+
+```bash
+curl --request GET \
+  --url 'http://0.0.0.0:5000/images?image_name=test.jpg&tags=hey'
+```
+
+Example response:
+
+```bash
+{
+  "nyc.png": {
+    "location": "/static/nyc.png",
+    "tags": [
+      "hey"
+    ]
+  }
+}
+```
+
 ### POST - /upload
 
 Saves static image file, and information (name/tags) to the DB.
