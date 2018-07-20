@@ -57,7 +57,7 @@ Example CURL:
 
 ```bash
 curl --request GET \
-  --url 'http://0.0.0.0:5000/images?image_name=test.jpg&tags=hey'
+  --url 'http://0.0.0.0:5000/images?tags=hey'
 ```
 
 Example response:
@@ -71,6 +71,25 @@ Example response:
     ]
   }
 }
+```
+
+### GET - /tags
+
+Get a list of all the tags in the DB
+
+Example CURL:
+
+```bash
+curl --request GET \
+  --url http://0.0.0.0:5000/tags
+```
+
+Example response:
+
+```bash
+[
+  "hey"
+]
 ```
 
 ### POST - /upload
