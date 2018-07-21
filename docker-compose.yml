@@ -2,13 +2,13 @@ version: '2.1'
 
 services:
 
-  app:
+  server:
     restart: always
     build: .
     ports:
       - 5000:5000
     volumes:
-      - .:/app
+      - .:/server
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
     depends_on:

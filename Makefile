@@ -16,13 +16,13 @@ start:
 restart:
 
 	@docker-compose down; \
-	docker rmi -f metuo_app; \
+	docker rmi -f metuo_server; \
 	docker-compose up
 
 
 database:
 
-	@docker exec -it metuo_app_1 flask init-db
+	@docker exec -it metuo_server_1 flask init-db
 
 
 dotenv:
@@ -37,7 +37,7 @@ dotenv:
 
 apishell:
 
-	@docker exec -it metuo_app_1 bash
+	@docker exec -it metuo_server_1 bash
 
 
 psqlshell:
