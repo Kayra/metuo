@@ -1,7 +1,7 @@
 from flask import Blueprint, request, url_for, jsonify
 
-from api.models import Tag
-from api.helpers import save_image
+from server.models import Tag
+from server.helpers import save_image
 
 
 bp = Blueprint('images', __name__)

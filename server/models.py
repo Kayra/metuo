@@ -1,6 +1,6 @@
 from typing import List
 
-from api import db
+from server import db
 
 
 association_table = db.Table('image_tag_association',

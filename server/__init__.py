@@ -29,7 +29,7 @@ def create_app():
     app.cli.add_command(init_db_command)
 
     with app.app_context():
-        from api import views
+        from server import views
         app.register_blueprint(views.bp)
         app.add_url_rule('/upload', endpoint='upload_image')
         app.add_url_rule('/images', endpoint='get_images')
@@ -49,8 +49,7 @@ def init_db_command():
     """
         Clear the existing data and create new tables.
     """
-    from api import models
-
+    from server import models
     db.drop_all()
     db.create_all()
     click.echo('Successfully initialised the database.')
