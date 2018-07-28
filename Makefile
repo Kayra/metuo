@@ -1,4 +1,4 @@
-.PHONY: install start restart database dotenv
+.PHONY: install start restart database dotenv servershell psqlshell
 
 
 install:
@@ -35,7 +35,7 @@ dotenv:
     > .env
 
 
-apishell:
+servershell:
 
 	@docker exec -it metuo_server_1 bash
 

@@ -26,17 +26,20 @@ make start
 # Restart the application
 make restart
 
-# Create the database on existing server
+# Create the database on existing server (can be used to dump and recreate the db)
 make database
 
 # Create the dotenv file required by docker-compose
 make dotenv
 
 # Connect to the api service via bash
-make apibash
+make servershell
+
+# Connect to the database via psql
+make psqlshell
 ```
 
-## API Endpoints
+## Server API Endpoints
 
 ### GET - /
 
