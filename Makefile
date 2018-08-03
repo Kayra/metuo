@@ -43,3 +43,8 @@ servershell:
 psqlshell:
 
 	@docker exec -it metuo_postgres_1 psql metuo metuo
+
+
+testunit:
+
+	@docker exec -it metuo_server_1 pytest server/tests/unit -p no:warnings
