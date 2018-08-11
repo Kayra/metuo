@@ -1,4 +1,4 @@
-.PHONY: install start restart database dotenv servershell psqlshell
+.PHONY: install start restart database dotenv servershell psqlshell testunit testinteg
 
 
 install:
@@ -48,3 +48,8 @@ psqlshell:
 testunit:
 
 	@docker exec -it metuo_server_1 pytest server/tests/unit -p no:warnings
+
+
+testinteg:
+
+	@docker exec -it metuo_server_1 pytest server/tests/integration -p no:warnings
