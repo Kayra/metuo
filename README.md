@@ -37,6 +37,18 @@ make servershell
 
 # Connect to the database via psql
 make psqlshell
+
+# Run unit tests
+make testunit
+
+# Run integration tests
+make testinteg
+
+# Run end-to-end tests
+make e2e
+
+# Run all tests
+make testall
 ```
 
 ## Server API Endpoints
