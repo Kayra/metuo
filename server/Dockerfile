@@ -4,7 +4,7 @@ MAINTAINER Kayra Alat
 RUN apt-get update -y
 
 RUN mkdir /server
-COPY . /server
+COPY .. /server
 WORKDIR /server
 
 RUN pip install --no-cache-dir -r requirements.txt

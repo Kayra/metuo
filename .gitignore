@@ -6,3 +6,4 @@ venv/
 image_uploads/
 postgres-data/
 .env
+client/node_modules/
