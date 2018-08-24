@@ -9,24 +9,34 @@ class Image extends React.Component {
 }
 
 class Filters extends React.Component {
+
+    filters = this.props.filterNames.map(filterName =>
+        <li>{filterName}</li>
+    );
+
     render() { return (
         <ul>
-            <li>Year</li>
-            <li>Season</li>
-            <li>Colour</li>
-            <li>Location</li>
+            {this.filters}
         </ul>
     );}
 }
 
 class Page extends React.Component {
+
+    filterNames = [
+        'Year',
+        'Season',
+        'Colour',
+        'Location'
+    ];
+
     render() { return (
         <div className='page'>
             <div className='image'>
                 <Image src='https://via.placeholder.com/150' alt='' />
             </div>
             <div className='filters'>
-                <Filters />
+                <Filters filterNames={this.filterNames} /> 
             </div>
         </div>
     );}
