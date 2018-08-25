@@ -10,20 +10,20 @@ class Image extends React.Component {
 
 class Filters extends React.Component {
 
-    filters = this.props.filterNames.map(filterName =>
-        <li>{filterName}</li>
+    filterCategories = this.props.filterCategories.map(filterCategory =>
+        <li>{filterCategory}</li>
     );
 
     render() { return (
         <ul>
-            {this.filters}
+            {this.filterCategories}
         </ul>
     );}
 }
 
 class Page extends React.Component {
 
-    filterNames = [
+    filterCategories = [
         'Year',
         'Season',
         'Colour',
@@ -36,7 +36,7 @@ class Page extends React.Component {
                 <Image src='https://via.placeholder.com/150' alt='' />
             </div>
             <div className='filters'>
-                <Filters filterNames={this.filterNames} /> 
+                <Filters filterCategories={this.filterCategories} /> 
             </div>
         </div>
     );}
