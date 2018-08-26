@@ -1,27 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { Image, Filters } from './components';
 import './styles.css';
 
-class Image extends React.Component {
-    render() { return (
-        <img src={this.props.src} alt={this.props.alt}></img>
-    );}
-}
-
-class Filters extends React.Component {
-
-    filterCategories = this.props.filterCategories.map(filterCategory =>
-        <li>{filterCategory}</li>
-    );
-
-    render() { return (
-        <ul>
-            {this.filterCategories}
-        </ul>
-    );}
-}
-
-class Page extends React.Component {
+export class Page extends React.Component {
 
     filterCategories = [
         'Year',
