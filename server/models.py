@@ -38,6 +38,8 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
 
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+
     @classmethod
     def exists(cls, name: str) -> bool:
         return bool(cls.query.filter_by(name=name).scalar())
@@ -52,3 +54,16 @@ class Tag(db.Model):
 
     def __repr__(self) -> str:
         return f'<Tag {self.name}>'
+
+
+class Category(db.Model):
+
+    __tablename__ = 'categories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True)
+
+    tags = db.relationship('Tag', backref='categories', lazy=True)
+
+    def __repr__(self) -> str:
+        return f'<Category {self.name}>'
