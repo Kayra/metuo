@@ -1,6 +1,7 @@
 .venv
 .DS_Store
 .idea
+.vscode/
 __pycache__/
 venv/
 image_uploads/
