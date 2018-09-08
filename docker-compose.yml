@@ -4,7 +4,7 @@ services:
 
   server:
     restart: always
-    build: .
+    build: ./server
     ports:
       - 5000:5000
     volumes:

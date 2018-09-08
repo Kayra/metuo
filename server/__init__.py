@@ -3,6 +3,7 @@ from pathlib import Path
 
 import click
 from flask import Flask
+from flask_cors import CORS
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,6 +14,8 @@ db = SQLAlchemy()
 def create_app():
 
     app = Flask(__name__)
+
+    CORS(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://metuo:local_insecure_password@postgres:5432/metuo"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
