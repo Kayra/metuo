@@ -14,7 +14,9 @@ export class Page extends React.Component {
         'Location'
     ];
 
-    state = {};
+    state = {
+        tags: []
+    };
 
     async componentDidMount() {
         const tags = await getTags();
@@ -22,14 +24,16 @@ export class Page extends React.Component {
     }
 
     render() { 
-        console.log("HIT", this.state);
+
+        const tags = this.state.tags;
+
         return (
         <div className='page'>
             <div className='image'>
-                <Image src='https://via.placeholder.com/150' alt={this.tags} />
+                <Image src='https://via.placeholder.com/150' alt={tags} />
             </div>
             <div className='filters'>
-                <Filters filterCategories={this.filterCategories} /> 
+                <Filters filterCategories={tags} /> 
             </div>
         </div>
     );}

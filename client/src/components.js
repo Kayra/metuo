@@ -8,13 +8,16 @@ export class Image extends React.Component {
 
 export class Filters extends React.Component {
 
-    filterCategories = this.props.filterCategories.map(filterCategory =>
-        <li>{filterCategory}</li>
-    );
+    render() { 
 
-    render() { return (
-        <ul>
-            {this.filterCategories}
-        </ul>
-    );}
+        const componentFilterCategories = this.props.filterCategories.map(filterCategory =>
+            <li key={filterCategory}>{filterCategory}</li>
+        );
+
+        return (
+            <ul>
+                {componentFilterCategories}
+            </ul>
+        );
+    }
 }
