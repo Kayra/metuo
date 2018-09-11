@@ -7,8 +7,8 @@ export async function getTags() {
     var config = getConfig();
     var server = config.server;
 
-    var response = await axios.get(server + '/tags');
+    var tags = (await axios.get(server + '/tags')).data;
 
-    return response.data;
+    return tags;
 
 }

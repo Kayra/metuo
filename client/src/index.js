@@ -30,7 +30,7 @@ export class Page extends React.Component {
         return (
         <div className='page'>
             <div className='image'>
-                <Image src='https://via.placeholder.com/150' alt={tags} />
+                <Image src='https://via.placeholder.com/150' alt='' />
             </div>
             <div className='filters'>
                 <Filters filterCategories={tags} /> 
