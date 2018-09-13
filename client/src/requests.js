@@ -11,3 +11,13 @@ export async function getTags() {
     return tags;
 
 }
+
+export async function getImages() {
+
+    var server = getConfig().server;
+
+    var images = (await axios.get(server + '/images')).data;
+
+    return images;
+
+}
