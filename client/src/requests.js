@@ -16,7 +16,9 @@ export async function getImages() {
 
     var server = getConfig().server;
 
-    var images = (await axios.get(server + '/images')).data;
+    var imagesResponse = (await axios.get(server + '/images?tags=hey')).data;
+
+    const images = Object.keys(imagesResponse).map(imageName => server + imagesResponse[imageName].location);
 
     return images;
 
