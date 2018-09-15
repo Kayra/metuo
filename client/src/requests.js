@@ -5,8 +5,9 @@ import { getConfig } from './helpers';
 export async function getTags() {
 
     var server = getConfig().server;
+    const requestUrl = server + '/tags';
 
-    var tags = (await axios.get(server + '/tags')).data;
+    const tags = (await axios.get(requestUrl)).data;
 
     return tags;
 
@@ -14,9 +15,12 @@ export async function getTags() {
 
 export async function getImages() {
 
-    var server = getConfig().server;
+    const server = getConfig().server;
+    const requestUrl = server + '/images';
 
-    var imagesResponse = (await axios.get(server + '/images?tags=hey')).data;
+    const imagesResponse = (await axios.get(requestUrl, { 
+        params: { tags: 'hey' }
+    })).data;
 
     const images = Object.keys(imagesResponse).map(imageName => server + imagesResponse[imageName].location);
 
