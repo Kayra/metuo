@@ -13,14 +13,19 @@ export async function getTags() {
 
 }
 
-export async function getImages() {
+export async function getImages(tags) {
 
     const server = getConfig().server;
     const requestUrl = server + '/images';
+    var imagesResponse = {}
 
-    const imagesResponse = (await axios.get(requestUrl, { 
-        params: { tags: 'hey' }
-    })).data;
+    if (tags) {
+        imagesResponse = (await axios.get(requestUrl, { 
+            params: { tags: tags.join() }
+        })).data;
+    } else {
+        imagesResponse = (await axios.get(requestUrl)).data;
+    }
 
     const images = Object.keys(imagesResponse).map(imageName => server + imagesResponse[imageName].location);
 
