@@ -1,6 +1,6 @@
 from flask import Blueprint, request, url_for, jsonify
 
-from server.models import Tag
+from server.models import Tag, Image
 from server.helpers import save_image
 
 
@@ -24,10 +24,12 @@ def upload_image():
 @bp.route("/images", methods=["GET"])
 def get_images():
 
-    tags = request.args.get('tags').split(',')
-
     try:
+        tags = request.args.get('tags').split(',')
         images = Tag.get_images(tags)
+
+    except AttributeError:
+        images = Image.query.limit(5).all()
 
     except Exception as exception:
         return f"Unable to get image due to {exception}"

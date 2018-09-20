@@ -38,7 +38,7 @@ def _save_image_locally(image, image_name) -> None:
 
 
 def _hex_to_image(image_hex_bytes) -> JpegImageFile:
-    print("TYPE", type(image_hex_bytes))
+    
     image_stream = io.BytesIO(image_hex_bytes)
     image = PILImage.open(image_stream)
 
