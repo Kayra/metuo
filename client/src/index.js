@@ -15,8 +15,7 @@ export class Page extends React.Component {
     ];
 
     state = {
-        tags: [],
-        images: []
+        tags: []
     };
 
     async componentDidMount() {
@@ -24,20 +23,16 @@ export class Page extends React.Component {
         const tags = await getTags();
         this.setState({ tags: tags });
 
-        const images = await getImages();
-        this.setState({ images: images });
-
     }
 
     render() { 
 
         const tags = this.state.tags;
-        const image = this.state.images[0];
 
         return (
         <div className='page'>
             <div className='image'>
-                <Image src={image} alt='' />
+                <Image />
             </div>
             <div className='filters'>
                 <Filters filterCategories={tags} /> 
