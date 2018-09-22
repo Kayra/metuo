@@ -30,9 +30,21 @@ export class Image extends React.Component {
 
 export class Filters extends React.Component {
 
+    state = {
+        tags: []
+    };
+
+    async componentDidMount() {
+
+        const tags = await getTags();
+        this.setState({ tags: tags });
+
+    }
+
     render() { 
 
-        const componentFilterCategories = filterCategoriesToListItems(this.props.filterCategories);
+        const tags = this.state.tags;
+        const componentFilterCategories = filterCategoriesToListItems(tags);
 
         return (
             <ul>
