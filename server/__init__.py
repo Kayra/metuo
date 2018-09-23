@@ -22,7 +22,6 @@ def create_app():
 
     project_root_path = Path(__file__).parent.parent.absolute()
     app.config["IMAGE_DIRECTORY"] = os.path.join(project_root_path, "image_uploads")
-
     app.static_folder = app.config["IMAGE_DIRECTORY"]
     app.static_url_path = 'image_uploads'
 

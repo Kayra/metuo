@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 from server import db
 
@@ -22,10 +22,16 @@ class Image(db.Model):
     tags = db.relationship('Tag', secondary=association_table, lazy='subquery',
                            backref=db.backref('images', lazy=True))
 
-    def add_tags(self, tags: List[str]) -> None:
-        for tag in tags:
-            tag_object = Tag.query.filter_by(name=tag).one() if Tag.exists(name=tag) else Tag(name=tag)
-            self.tags.append(tag_object)
+    def add_tags(self, category_tags: Dict) -> None:
+
+        for category, tags in category_tags.items():
+
+            category_object = Category.get_or_create(category)
+            
+            for tag in tags:
+                tag_object = Tag.get_or_create(tag)
+                tag_object.category = category_object
+                self.tags.append(tag_object)
 
     def __repr__(self) -> str:
         return f'<Image {self.name}>'
@@ -43,6 +49,10 @@ class Tag(db.Model):
     @classmethod
     def exists(cls, name: str) -> bool:
         return bool(cls.query.filter_by(name=name).scalar())
+
+    @classmethod
+    def get_or_create(cls, name: str) -> bool:
+        return cls.query.filter_by(name=name).one() if cls.exists(name=name) else cls(name=name)
 
     @classmethod
     def get_images(cls, tags: List[str]) -> List[Image]:
@@ -63,7 +73,15 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
 
-    tags = db.relationship('Tag', backref='categories', lazy=True)
+    tags = db.relationship('Tag', backref='category', lazy=True)
+
+    @classmethod
+    def exists(cls, name: str) -> bool:
+        return bool(cls.query.filter_by(name=name).scalar())
+
+    @classmethod
+    def get_or_create(cls, name: str) -> bool:
+        return cls.query.filter_by(name=name).one() if cls.exists(name=name) else cls(name=name)
 
     def __repr__(self) -> str:
         return f'<Category {self.name}>'

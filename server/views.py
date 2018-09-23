@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, url_for, jsonify
 
 from server.models import Tag, Image
@@ -14,7 +16,7 @@ def upload_image():
         return "No image found"
 
     image = request.files['image']
-    tags = request.values['tags'].split(',')
+    tags = json.loads(request.values['tags'])
 
     save_image(image, tags)
 
