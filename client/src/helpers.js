@@ -1,4 +1,3 @@
-import React from 'react';
 
 export function getConfig() {
 
@@ -8,10 +7,4 @@ export function getConfig() {
 
     return config;
 
-}
-
-export function filterCategoriesToListItems(filterCategories) {
-    return filterCategories.map(filterCategory =>
-        <li key={filterCategory}>{filterCategory}</li>
-    );
 }
