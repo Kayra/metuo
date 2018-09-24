@@ -1,6 +1,6 @@
 import os
 import io
-from typing import Dict, List
+from typing import Dict
 
 from werkzeug import FileStorage
 from flask import current_app as app
@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image as PILImage, ExifTags
 from PIL.JpegImagePlugin import JpegImageFile
 
-from server.models import Image, Category, db
+from server.models import Image, db
 
 
 def save_image(image: FileStorage, categorised_tags: Dict):
@@ -26,16 +26,6 @@ def save_image(image: FileStorage, categorised_tags: Dict):
 
     db.session.add(db_image)
     db.session.commit()
-
-
-# def _format_tags(categorised_tags: Dict) -> List[str]:
-#
-#     formatted_tags = []
-#
-#     for category, tags in categorised_tags:
-#         category_object = Category.query.filter_by(name=category).one() if Category.exists(name=category) else Category(name=category)
-#
-#     return formatted_tags
 
 
 def _save_image_locally(image, image_name) -> None:

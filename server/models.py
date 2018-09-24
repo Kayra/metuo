@@ -27,7 +27,7 @@ class Image(db.Model):
         for category, tags in category_tags.items():
 
             category_object = Category.get_or_create(category)
-            
+
             for tag in tags:
                 tag_object = Tag.get_or_create(tag)
                 tag_object.category = category_object
