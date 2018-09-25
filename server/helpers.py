@@ -11,6 +11,21 @@ from PIL.JpegImagePlugin import JpegImageFile
 from server.models import Image, db
 
 
+def build_image_categorised_tags(image: Image) -> Dict:
+
+    categorised_tags = {}
+
+    for tag in image.tags:
+
+        category = tag.category.name
+        if category in categorised_tags.keys():
+            categorised_tags[category].append(tag.name)
+        else:
+            categorised_tags[category] = [tag.name]
+
+    return categorised_tags
+
+
 def save_image(image: FileStorage, categorised_tags: Dict):
 
     image_name = image.filename
