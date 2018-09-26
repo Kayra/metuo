@@ -1,6 +1,6 @@
 import os
 import io
-from typing import Dict
+from typing import Dict, List
 
 from werkzeug import FileStorage
 from flask import current_app as app
@@ -8,14 +8,14 @@ from werkzeug.utils import secure_filename
 from PIL import Image as PILImage, ExifTags
 from PIL.JpegImagePlugin import JpegImageFile
 
-from server.models import Image, db
+from server.models import Image, Tag, db
 
 
-def build_image_categorised_tags(image: Image) -> Dict:
+def build_categorised_tags(tags: List[Tag]) -> Dict:
 
     categorised_tags = {}
 
-    for tag in image.tags:
+    for tag in tags:
 
         category = tag.category.name
         if category in categorised_tags.keys():

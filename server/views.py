@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, request, url_for, jsonify
 
 from server.models import Tag, Image
-from server.helpers import save_image, build_image_categorised_tags
+from server.helpers import save_image, build_categorised_tags
 
 
 bp = Blueprint('images', __name__)
@@ -40,7 +40,7 @@ def get_images():
     for image in images:
         json_response[image.name] = {
             "location": url_for("static", filename=image.name),
-            "categorised_tags": build_image_categorised_tags(image)
+            "categorised_tags": build_categorised_tags(image.tags)
         }
 
     return jsonify(json_response)
