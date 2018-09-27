@@ -47,6 +47,7 @@ def get_images():
 
 
 @bp.route("/tags", methods=["GET"])
-def get_tags():
+def get_categorised_tags():
     tags = Tag.query.all()
-    return jsonify([tag.name for tag in tags])
+    categorised_tags = build_categorised_tags(tags)
+    return jsonify(categorised_tags)
