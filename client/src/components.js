@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTags, getImages } from './requests';
+import { getCategorisedTags, getImages } from './requests';
 
 
 export class Image extends React.Component {
@@ -35,18 +35,25 @@ export class Filters extends React.Component {
     }
 
     state = {
-        tags: []
+        categories: [],
+        categorisedTags: {}
     };
 
     async componentDidMount() {
-        const tags = await getTags();
-        this.setState({ tags: tags });
+
+        const categorisedTags = await getCategorisedTags();
+        const categories = Object.keys(categorisedTags);
+
+        this.setState({ 
+            categories: categories,
+            categorisedTags: categorisedTags 
+        });
+        
     }
 
     render() { 
 
-        const tags = this.state.tags;
-        const componentFilterCategories = this.filterCategoriesToListItems(tags);
+        const componentFilterCategories = this.filterCategoriesToListItems(this.state.categories);
 
         return (
             <ul>

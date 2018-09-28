@@ -2,14 +2,14 @@ import * as axios from 'axios';
 
 import { getConfig } from './helpers';
 
-export async function getTags() {
+export async function getCategorisedTags() {
 
     var server = getConfig().server;
     const requestUrl = server + '/tags';
 
-    const tags = (await axios.get(requestUrl)).data;
+    const categorisedTags = (await axios.get(requestUrl)).data;
 
-    return tags;
+    return categorisedTags;
 
 }
 
