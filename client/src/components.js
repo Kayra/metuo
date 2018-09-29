@@ -28,15 +28,9 @@ export class Image extends React.Component {
 
 export class Filters extends React.Component {
     
-    filterCategoriesToListItems = (filterCategories) => {
-        return filterCategories.map(filterCategory =>
-            <li key={filterCategory}>{filterCategory}</li>
-        );
-    }
-
     state = {
-        categories: [],
-        categorisedTags: {}
+            categories: [],
+            categorisedTags: {}
     };
 
     async componentDidMount() {
@@ -46,9 +40,23 @@ export class Filters extends React.Component {
 
         this.setState({ 
             categories: categories,
-            categorisedTags: categorisedTags 
+            categorisedTags: categorisedTags
         });
-        
+
+    }
+
+    filterCategoriesToListItems = (filterCategories) => {
+        return filterCategories.map(filterCategory =>
+            <li key={filterCategory}>
+                <button onClick={this.handleClick}>
+                    {filterCategory}
+                </button>
+            </li>
+        );
+    }
+
+    handleClick = () => {
+        console.log('this is: ', this);
     }
 
     render() { 
