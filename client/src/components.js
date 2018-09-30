@@ -30,7 +30,8 @@ export class Filters extends React.Component {
     
     state = {
             categories: [],
-            categorisedTags: {}
+            categorisedTags: {},
+            toggledCategories: []
     };
 
     async componentDidMount() {
@@ -47,16 +48,42 @@ export class Filters extends React.Component {
 
     filterCategoriesToListItems = (filterCategories) => {
         return filterCategories.map(filterCategory =>
+
             <li key={filterCategory}>
-                <button onClick={this.handleClick}>
-                    {filterCategory}
+                <button onClick={() => this.toggleCategory(filterCategory)}>
+
+                    {this.renderCategoryOrTags(filterCategory)}
+
                 </button>
             </li>
+
         );
     }
 
-    handleClick = () => {
-        console.log('this is: ', this);
+    renderCategoryOrTags = (filterCategory) => {
+        if (this.state.toggledCategories.includes(filterCategory)) {
+            return this.state.categorisedTags[filterCategory];
+        } else {
+            return filterCategory;
+        }
+    }
+
+    toggleCategory = (filterCategory) => {
+
+        if (this.state.toggledCategories.includes(filterCategory)) {
+
+            const updatedToggledCategories = [...this.state.toggledCategories];
+            updatedToggledCategories.splice(filterCategory);
+            this.setState({toggledCategories: updatedToggledCategories});
+
+        } else if (!this.state.toggledCategories.includes(filterCategory)) {
+
+            const updatedToggledCategories = [...this.state.toggledCategories];
+            updatedToggledCategories.push(filterCategory);
+            this.setState({toggledCategories: updatedToggledCategories});
+
+        }
+
     }
 
     render() { 
