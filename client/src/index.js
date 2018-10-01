@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './styles.css';
-import { Image, Filters } from './components';
+import Filters from './components/filters';
+import Image from './components/image';
 
 export class Page extends React.Component {
 
