@@ -39,10 +39,28 @@ export default class Filters extends React.Component {
 
     renderCategoryOrTags = (filterCategory) => {
         if (this.state.toggledCategories.includes(filterCategory)) {
-            return this.state.categorisedTags[filterCategory];
+            return this.tagsList(this.state.categorisedTags[filterCategory]);
         } else {
             return filterCategory;
         }
+    }
+
+    tagsList = (tags) => {
+
+        const tagListItems = tags.map(tag => 
+            <li key={tag}>
+                <button>
+                    {tag}
+                </button>
+            </li>
+        );
+
+        return (
+            <ul>
+                {tagListItems}
+            </ul>
+        );
+
     }
 
     toggleCategory = (filterCategory) => {
