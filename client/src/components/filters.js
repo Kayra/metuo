@@ -8,7 +8,8 @@ export default class Filters extends React.Component {
     state = {
             categories: [],
             categorisedTags: {},
-            toggledCategories: []
+            toggledCategories: [],
+            toggledCategoryTags: {}
     };
 
     async componentDidMount() {
@@ -29,7 +30,7 @@ export default class Filters extends React.Component {
             <li key={filterCategory}>
                 <button onClick={() => this.toggleCategory(filterCategory)}>
 
-                    {this.renderCategoryOrTags(filterCategory)}
+                    {this.renderTagsOrTagOrCategory(filterCategory)}
 
                 </button>
             </li>
@@ -37,19 +38,21 @@ export default class Filters extends React.Component {
         );
     }
 
-    renderCategoryOrTags = (filterCategory) => {
+    renderTagsOrTagOrCategory = (filterCategory) => {
         if (this.state.toggledCategories.includes(filterCategory)) {
-            return this.tagsList(this.state.categorisedTags[filterCategory]);
+            return this.tagsList(filterCategory, this.state.categorisedTags[filterCategory]);
+        } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) { 
+            return this.state.toggledCategoryTags[filterCategory];
         } else {
             return filterCategory;
         }
     }
 
-    tagsList = (tags) => {
+    tagsList = (filterCategory, tags) => {
 
         const tagListItems = tags.map(tag => 
             <li key={tag}>
-                <button>
+                <button onClick={() => this.toggleTag(filterCategory, tag)}>
                     {tag}
                 </button>
             </li>
@@ -81,10 +84,28 @@ export default class Filters extends React.Component {
 
     }
 
+    toggleTag = (filterCategory, tag) => {
+        
+        if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) {
+
+            var updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
+            delete updatedToggledCategoryTags[filterCategory];
+            this.setState({toggledCategoryTags: updatedToggledCategoryTags});
+
+        } else if (!Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) {
+
+            const updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
+            updatedToggledCategoryTags[filterCategory] = tag;
+            this.setState({toggledCategoryTags: updatedToggledCategoryTags});
+
+        }
+
+    }
+
     render() { 
 
         const componentFilterCategories = this.filterCategoriesToListItems(this.state.categories);
-
+        console.log(this.state);
         return (
             <ul>
                 {componentFilterCategories}
