@@ -24,17 +24,24 @@ export default class Filters extends React.Component {
 
     }
 
-    filterCategoriesToListItems = (filterCategories) => {
-        return filterCategories.map(filterCategory =>
+    filterCategoriesList = (filterCategories) => {
 
+        const categoriesList = filterCategories.map(filterCategory => this.categoryListItemButton(filterCategory));
+
+        return (
+            <ul>
+                {categoriesList}
+            </ul>
+        )
+    }
+
+    categoryListItemButton = (filterCategory) => {
+        return (
             <li key={filterCategory}>
-                <button onClick={() => this.toggleCategory(filterCategory)}>
-
-                    {this.renderTagsOrTagOrCategory(filterCategory)}
-
+                <button onClick={() => this.toggleFilterCategory(filterCategory)}>
+                    {filterCategory}
                 </button>
             </li>
-
         );
     }
 
@@ -66,7 +73,7 @@ export default class Filters extends React.Component {
 
     }
 
-    toggleCategory = (filterCategory) => {
+    toggleFilterCategory = (filterCategory) => {
 
         if (this.state.toggledCategories.includes(filterCategory)) {
 
@@ -104,12 +111,12 @@ export default class Filters extends React.Component {
 
     render() { 
 
-        const componentFilterCategories = this.filterCategoriesToListItems(this.state.categories);
+        const componentFilterCategories = this.filterCategoriesList(this.state.categories);
         console.log(this.state);
         return (
-            <ul>
+            <div>
                 {componentFilterCategories}
-            </ul>
+            </div>
         );
 
     }
