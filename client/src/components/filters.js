@@ -26,7 +26,7 @@ export default class Filters extends React.Component {
 
     filterCategoriesList = (filterCategories) => {
 
-        const categoriesList = filterCategories.map(filterCategory => this.categoryListItemButton(filterCategory));
+        const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
 
         return (
             <ul>
@@ -51,19 +51,13 @@ export default class Filters extends React.Component {
         } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) { 
             return this.state.toggledCategoryTags[filterCategory];
         } else {
-            return filterCategory;
+            return this.categoryListItemButton(filterCategory);
         }
     }
 
     tagsList = (filterCategory, tags) => {
 
-        const tagListItems = tags.map(tag => 
-            <li key={tag}>
-                <button onClick={() => this.toggleTag(filterCategory, tag)}>
-                    {tag}
-                </button>
-            </li>
-        );
+        const tagListItems = tags.map(tag => this.tagListItemButton(filterCategory, tag));
 
         return (
             <ul>
@@ -72,6 +66,16 @@ export default class Filters extends React.Component {
         );
 
     }
+
+    tagListItemButton = (filterCategory, tag) => {
+        return (
+            <li key={tag}>
+                <button onClick={() => this.toggleTag(filterCategory, tag)}>
+                    {tag}
+                </button>
+            </li>
+        )
+    } 
 
     toggleFilterCategory = (filterCategory) => {
 
@@ -98,13 +102,14 @@ export default class Filters extends React.Component {
             var updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
             delete updatedToggledCategoryTags[filterCategory];
             this.setState({toggledCategoryTags: updatedToggledCategoryTags});
+            this.toggleFilterCategory(filterCategory);
 
         } else if (!Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) {
 
             const updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
             updatedToggledCategoryTags[filterCategory] = tag;
             this.setState({toggledCategoryTags: updatedToggledCategoryTags});
-
+            this.toggleFilterCategory(filterCategory);
         }
 
     }
