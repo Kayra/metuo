@@ -50,7 +50,6 @@ export default class Filters extends React.Component {
             return this.tagsList(filterCategory, this.state.categorisedTags[filterCategory]);
         } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) { 
             return this.tagSelectedListItemButton(filterCategory, this.state.toggledCategoryTags[filterCategory]);
-            // return this.state.toggledCategoryTags[filterCategory];
         } else {
             return this.categoryListItemButton(filterCategory);
         }
@@ -69,9 +68,16 @@ export default class Filters extends React.Component {
     }
 
     tagListItemButton = (filterCategory, tag) => {
+
+        var style = {};
+
+        if (Object.values(this.state.toggledCategoryTags).includes(tag)) {
+            style = {color: 'red'}
+        }
+
         return (
             <li key={tag}>
-                <button onClick={() => this.toggleTag(filterCategory, tag)}>
+                <button style={style} onClick={() => this.toggleTag(filterCategory, tag)}>
                     {tag}
                 </button>
             </li>
