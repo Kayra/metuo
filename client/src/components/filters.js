@@ -114,10 +114,10 @@ export default class Filters extends React.Component {
 
     toggleTag = (filterCategory, tag) => {
         
-        if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) {
-
-            var updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
-            delete updatedToggledCategoryTags[filterCategory];
+        if (Object.keys(this.state.toggledCategoryTags).length && !Object.values(this.state.toggledCategoryTags).includes(tag)) {
+            
+            const updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
+            updatedToggledCategoryTags[filterCategory] = tag;
             this.setState({toggledCategoryTags: updatedToggledCategoryTags});
             this.toggleFilterCategory(filterCategory);
 
@@ -127,6 +127,14 @@ export default class Filters extends React.Component {
             updatedToggledCategoryTags[filterCategory] = tag;
             this.setState({toggledCategoryTags: updatedToggledCategoryTags});
             this.toggleFilterCategory(filterCategory);
+
+        } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) {
+
+            var updatedToggledCategoryTags = {...this.state.toggledCategoryTags};
+            delete updatedToggledCategoryTags[filterCategory];
+            this.setState({toggledCategoryTags: updatedToggledCategoryTags});
+            this.toggleFilterCategory(filterCategory);
+
         }
 
     }
