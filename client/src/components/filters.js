@@ -24,7 +24,7 @@ export default class Filters extends React.Component {
 
     }
 
-    filterCategoriesList = (filterCategories) => {
+    filterButtonsList = (filterCategories) => {
 
         const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
 
@@ -49,7 +49,7 @@ export default class Filters extends React.Component {
         if (this.state.toggledCategories.includes(filterCategory)) {
             return this.tagsList(filterCategory, this.state.categorisedTags[filterCategory]);
         } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) { 
-            return this.tagSelectedListItemButton(filterCategory, this.state.toggledCategoryTags[filterCategory]);
+            return this.selectedTagListItemButton(filterCategory, this.state.toggledCategoryTags[filterCategory]);
         } else {
             return this.categoryListItemButton(filterCategory);
         }
@@ -84,7 +84,7 @@ export default class Filters extends React.Component {
         )
     }
 
-    tagSelectedListItemButton = (filterCategory, tag) => {
+    selectedTagListItemButton = (filterCategory, tag) => {
         return (
             <li key={tag}>
                 <button onClick={() => this.toggleFilterCategory(filterCategory)}>
@@ -103,7 +103,7 @@ export default class Filters extends React.Component {
             this.setState({toggledCategories: updatedToggledCategories});
 
         } else if (!this.state.toggledCategories.includes(filterCategory)) {
-
+        
             const updatedToggledCategories = [...this.state.toggledCategories];
             updatedToggledCategories.push(filterCategory);
             this.setState({toggledCategories: updatedToggledCategories});
@@ -141,11 +141,11 @@ export default class Filters extends React.Component {
 
     render() { 
 
-        const componentFilterCategories = this.filterCategoriesList(this.state.categories);
+        const filterButtons = this.filterButtonsList(this.state.categories);
         console.log(this.state);
         return (
             <div>
-                {componentFilterCategories}
+                {filterButtons}
             </div>
         );
 
