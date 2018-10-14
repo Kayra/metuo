@@ -99,7 +99,7 @@ export default class Filters extends React.Component {
         if (this.state.toggledCategories.includes(filterCategory)) {
 
             const updatedToggledCategories = [...this.state.toggledCategories];
-            updatedToggledCategories.splice(filterCategory);
+            updatedToggledCategories.splice(updatedToggledCategories.indexOf(filterCategory), 1);
             this.setState({toggledCategories: updatedToggledCategories});
 
         } else if (!this.state.toggledCategories.includes(filterCategory)) {
