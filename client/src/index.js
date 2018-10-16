@@ -11,22 +11,8 @@ export class Page extends React.Component {
         tags: []
     };
 
-    updateTags = (tag) => {
-
-        if (!this.state.tags.includes(tag)) {
-
-            const updatedTags = [...this.state.tags];
-            updatedTags.push(tag);
-            this.setState({tags: updatedTags});
-
-        } else if (this.state.tags.includes(tag)) {
-
-            const updatedTags = [...this.state.tags];
-            updatedTags.splice(updatedTags.indexOf(tag), 1);
-            this.setState({tags: updatedTags});
-
-        }
-
+    updateTags = (tags) => {
+        this.setState({tags: tags});
     }
 
     render() { 
