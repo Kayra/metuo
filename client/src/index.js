@@ -16,7 +16,7 @@ export class Page extends React.Component {
     }
 
     render() { 
-        console.log(this.state);
+
         return (
             <div className='page'>
                 <div className='image'>

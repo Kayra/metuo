@@ -18,12 +18,14 @@ export default class Image extends React.Component {
 
         if (previousProps.tags !== this.props.tags && this.props.tags.length) { 
             const images = await getImages(this.props.tags); 
-            this.setState({ images: images });
+            if (images.length) {
+                this.setState({ images: images });
+            }
         }
     }
 
     render() { 
-
+        console.log(this.props.tags);
         const image = this.state.images[0];
 
         return (

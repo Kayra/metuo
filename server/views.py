@@ -26,15 +26,20 @@ def upload_image():
 @bp.route("/images", methods=["GET"])
 def get_images():
 
-    try:
-        tags = request.args.get('tags').split(',')
-        images = Tag.get_images(tags)
+    tag_string = request.args.get('tags')
+    tags = tag_string.split(',') if tag_string else None
 
-    except AttributeError:
+    if tags:
+        images = []
+        all_images = Tag.get_images(tags)
+
+        for image in all_images:
+            tag_names = [tag.name for tag in image.tags]
+            if all([tag in tag_names for tag in tags]):
+                images.append(image)
+
+    else:
         images = Image.query.limit(5).all()
-
-    except Exception as exception:
-        return f"Unable to get image due to {exception}"
 
     json_response = {}
     for image in images:
@@ -48,6 +53,8 @@ def get_images():
 
 @bp.route("/tags", methods=["GET"])
 def get_categorised_tags():
+
     tags = Tag.query.all()
     categorised_tags = build_categorised_tags(tags)
+
     return jsonify(categorised_tags)
