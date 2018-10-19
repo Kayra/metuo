@@ -30,13 +30,7 @@ def get_images():
     tags = tag_string.split(',') if tag_string else None
 
     if tags:
-        images = []
-        all_images = Tag.get_images(tags)
-
-        for image in all_images:
-            tag_names = [tag.name for tag in image.tags]
-            if all([tag in tag_names for tag in tags]):
-                images.append(image)
+        images = Tag.get_images(tags)
 
     else:
         images = Image.query.limit(5).all()

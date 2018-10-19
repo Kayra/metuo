@@ -25,7 +25,7 @@ export default class Image extends React.Component {
     }
 
     render() { 
-        console.log(this.props.tags);
+
         const image = this.state.images[0];
 
         return (

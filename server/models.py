@@ -56,8 +56,17 @@ class Tag(db.Model):
 
     @classmethod
     def get_images(cls, tags: List[str]) -> List[Image]:
+
         db_tag_objects = cls.query.filter(cls.name.in_(tags)).all()
-        images = flatten([tag.images for tag in db_tag_objects])
+        all_images = flatten([tag.images for tag in db_tag_objects])
+
+        images = []
+
+        for image in all_images:
+            tag_names = [tag.name for tag in image.tags]
+            if all([tag in tag_names for tag in tags]):
+                images.append(image)
+
         return images
 
     def __repr__(self) -> str:
