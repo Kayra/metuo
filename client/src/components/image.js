@@ -7,22 +7,17 @@ export default class Image extends React.Component {
 
     state = {
         images: [],
-        image: ''
+        image: '',
+        index: 0
     };
 
-    loopImages = (images) => {
-
-        var index = 0;
+    loopImages = () => {
 
         setInterval(() => {
-            
-            this.setState({image: this.state.images[index]})
 
-            if (index === images.length - 1) {
-                index = 0;
-            } else {
-                index++;
-            }
+            this.setState({image: this.state.images[this.state.index]})
+            const index = this.state.index === this.state.images.length - 1 ? 0 : this.state.index + 1;
+            this.setState({index: index})
 
         }, 3000)
 
@@ -32,7 +27,8 @@ export default class Image extends React.Component {
 
         const images = await getImages();
         this.setState({ images: images });
-        this.loopImages(images);
+        this.setState({ image: images[0] });
+        this.loopImages();
 
     }
 
@@ -42,11 +38,9 @@ export default class Image extends React.Component {
             const images = await getImages(this.props.tags); 
             if (images.length) {
                 this.setState({ images: images });
-                this.loopImages(images);
+                this.setState({ index: 0 });
             }
         }
-
-        console.log(this.state);
 
     }
 
