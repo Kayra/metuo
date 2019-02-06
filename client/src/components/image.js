@@ -15,7 +15,6 @@ export default class Image extends React.Component {
 
         setInterval(() => {
 
-            this.setState({image: this.state.images[this.state.index]})
             const index = this.state.index === this.state.images.length - 1 ? 0 : this.state.index + 1;
             this.setState({index: index})
 
@@ -26,16 +25,12 @@ export default class Image extends React.Component {
     previousImage = () => {
 
         const previousIndex = this.state.index > 0 ? this.state.index - 1 : this.state.images.length - 1;
-
-        this.setState({image: this.state.images[previousIndex]})
         this.setState({index: previousIndex});
     }
 
     nextImage = () => {
 
         const nextIndex = this.state.index < this.state.images.length - 1 ? this.state.index + 1 : 0;
-
-        this.setState({image: this.state.images[nextIndex]})
         this.setState({index: nextIndex});
 
     }
@@ -44,7 +39,6 @@ export default class Image extends React.Component {
 
         const images = await getImages();
         this.setState({ images: images });
-        this.setState({ image: images[0] });
         this.loopImages();
 
     }
@@ -62,11 +56,11 @@ export default class Image extends React.Component {
     }
 
     render() { 
-
+        console.log(this.state.index);
         return (
             <div>
                 <button onClick={() => this.previousImage()}> &lt; </button>
-                <img src={this.state.image} alt=''></img>
+                <img src={this.state.images[this.state.index]} alt=''></img>
                 <button onClick={() => this.nextImage()}> &gt; </button>
             </div>
         );
