@@ -35,11 +35,25 @@ export default class Image extends React.Component {
 
     }
 
+    keyDown = (event) => {
+        // eslint-disable-next-line
+        switch (event.keyCode) {
+            case 37:
+                this.previousImage();
+                break;
+            case 39:
+                this.nextImage();
+                break;
+        }
+    }
+
     async componentDidMount() {
 
         const images = await getImages();
         this.setState({ images: images });
         this.loopImages();
+
+        document.addEventListener('keydown', this.keyDown.bind(this));
 
     }
 
@@ -56,7 +70,7 @@ export default class Image extends React.Component {
     }
 
     render() { 
-        console.log(this.state.index);
+
         return (
             <div>
                 <button onClick={() => this.previousImage()}> &lt; </button>
