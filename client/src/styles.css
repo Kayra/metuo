@@ -1,4 +1,23 @@
-img {
-    width: 50%;
-    height: 50%;
+.img {
+    position: relative;
 }
+
+.image img {
+    width: 50%;
+    position: absolute;
+}
+
+.filters {
+    margin-top: 500px;
+}
+
+/* .nextImage {
+    animation-name: fader;
+    animation-delay: 2s;
+    animation-duration: 1s;
+}
+
+@keyframes fader {
+    from { opacity: 1.0; }
+    to   { opacity: 0.0; }
+} */

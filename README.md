@@ -1,4 +1,4 @@
-# metuo
+# metuo (WIP - not yet live)
 
 **Photography portfolio site**
 

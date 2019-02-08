@@ -150,7 +150,7 @@ export default class Filters extends React.Component {
         const filterButtons = this.filterButtonsList(this.state.categories);
 
         return (
-            <div>
+            <div class="filters">
                 {filterButtons}
             </div>
         );

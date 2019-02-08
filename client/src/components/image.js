@@ -18,21 +18,18 @@ export default class Image extends React.Component {
             const index = this.state.index === this.state.images.length - 1 ? 0 : this.state.index + 1;
             this.setState({index: index})
 
-        }, 3000)
+        }, 3000);
 
     }
 
     previousImage = () => {
-
         const previousIndex = this.state.index > 0 ? this.state.index - 1 : this.state.images.length - 1;
         this.setState({index: previousIndex});
     }
 
     nextImage = () => {
-
         const nextIndex = this.state.index < this.state.images.length - 1 ? this.state.index + 1 : 0;
         this.setState({index: nextIndex});
-
     }
 
     keyDown = (event) => {
@@ -71,11 +68,20 @@ export default class Image extends React.Component {
 
     render() { 
 
+        const currentImage = this.state.images[this.state.index];
+        const nextImageIndex = this.state.index < this.state.images.length - 1 ? this.state.index + 1 : 0;
+        const nextImage = this.state.images[nextImageIndex]
+
         return (
-            <div>
+            <div class="image">
+
                 <button onClick={() => this.previousImage()}> &lt; </button>
-                <img src={this.state.images[this.state.index]} alt=''></img>
+
+                <img class="currentImage" src={currentImage} alt=''></img>
+                <img class="nextImage" src={nextImage} alt=''></img>
+
                 <button onClick={() => this.nextImage()}> &gt; </button>
+
             </div>
         );
 
