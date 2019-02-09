@@ -9,6 +9,9 @@ Features:
 * Looks hot
 * Navigation makes sense
 
+## Wireframe
+
+![wireframe](https://github.com/Kayra/metuo/blob/master/wireframe.png?raw=true)
 
 ## Development set up
 
