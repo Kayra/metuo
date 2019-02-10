@@ -25,7 +25,10 @@ export default class Image extends React.Component {
       this.state.index > 0
         ? this.state.index - 1
         : this.state.images.length - 1;
+        
     this.setState({ index: previousIndex });
+    setTimeout(function(){}, 2000);
+    this.loopImages();
   };
 
   nextImage = () => {
@@ -36,6 +39,8 @@ export default class Image extends React.Component {
         : 0;
 
     this.setState({ index: nextIndex });
+    setTimeout(function(){}, 2000);
+    this.loopImages();
   };
 
   keyDown = event => {
@@ -87,6 +92,7 @@ export default class Image extends React.Component {
             reset
             unique
             items={this.state.index}
+            config={{duration: 1000}}
             from={{ opacity: 0 }}
             enter={{ opacity: 1 }}
             leave={{ opacity: 0 }}
