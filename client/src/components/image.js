@@ -20,6 +20,7 @@ export default class Image extends React.Component {
   };
 
   previousImage = () => {
+
     clearTimeout(this.timeout);
     const previousIndex =
       this.state.index > 0
@@ -29,9 +30,11 @@ export default class Image extends React.Component {
     this.setState({ index: previousIndex });
     setTimeout(function(){}, 2000);
     this.loopImages();
+
   };
 
   nextImage = () => {
+
     clearTimeout(this.timeout);
     const nextIndex =
       this.state.index < this.state.images.length - 1
@@ -41,6 +44,7 @@ export default class Image extends React.Component {
     this.setState({ index: nextIndex });
     setTimeout(function(){}, 2000);
     this.loopImages();
+
   };
 
   keyDown = event => {
@@ -56,21 +60,30 @@ export default class Image extends React.Component {
   };
 
   async componentDidMount() {
+
     const images = await getImages();
     this.buildImages(images);
     this.loopImages();
 
     document.addEventListener("keydown", this.keyDown.bind(this));
+
   }
 
   async componentDidUpdate(previousProps, previousState) {
+
     if (previousProps.tags !== this.props.tags && this.props.tags.length) {
+
       const images = await getImages(this.props.tags);
       if (images.length) {
+        clearTimeout(this.timeout);
         this.buildImages(images);
         this.setState({ index: 0 });
+        setTimeout(function(){}, 2000);
+        this.loopImages();
       }
+
     }
+
   }
 
   buildImages(images) {
@@ -83,6 +96,7 @@ export default class Image extends React.Component {
   render() {
 
     return (
+
       <div className="image">
         <button onClick={() => this.previousImage()}> &lt; </button>
         <button onClick={() => this.nextImage()}> &gt; </button>
@@ -102,6 +116,8 @@ export default class Image extends React.Component {
           </Transition>
         </div>
       </div>
+
     );
   }
+
 }
