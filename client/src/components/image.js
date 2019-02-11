@@ -4,9 +4,9 @@ import { Transition, animated } from "react-spring/renderprops";
 import { getImages } from "../requests";
 
 export default class Image extends React.Component {
+
   state = {
     images: [],
-    image: "",
     index: 0
   };
 
@@ -25,7 +25,7 @@ export default class Image extends React.Component {
       this.state.index > 0
         ? this.state.index - 1
         : this.state.images.length - 1;
-        
+
     this.setState({ index: previousIndex });
     setTimeout(function(){}, 2000);
     this.loopImages();
@@ -67,7 +67,7 @@ export default class Image extends React.Component {
     if (previousProps.tags !== this.props.tags && this.props.tags.length) {
       const images = await getImages(this.props.tags);
       if (images.length) {
-        this.setState({ images: images });
+        this.buildImages(images);
         this.setState({ index: 0 });
       }
     }
@@ -81,6 +81,7 @@ export default class Image extends React.Component {
   }
 
   render() {
+
     return (
       <div className="image">
         <button onClick={() => this.previousImage()}> &lt; </button>
@@ -91,8 +92,8 @@ export default class Image extends React.Component {
             native
             reset
             unique
-            items={this.state.index}
-            config={{duration: 1000}}
+            items={ this.state.index }
+            config={{ duration: 1000 }}
             from={{ opacity: 0 }}
             enter={{ opacity: 1 }}
             leave={{ opacity: 0 }}
