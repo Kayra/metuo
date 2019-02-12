@@ -88,7 +88,7 @@ export default class Image extends React.Component {
 
   buildImages(images) {
     const imageEls = images.map(img => style => (
-      <animated.img style={style} src={img} key={img} alt={img} />
+      <animated.img style={style} src={img} key={img} alt='' />
     ));
     this.setState({ images: imageEls });
   }
