@@ -99,11 +99,11 @@ export default class Image extends React.Component {
     return (
 
       <div className="image">
-        <button type="button" class="btn btn-default" aria-label="Left Align" onClick={() => this.previousImage()}>
-            <span class="oi oi-chevron-left" title="chevron-left" aria-hidden="true" style={{"height": '150%'}}></span>
+        <button type="button" className="btn btn-default" aria-label="Left Align" onClick={() => this.previousImage()}>
+            <span className="oi oi-chevron-left" title="chevron-left" aria-hidden="true" style={{"height": '150%'}}></span>
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align" onClick={() => this.nextImage()}>
-            <span class="oi oi-chevron-right" title="chevron-right" aria-hidden="true" style={{width: '10%'}}></span>
+        <button type="button" className="btn btn-default" aria-label="Left Align" onClick={() => this.nextImage()}>
+            <span className="oi oi-chevron-right" title="chevron-right" aria-hidden="true" style={{width: '10%'}}></span>
         </button>
 
         <div style={{ marginTop: 10 }}>

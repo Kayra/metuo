@@ -1,5 +1,12 @@
-.img {
+
+/* Image component */
+
+.image {
   position: relative;
+}
+
+.image button {
+  color: gray;
 }
 
 .image img {
