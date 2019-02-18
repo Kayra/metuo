@@ -1,19 +1,41 @@
 
 /* Image component */
 
-.image {
+.imageComponent {
+  margin-top: 10%;
   position: relative;
+  width: 100%;
 }
 
-.image button {
+.imageComponent button {
+  margin-top: 30%;
+  position: absolute;
   color: gray;
+  transform: scale(0.6, 1.5);
+  font-size: 1.5em;
+  z-index: 99;
 }
 
-.image img {
+.imageComponent button:hover {
+  color: black;
+}
+
+.imageComponent .left {
+  left: -7%;
+}
+
+.imageComponent .right {
+  right: -7%; 
+}
+
+.imageComponent img {
+  top: 10%;
   opacity: 1;
-  width: 95%;
+  width: 100%;
   position: absolute;
 }
+
+/* Filters component */
 
 .filters {
   margin-top: 70%;
