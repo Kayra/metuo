@@ -1,4 +1,19 @@
 
+.page {
+  position: relative;
+}
+
+/* Filters component */
+
+.filtersComponent {
+  padding-top: 70%;
+}
+
+li ul {
+  list-style-type: none;
+}
+
+
 /* Image component */
 
 .imageComponent {

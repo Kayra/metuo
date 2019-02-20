@@ -29,7 +29,7 @@ export default class Filters extends React.Component {
         const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
 
         return (
-            <ul>
+            <ul class="list-unstyled">
                 {categoriesList}
             </ul>
         )
