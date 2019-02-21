@@ -9,6 +9,14 @@
   padding-top: 70%;
 }
 
+.categoryFilters li {
+  display: inline;
+}
+
+.itemisedFilters li {
+  display: list-item;
+}
+
 li ul {
   list-style-type: none;
 }

@@ -29,7 +29,7 @@ export default class Filters extends React.Component {
         const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
 
         return (
-            <ul class="list-unstyled">
+            <ul class="categoryFilters list-unstyled">
                 {categoriesList}
             </ul>
         )
@@ -60,7 +60,7 @@ export default class Filters extends React.Component {
         const tagListItems = tags.map(tag => this.tagListItemButton(filterCategory, tag));
 
         return (
-            <ul>
+            <ul class="itemisedFilters list-unstyled">
                 {tagListItems}
             </ul>
         );
