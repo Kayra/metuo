@@ -75,6 +75,14 @@ export default class Filters extends React.Component {
 
     }
 
+    filterCategoryButtonOnClick = (filterCategory) => {
+        this.toggleFilterCategory(filterCategory);
+    }
+
+    filterListItemButtonOnClick = (filter, filterCategory) => {
+        this.toggleTag(filterCategory, filter);
+    }
+
     filterCategoryListConstructor = (filterCategory) => {
 
         const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
@@ -88,12 +96,8 @@ export default class Filters extends React.Component {
         )
     }
 
-    filtersListConstructor = () => {
-        
-    }
-
-    filtersConstructor = (filterCategory, filters) => {
-        
+    filtersListConstructor = (filterCategory, filters) => {
+     
         const filterList = filters.map(filter => 
             <li>
                 <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>
@@ -101,6 +105,16 @@ export default class Filters extends React.Component {
                 </button>
             </li>
         );
+
+        return (
+            [filterList]
+        )
+
+    }
+
+    filtersConstructor = (filterCategory, filters) => {
+        
+        const filterList = this.filtersListConstructor(filterCategory, filters);
 
         const filterCategoryList = this.filterCategoryListConstructor(filterCategory);
 
@@ -121,14 +135,6 @@ export default class Filters extends React.Component {
             </div>
         )
 
-    }
-
-    filterCategoryButtonOnClick = (filterCategory) => {
-        this.toggleFilterCategory(filterCategory);
-    }
-
-    filterListItemButtonOnClick = (filter, filterCategory) => {
-        this.toggleTag(filterCategory, filter);
     }
 
     render() { 
