@@ -3,30 +3,42 @@
   position: relative;
 }
 
+ul {
+  padding-inline-start: 0;
+}
+
 /* Filters component */
 
 .filtersComponent {
   padding-top: 70%;
   font-size: 1.2em;
-}
-
-.categoryFilters li {
-  display: inline;
-  padding: 0 8%;
-}
-
-.itemisedFilters li {
-  display: list-item;
-}
-
-.filtersComponent li ul {
-  list-style-type: none;
+  text-align: center;
+  list-style: none;
+  white-space: nowrap;
 }
 
 .filtersComponent button {
   border: 0;
 }
 
+.filtersComponent li {
+  list-style: none;
+}
+
+.filtersComponent div {
+  display: inline;
+}
+
+.filtersComponent .filterCategory li {
+  text-align: center;
+  display: inline;
+  padding: 0 8%;
+}
+
+.filterList {
+  padding: 0 8%;
+  text-align: center;
+}
 
 /* Image component */
 
@@ -62,15 +74,4 @@
   opacity: 1;
   width: 100%;
   position: absolute;
-}
-
-/* Filters component */
-
-/* .filters {
-  position: relative;
-  margin-top: 100%;
-} */
-
-.filterList {
-  display: none;
 }

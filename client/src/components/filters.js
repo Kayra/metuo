@@ -124,12 +124,12 @@ export default class Filters extends React.Component {
             <div>
                 <ul 
                     className="filterCategory"
-                    style={{display: !categoryIsSelected ? 'block' : 'none'}}>
+                    style={{display: !categoryIsSelected ? 'inline' : 'none'}}>
                     {filterCategoryList}
                 </ul>
                 <ul 
                     className="filterList"
-                    style={{display: categoryIsSelected ? 'block' : 'none'}}>
+                    style={{display: categoryIsSelected ? 'inline-grid' : 'none'}}>
                     {filterList}
                 </ul>
             </div>
