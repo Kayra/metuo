@@ -145,14 +145,42 @@ export default class Filters extends React.Component {
 
     }
 
+    filterCategoryAndListDiv = (filterCategory, filterList) => {
+        
+        return (
+            <div>
+                <ul className="filterCategory">
+                    <li>{filterCategory}</li>
+                </ul>
+                <ul className="filterList">
+                    {filterList}
+                </ul>
+            </div>
+        )
+
+    }
+
     render() { 
 
-        const filterButtons = this.filterButtonsList(this.state.categories);
+        // const filterButtons = this.filterButtonsList(this.state.categories);
+        // console.log(this.state);
+        // return (
+        //     <div className="filtersComponent">
+        //         {filterButtons}
+        //     </div>
+        // );
+        // const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
+        const filters = Object.keys(this.state.categorisedTags).map(filterCategory => this.filterCategoryAndListDiv(filterCategory, this.state.categorisedTags[filterCategory]));
 
+        // for (const [filterCategory, filtersList] of Object.entries(this.state.categorisedTags)) {
+        //     console.log(filterCategory);
+        //     console.log(filtersList);
+        //     this.filterCategoryAndListDiv(filterCategory, filterList);
+        // }
         return (
-            <div className="filtersComponent">
-                {filterButtons}
-            </div>
+            <nav>
+                {filters}
+            </nav>
         );
 
     }

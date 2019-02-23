@@ -70,3 +70,7 @@
   position: relative;
   margin-top: 100%;
 } */
+
+.filterList {
+  visibility: hidden;
+}
