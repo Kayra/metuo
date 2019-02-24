@@ -72,5 +72,5 @@
 } */
 
 .filterList {
-  visibility: hidden;
+  display: none;
 }

@@ -145,8 +145,10 @@ export default class Filters extends React.Component {
 
     }
 
-    filterCategoryAndListDiv = (filterCategory, filterList) => {
+    filterCategoryAndListDiv = (filterCategory, filters) => {
         
+    const filterList = filters.map(filter => <li>{filter}</li>);
+
         return (
             <div>
                 <ul className="filterCategory">
@@ -170,15 +172,18 @@ export default class Filters extends React.Component {
         //     </div>
         // );
         // const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
-        const filters = Object.keys(this.state.categorisedTags).map(filterCategory => this.filterCategoryAndListDiv(filterCategory, this.state.categorisedTags[filterCategory]));
 
         // for (const [filterCategory, filtersList] of Object.entries(this.state.categorisedTags)) {
         //     console.log(filterCategory);
         //     console.log(filtersList);
         //     this.filterCategoryAndListDiv(filterCategory, filterList);
         // }
+
+        const filters = Object.keys(this.state.categorisedTags)
+                        .map(filterCategory => this.filterCategoryAndListDiv(filterCategory, this.state.categorisedTags[filterCategory]));
+
         return (
-            <nav>
+            <nav className="filtersComponent">
                 {filters}
             </nav>
         );
