@@ -145,14 +145,24 @@ export default class Filters extends React.Component {
 
     }
 
-    filterCategoryAndListDiv = (filterCategory, filters) => {
+    filtersConstructor = (filterCategory, filters) => {
         
-    const filterList = filters.map(filter => <li>{filter}</li>);
+        const filterList = filters.map(filter => 
+            <li>
+                <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>{filter}</button>
+            </li>
+        );
+
+        const filterCategoryList = (
+            <li>
+                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>{filterCategory}</button>
+            </li>
+        )
 
         return (
             <div>
                 <ul className="filterCategory">
-                    <li>{filterCategory}</li>
+                    {filterCategoryList}
                 </ul>
                 <ul className="filterList">
                     {filterList}
@@ -160,6 +170,16 @@ export default class Filters extends React.Component {
             </div>
         )
 
+    }
+
+    filterCategoryButtonOnClick = (filterCategory) => {
+        console.log(filterCategory);
+        console.log(this.state.categories);
+    }
+
+    filterListItemButtonOnClick = (filter, filterCategory) => {
+        console.log(filter);
+        console.log(filterCategory);
     }
 
     render() { 
@@ -180,7 +200,7 @@ export default class Filters extends React.Component {
         // }
 
         const filters = Object.keys(this.state.categorisedTags)
-                        .map(filterCategory => this.filterCategoryAndListDiv(filterCategory, this.state.categorisedTags[filterCategory]));
+                        .map(filterCategory => this.filtersConstructor(filterCategory, this.state.categorisedTags[filterCategory]));
 
         return (
             <nav className="filtersComponent">
