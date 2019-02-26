@@ -149,22 +149,30 @@ export default class Filters extends React.Component {
         
         const filterList = filters.map(filter => 
             <li>
-                <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>{filter}</button>
+                <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>
+                    {filter}
+                </button>
             </li>
         );
 
         const filterCategoryList = (
             <li>
-                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>{filterCategory}</button>
+                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
+                    {filterCategory}
+                </button>
             </li>
         )
 
         return (
             <div>
-                <ul className="filterCategory">
+                <ul 
+                    className="filterCategory"
+                    style={{display: !this.state.toggledCategories.includes(filterCategory) ? 'block' : 'none'}}>
                     {filterCategoryList}
                 </ul>
-                <ul className="filterList">
+                <ul 
+                    className="filterList"
+                    style={{display: this.state.toggledCategories.includes(filterCategory) ? 'block' : 'none'}}>
                     {filterList}
                 </ul>
             </div>
@@ -175,6 +183,7 @@ export default class Filters extends React.Component {
     filterCategoryButtonOnClick = (filterCategory) => {
         console.log(filterCategory);
         console.log(this.state.categories);
+        this.toggleFilterCategory(filterCategory);
     }
 
     filterListItemButtonOnClick = (filter, filterCategory) => {
