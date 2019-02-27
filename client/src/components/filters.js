@@ -155,24 +155,27 @@ export default class Filters extends React.Component {
             </li>
         );
 
+        const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
         const filterCategoryList = (
             <li>
                 <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
-                    {filterCategory}
+                    {displayCategoryOrFilter}
                 </button>
             </li>
         )
+
+        const categoryIsSelected = this.state.toggledCategories.includes(filterCategory);
 
         return (
             <div>
                 <ul 
                     className="filterCategory"
-                    style={{display: !this.state.toggledCategories.includes(filterCategory) ? 'block' : 'none'}}>
+                    style={{display: !categoryIsSelected ? 'block' : 'none'}}>
                     {filterCategoryList}
                 </ul>
                 <ul 
                     className="filterList"
-                    style={{display: this.state.toggledCategories.includes(filterCategory) ? 'block' : 'none'}}>
+                    style={{display: categoryIsSelected ? 'block' : 'none'}}>
                     {filterList}
                 </ul>
             </div>
@@ -181,14 +184,11 @@ export default class Filters extends React.Component {
     }
 
     filterCategoryButtonOnClick = (filterCategory) => {
-        console.log(filterCategory);
-        console.log(this.state.categories);
         this.toggleFilterCategory(filterCategory);
     }
 
     filterListItemButtonOnClick = (filter, filterCategory) => {
-        console.log(filter);
-        console.log(filterCategory);
+        this.toggleTag(filterCategory, filter);
     }
 
     render() { 
