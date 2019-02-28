@@ -24,76 +24,6 @@ export default class Filters extends React.Component {
 
     }
 
-    filterButtonsList = (filterCategories) => {
-
-        const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
-
-        return (
-            <ul class="categoryFilters list-unstyled">
-                {categoriesList}
-            </ul>
-        )
-    }
-
-    categoryListItemButton = (filterCategory) => {
-        return (
-            <li key={filterCategory}>
-                <button onClick={() => this.toggleFilterCategory(filterCategory)}>
-                    {filterCategory}
-                </button>
-            </li>
-        );
-    }
-
-    renderTagsOrTagOrCategory = (filterCategory) => {
-        if (this.state.toggledCategories.includes(filterCategory)) {
-            return this.tagsList(filterCategory, this.state.categorisedTags[filterCategory]);
-        } else if (Object.keys(this.state.toggledCategoryTags).includes(filterCategory)) { 
-            return this.selectedTagListItemButton(filterCategory, this.state.toggledCategoryTags[filterCategory]);
-        } else {
-            return this.categoryListItemButton(filterCategory);
-        }
-    }
-
-    tagsList = (filterCategory, tags) => {
-
-        const tagListItems = tags.map(tag => this.tagListItemButton(filterCategory, tag));
-
-        return (
-            <ul class="itemisedFilters list-unstyled">
-                {tagListItems}
-            </ul>
-        );
-
-    }
-
-    tagListItemButton = (filterCategory, tag) => {
-
-        var style = {};
-
-        if (Object.values(this.state.toggledCategoryTags).includes(tag)) {
-            style = {color: 'red'}
-        }
-
-        return (
-            <li key={tag}>
-                <button style={style} onClick={() => this.toggleTag(filterCategory, tag)}>
-                    {tag}
-                </button>
-            </li>
-        )
-    }
-
-    selectedTagListItemButton = (filterCategory, tag) => {
-        return (
-            <li key={tag}>
-                <button onClick={() => this.toggleFilterCategory(filterCategory)}>
-                    {tag}
-                </button>
-            </li>
-        )
-    }
-
     toggleFilterCategory = (filterCategory) => {
 
         if (this.state.toggledCategories.includes(filterCategory)) {
@@ -192,21 +122,6 @@ export default class Filters extends React.Component {
     }
 
     render() { 
-
-        // const filterButtons = this.filterButtonsList(this.state.categories);
-        // console.log(this.state);
-        // return (
-        //     <div className="filtersComponent">
-        //         {filterButtons}
-        //     </div>
-        // );
-        // const categoriesList = filterCategories.map(filterCategory => this.renderTagsOrTagOrCategory(filterCategory));
-
-        // for (const [filterCategory, filtersList] of Object.entries(this.state.categorisedTags)) {
-        //     console.log(filterCategory);
-        //     console.log(filtersList);
-        //     this.filterCategoryAndListDiv(filterCategory, filterList);
-        // }
 
         const filters = Object.keys(this.state.categorisedTags)
                         .map(filterCategory => this.filtersConstructor(filterCategory, this.state.categorisedTags[filterCategory]));
