@@ -75,6 +75,23 @@ export default class Filters extends React.Component {
 
     }
 
+    filterCategoryListConstructor = (filterCategory) => {
+
+        const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
+
+        return (
+            <li>
+                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
+                    {displayCategoryOrFilter}
+                </button>
+            </li>
+        )
+    }
+
+    filtersListConstructor = () => {
+        
+    }
+
     filtersConstructor = (filterCategory, filters) => {
         
         const filterList = filters.map(filter => 
@@ -85,14 +102,7 @@ export default class Filters extends React.Component {
             </li>
         );
 
-        const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
-        const filterCategoryList = (
-            <li>
-                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
-                    {displayCategoryOrFilter}
-                </button>
-            </li>
-        )
+        const filterCategoryList = this.filterCategoryListConstructor(filterCategory);
 
         const categoryIsSelected = this.state.toggledCategories.includes(filterCategory);
 
