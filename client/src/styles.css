@@ -40,6 +40,10 @@ ul {
   text-align: center;
 }
 
+.selectedFilter {
+  font-size: 3em;
+}
+
 /* Image component */
 
 .imageComponent {

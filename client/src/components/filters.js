@@ -88,7 +88,7 @@ export default class Filters extends React.Component {
         const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
 
         return (
-            <li>
+            <li key={filterCategory}>
                 <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
                     {displayCategoryOrFilter}
                 </button>
@@ -99,7 +99,7 @@ export default class Filters extends React.Component {
     filtersListConstructor = (filterCategory, filters) => {
      
         const filterList = filters.map(filter => 
-            <li>
+            <li key={filter}>
                 <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>
                     {filter}
                 </button>
@@ -122,12 +122,12 @@ export default class Filters extends React.Component {
 
         return (
             <div>
-                <ul 
+                <ul
                     className="filterCategory"
                     style={{display: !categoryIsSelected ? 'inline' : 'none'}}>
                     {filterCategoryList}
                 </ul>
-                <ul 
+                <ul
                     className="filterList"
                     style={{display: categoryIsSelected ? 'inline-grid' : 'none'}}>
                     {filterList}
