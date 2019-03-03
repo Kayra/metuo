@@ -24,6 +24,10 @@ export default class Filters extends React.Component {
 
     }
 
+    filterIsSelected = (filter)  => {
+        return Object.values(this.state.toggledCategoryTags).includes(filter);
+    }
+
     toggleFilterCategory = (filterCategory) => {
 
         if (this.state.toggledCategories.includes(filterCategory)) {
@@ -97,10 +101,12 @@ export default class Filters extends React.Component {
     }
 
     filtersListConstructor = (filterCategory, filters) => {
-     
+
         const filterList = filters.map(filter => 
             <li key={filter}>
-                <button onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>
+                <button 
+                    className={this.filterIsSelected(filter) ? 'selectedFilter' : ''}
+                    onClick={() => this.filterListItemButtonOnClick(filter, filterCategory)}>
                     {filter}
                 </button>
             </li>
