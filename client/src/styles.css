@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Avenir;
+  src: url(assets/ave_next/AvenirNext-UltraLight.ttf);
+}
 
 .page {
   position: relative;
@@ -11,7 +15,9 @@ ul {
 
 .filtersComponent {
   padding-top: 70%;
-  font-size: 1.2em;
+  padding-bottom: 10%;
+  font-size: 2em;
+  font-family: Avenir;
   text-align: center;
   list-style: none;
   white-space: nowrap;
@@ -47,7 +53,7 @@ ul {
 /* Image component */
 
 .imageComponent {
-  margin-top: 10%;
+  margin-top: 7%;
   position: relative;
   width: 100%;
 }
