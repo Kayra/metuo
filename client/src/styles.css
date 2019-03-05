@@ -3,6 +3,11 @@
   src: url(assets/ave_next/AvenirNext-UltraLight.ttf);
 }
 
+@font-face {
+  font-family: FatAvenir;
+  src: url(assets/ave_next/AvenirNextLTPro-Demi.otf);
+}
+
 .page {
   position: relative;
 }
@@ -47,7 +52,7 @@ ul {
 }
 
 .selectedFilter {
-  font-weight: 700;
+  font-family: FatAvenir;
 }
 
 /* Image component */

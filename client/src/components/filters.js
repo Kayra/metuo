@@ -24,8 +24,12 @@ export default class Filters extends React.Component {
 
     }
 
-    filterIsSelected = (filter)  => {
+    filterIsSelected = (filter) => {
         return Object.values(this.state.toggledCategoryTags).includes(filter);
+    }
+
+    categoryIsFiltered = (category) => {
+        return Object.keys(this.state.toggledCategoryTags).includes(category);
     }
 
     toggleFilterCategory = (filterCategory) => {
@@ -89,11 +93,13 @@ export default class Filters extends React.Component {
 
     filterCategoryListConstructor = (filterCategory) => {
 
-        const displayCategoryOrFilter = !Object.keys(this.state.toggledCategoryTags).includes(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
+        const displayCategoryOrFilter = !this.categoryIsFiltered(filterCategory) ? filterCategory : this.state.toggledCategoryTags[filterCategory];
 
         return (
             <li key={filterCategory}>
-                <button onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
+                <button 
+                    className = {this.categoryIsFiltered(filterCategory) ? 'selectedFilter' : ''}
+                    onClick={() => this.filterCategoryButtonOnClick(filterCategory)}>
                     {displayCategoryOrFilter}
                 </button>
             </li>
