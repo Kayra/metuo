@@ -1,13 +1,13 @@
 .PHONY: install start restart database dotenv servershell psqlshell testunit testinteg teste2e testall
 
 
-install-server:
+install:
 	-${MAKE} dotenv
 	docker-compose up
 	-${MAKE} database
 
 
-start-server:
+start:
 	@docker-compose up
 
 
@@ -32,6 +32,10 @@ dotenv:
 
 servershell:
 	@docker exec -it metuo_server_1 bash
+
+
+clientshell:
+	@docker exec -it metuo_client_1 bash
 
 
 psqlshell:

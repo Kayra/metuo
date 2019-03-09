@@ -16,8 +16,6 @@ RUN npm install react-scripts@3.0.1 -g
 RUN npm audit fix
 RUN npm run build
 
-# CMD ["npm", "start"]
-
 FROM nginx:1.16.0-alpine
 COPY --from=build /client/build /usr/share/nginx/html
 EXPOSE 80
