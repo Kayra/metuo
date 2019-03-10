@@ -1,17 +1,17 @@
 .PHONY: install start restart database dotenv servershell psqlshell testunit testinteg teste2e testall
 
 
-install:
+install-server:
 	-${MAKE} dotenv
 	docker-compose up
 	-${MAKE} database
 
 
-start:
+start-server:
 	@docker-compose up
 
 
-restart:
+restart-server:
 	@docker-compose down; \
 	docker rmi -f metuo_server; \
 	docker-compose up
@@ -45,8 +45,10 @@ testunit:
 testinteg:
 	@docker exec -it metuo_server_1 pytest server/tests/integration -p no:warnings
 
+
 teste2e:
 	@docker exec -it metuo_server_1 pytest server/tests/e2e -p no:warnings
+
 
 testall:
 	make testunit
