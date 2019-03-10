@@ -2,9 +2,9 @@ import os
 import io
 from typing import Dict, List
 
-from werkzeug import FileStorage
 from flask import current_app as app
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
 from PIL import Image as PILImage, ExifTags
 from PIL.JpegImagePlugin import JpegImageFile
 
