@@ -17,6 +17,12 @@ restart-server:
 	docker-compose up
 
 
+restart-client:
+	@docker-compose down; \
+	docker rmi -f metuo_client; \
+	docker-compose up
+
+
 database:
 	@docker exec -it metuo_server_1 flask init-db
 
@@ -35,7 +41,7 @@ servershell:
 
 
 clientshell:
-	@docker exec -it metuo_client_1 bash
+	@docker exec -it metuo_client_1 /bin/sh
 
 
 psqlshell:

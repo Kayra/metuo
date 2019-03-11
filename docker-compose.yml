@@ -35,4 +35,4 @@ services:
     volumes:
       - .:/client
     environment:
-      - NODE_ENV=${PRODUCTION}
+      - NODE_ENV=${NODE_ENV}
