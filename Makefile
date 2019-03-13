@@ -31,7 +31,8 @@ dotenv:
 	@printf "POSTGRES_DB=metuo\n \
 			 POSTGRES_USER=metuo\n \
           	 POSTGRES_PASSWORD=local_insecure_password\n \
-          	 FLASK_DEBUG=1" \
+          	 FLASK_DEBUG=1\n \
+          	 NODE_ENV=DEVELOPMENT" \
     | tr -d "[:blank:]" \
     > .env
 
