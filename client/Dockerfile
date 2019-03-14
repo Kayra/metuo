@@ -13,7 +13,6 @@ ENV PATH /client/node_modules/.bin:$PATH
 COPY package.json /client/package.json
 RUN npm install
 RUN npm install react-scripts@3.0.1 -g
-RUN npm audit fix
 RUN npm run build
 
 FROM nginx:1.16.0-alpine
