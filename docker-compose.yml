@@ -27,12 +27,12 @@ services:
     ports:
       - 5432:5432
 
-  client:
-    restart: always
-    build: ./client
-    ports:
-      - 80:80
-    volumes:
-      - .:/client
-    environment:
-      - NODE_ENV=${NODE_ENV}
+#  client:
+#    restart: always
+#    build: ./client
+#    ports:
+#      - 80:80
+#    volumes:
+#      - .:/client
+#    environment:
+#      - NODE_ENV=${NODE_ENV}

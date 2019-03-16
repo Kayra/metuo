@@ -19,7 +19,7 @@ export class Page extends React.Component {
 
         return (
             <div className='page'>
-                <Image tags={this.state.tags} />    
+                <Image tags={this.state.tags} /> 
                 <Filters updateTags={this.updateTags} /> 
             </div>
         );
