@@ -8,9 +8,14 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - .:/server
+      - ./server:/server
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
     depends_on:
       - postgres
     entrypoint: ["flask", "run", "--host", "0.0.0.0"]

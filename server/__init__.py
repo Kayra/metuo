@@ -17,7 +17,13 @@ def create_app():
 
     CORS(app)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://metuo:local_insecure_password@postgres:5432/metuo"
+    postgres_user = os.environ['POSTGRES_USER']
+    postgres_password = os.environ['POSTGRES_PASSWORD']
+    postgres_db = os.environ['POSTGRES_DB']
+    postgres_host = os.environ['POSTGRES_HOST']
+    postgres_port = os.environ['POSTGRES_PORT']
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     project_root_path = Path(__file__).parent.parent.absolute()
