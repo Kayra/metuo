@@ -14,13 +14,13 @@ start:
 restart-server:
 	@docker-compose down; \
 	docker rmi -f metuo_server; \
-	docker-compose up
+	docker-compose up --remove-orphans
 
 
 restart-client:
 	@docker-compose down; \
 	docker rmi -f metuo_client; \
-	docker-compose up
+	docker-compose up --remove-orphans
 
 
 database:
@@ -31,8 +31,9 @@ dotenv:
 	@printf "POSTGRES_DB=metuo\n \
 			 POSTGRES_USER=metuo\n \
           	 POSTGRES_PASSWORD=local_insecure_password\n \
-          	 FLASK_DEBUG=1\n \
-          	 NODE_ENV=DEVELOPMENT" \
+          	 POSTGRES_HOST=postgres\n \
+          	 POSTGRES_PORT=5432\n \
+          	 FLASK_DEBUG=1" \
     | tr -d "[:blank:]" \
     > .env
 
