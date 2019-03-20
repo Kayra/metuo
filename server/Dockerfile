@@ -12,3 +12,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV FLASK_APP=server
 
 EXPOSE 5000
+
+ENTRYPOINT ["flask", "run", "--host", "0.0.0.0"]

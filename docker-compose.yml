@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./server:/server
+      - .:/server
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -18,7 +18,6 @@ services:
       - POSTGRES_PORT=${POSTGRES_PORT}
     depends_on:
       - postgres
-    entrypoint: ["flask", "run", "--host", "0.0.0.0"]
 
   postgres:
     restart: always
