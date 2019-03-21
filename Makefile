@@ -33,7 +33,8 @@ dotenv:
           	 POSTGRES_PASSWORD=local_insecure_password\n \
           	 POSTGRES_HOST=postgres\n \
           	 POSTGRES_PORT=5432\n \
-          	 FLASK_DEBUG=1" \
+          	 FLASK_DEBUG=1\n \
+          	 FLASK_APP=__init__.py" \
     | tr -d "[:blank:]" \
     > .env
 

@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - .:/server
+      - ./server:/server
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -16,6 +16,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
+      - FLASK_APP=${FLASK_APP}
     depends_on:
       - postgres
 
