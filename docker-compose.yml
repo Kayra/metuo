@@ -9,6 +9,7 @@ services:
       - 5000:5000
     volumes:
       - ./server:/server
+      - ./image_uploads:/image_uploads
     environment:
       - FLASK_DEBUG=${FLASK_DEBUG}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -17,6 +18,7 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
       - FLASK_APP=${FLASK_APP}
+      - IMAGE_DIRECTORY=${IMAGE_DIRECTORY}
     depends_on:
       - postgres
 

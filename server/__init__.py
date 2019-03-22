@@ -26,9 +26,9 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    project_root_path = Path(__file__).parent.parent.absolute()
-    app.config["IMAGE_DIRECTORY"] = os.path.join(project_root_path, "image_uploads")
-    app.static_folder = app.config["IMAGE_DIRECTORY"]
+    image_directory = os.getenv('IMAGE_DIRECTORY', local_static_dir())
+    app.config["IMAGE_DIRECTORY"] = image_directory
+    app.static_folder = image_directory
     app.static_url_path = 'image_uploads'
 
     app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg', 'gif'}
@@ -49,6 +49,11 @@ def create_app():
         return "Alive"
 
     return app
+
+
+def local_static_dir() -> str:
+    project_root_path = Path(__file__).parent.parent.absolute()
+    return os.path.join(project_root_path, "image_uploads")
 
 
 @click.command('init-db')

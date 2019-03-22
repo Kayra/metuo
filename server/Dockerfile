@@ -9,7 +9,7 @@ WORKDIR /server
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV FLASK_APP=server
+ENV FLASK_APP server
 
 EXPOSE 5000
 
