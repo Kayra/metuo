@@ -34,7 +34,8 @@ dotenv:
           	 POSTGRES_HOST=postgres\n \
           	 POSTGRES_PORT=5432\n \
           	 FLASK_DEBUG=1\n \
-          	 FLASK_APP=__init__.py" \
+          	 FLASK_APP=__init__.py\n \
+          	 IMAGE_DIRECTORY=/image_uploads" \
     | tr -d "[:blank:]" \
     > .env
 
