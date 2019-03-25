@@ -11,7 +11,7 @@ Features:
 
 ## Wireframe
 
-![wireframe](https://github.com/Kayra/metuo/blob/master/wireframe.png?raw=true)
+![wireframe](wireframe.png)
 
 ## Development set up
 
