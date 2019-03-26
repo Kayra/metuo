@@ -17,11 +17,11 @@ def create_app():
 
     CORS(app)
 
-    postgres_user = os.environ['POSTGRES_USER']
-    postgres_password = os.environ['POSTGRES_PASSWORD']
-    postgres_db = os.environ['POSTGRES_DB']
-    postgres_host = os.environ['POSTGRES_HOST']
-    postgres_port = os.environ['POSTGRES_PORT']
+    postgres_user = os.getenv('RDS_USERNAME')
+    postgres_password = os.getenv('RDS_PASSWORD')
+    postgres_db = os.getenv('RDS_DB_NAME')
+    postgres_host = os.getenv('RDS_HOSTNAME')
+    postgres_port = os.getenv('RDS_PORT')
 
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
