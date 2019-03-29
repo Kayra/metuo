@@ -28,11 +28,11 @@ database:
 
 
 dotenv:
-	@printf "POSTGRES_DB=metuo\n \
-			 POSTGRES_USER=metuo\n \
-          	 POSTGRES_PASSWORD=local_insecure_password\n \
-          	 POSTGRES_HOST=postgres\n \
-          	 POSTGRES_PORT=5432\n \
+	@printf "RDS_DB_NAME=metuo\n \
+			 RDS_USERNAME=metuo\n \
+          	 RDS_PASSWORD=local_insecure_password\n \
+          	 RDS_HOSTNAME=postgres\n \
+          	 RDS_PORT=5432\n \
           	 FLASK_DEBUG=1\n \
           	 FLASK_APP=__init__.py\n \
           	 IMAGE_DIRECTORY=/image_uploads" \
