@@ -2,6 +2,7 @@ import os
 import io
 from typing import Dict, List
 
+import boto3
 from flask import current_app as app
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -26,16 +27,20 @@ def build_categorised_tags(tags: List[Tag]) -> Dict:
     return categorised_tags
 
 
-def save_image(image: FileStorage, categorised_tags: Dict):
+def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
 
-    image_name = image.filename
-    image_hex_bytes = image.read()
+    image_name = uploaded_image.filename
 
+    image_hex_bytes = uploaded_image.read()
     image = _hex_to_image(image_hex_bytes)
+    uploaded_image.seek(0)
+
+    if os.getenv('FLASK_DEBUG') == '0':
+        _save_image_to_s3_bucket(uploaded_image, image_name)
+    else:
+        _save_image_locally(image, image_name)
+
     exif_data = _format_exif_data(image.getexif())
-
-    _save_image_locally(image, image_name)
-
     db_image = Image(name=image_name, exif_data=exif_data)
     db_image.add_tags(categorised_tags)
 
@@ -43,13 +48,27 @@ def save_image(image: FileStorage, categorised_tags: Dict):
     db.session.commit()
 
 
-def _save_image_locally(image, image_name) -> None:
+def _save_image_locally(image: JpegImageFile, image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_name = secure_filename(image_name)
     image_location = os.path.join(image_directory, image_name)
 
     image.save(image_location)
+
+
+def _save_image_to_s3_bucket(image: FileStorage, image_name: str) -> None:
+
+    image_directory = app.config["IMAGE_DIRECTORY"]
+    image_name = secure_filename(image_name)
+
+    s3_client = boto3.client('s3',
+                             aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                             aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+    response = s3_client.upload_fileobj(image, image_directory, image_name)
+
+    if response:
+        print(response)
 
 
 def _hex_to_image(image_hex_bytes) -> JpegImageFile:
