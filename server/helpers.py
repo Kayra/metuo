@@ -36,7 +36,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
     exif_data = _format_exif_data(image.getexif())
     image_name = _generate_image_name(uploaded_image.filename, exif_data)
 
-    if os.getenv('FLASK_DEBUG') == '1':
+    if os.getenv('FLASK_DEBUG') == '0':
         _save_image_to_s3_bucket(uploaded_image, image_name)
     else:
         _save_image_locally(image, image_name)
@@ -50,7 +50,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
 
 def load_image(image_name: str) -> str:
 
-    if os.getenv('FLASK_DEBUG') == '1':
+    if os.getenv('FLASK_DEBUG') == '0':
         return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
     else:
         return url_for("static", filename=image_name)
