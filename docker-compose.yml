@@ -19,6 +19,9 @@ services:
       - RDS_PORT=${RDS_PORT}
       - FLASK_APP=${FLASK_APP}
       - IMAGE_DIRECTORY=${IMAGE_DIRECTORY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
     depends_on:
       - postgres
 
