@@ -35,7 +35,10 @@ dotenv:
           	 RDS_PORT=5432\n \
           	 FLASK_DEBUG=1\n \
           	 FLASK_APP=__init__.py\n \
-          	 IMAGE_DIRECTORY=/image_uploads" \
+          	 IMAGE_DIRECTORY=/image_uploads\n \
+          	 AWS_ACCESS_KEY_ID=\n \
+             AWS_SECRET_ACCESS_KEY=\n \
+             AWS_DEFAULT_REGION=eu-west-2" \
     | tr -d "[:blank:]" \
     > .env
 
