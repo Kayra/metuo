@@ -1,0 +1,18 @@
+branch-defaults:
+  default:
+    environment: metuo-server
+    group_suffix: null
+global:
+  application_name: metuo
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Docker 18.09.9-ce
+  default_region: eu-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
