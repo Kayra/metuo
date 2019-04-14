@@ -1,0 +1,20 @@
+branch-defaults:
+  default:
+    environment: metuo-client
+environment-defaults:
+  metuo-server:
+    branch: null
+    repository: null
+global:
+  application_name: metuo
+  default_ec2_keyname: aws-eb
+  default_platform: arn:aws:elasticbeanstalk:eu-west-2::platform/Docker running on
+    64bit Amazon Linux/2.14.3
+  default_region: eu-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  sc: null
+  workspace_type: Application
