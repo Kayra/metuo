@@ -5,6 +5,8 @@ export function getConfig() {
 
     const config = require('./config/' + environment + '.json');
 
+    config['env'] = environment;
+
     return config;
 
 }
