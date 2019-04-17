@@ -4,8 +4,8 @@ import { getConfig } from './helpers';
 
 export async function getCategorisedTags() {
 
-    var server = getConfig().server;
-    const requestUrl = server + '/tags';
+    const config = getConfig();
+    const requestUrl = config.server + '/tags';
 
     const categorisedTags = (await axios.get(requestUrl)).data;
 
@@ -15,8 +15,10 @@ export async function getCategorisedTags() {
 
 export async function getImages(tags) {
 
-    const server = getConfig().server;
-    const requestUrl = server + '/images';
+    const config = getConfig();
+    console.log(config);
+
+    const requestUrl = config.server + '/images';
     var imagesResponse = {}
 
     if (tags) {
@@ -27,7 +29,12 @@ export async function getImages(tags) {
         imagesResponse = (await axios.get(requestUrl)).data;
     }
 
-    const images = Object.keys(imagesResponse).map(imageName => server + imagesResponse[imageName].location);
+    var images;
+    if (config.env === "production") {
+        images = Object.keys(imagesResponse).map(imageName => imagesResponse[imageName].location);
+    } else if (config.env === "development") {
+        images = Object.keys(imagesResponse).map(imageName => config.server + imagesResponse[imageName].location);
+    }
 
     return images;
 
