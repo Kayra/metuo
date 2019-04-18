@@ -53,7 +53,7 @@ def load_image(image_name: str) -> str:
     if os.getenv('FLASK_DEBUG') == '0':
         return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
     else:
-        return url_for("static", filename=image_name)
+        return url_for("static", filename=image_name, _external=True)
 
 
 def _generate_image_name(file_name: str, exif_data: Dict) -> str:
