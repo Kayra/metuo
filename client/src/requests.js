@@ -16,7 +16,6 @@ export async function getCategorisedTags() {
 export async function getImages(tags) {
 
     const config = getConfig();
-    console.log(config);
 
     const requestUrl = config.server + '/images';
     var imagesResponse = {}
@@ -29,12 +28,7 @@ export async function getImages(tags) {
         imagesResponse = (await axios.get(requestUrl)).data;
     }
 
-    var images;
-    if (config.env === "production") {
-        images = Object.keys(imagesResponse).map(imageName => imagesResponse[imageName].location);
-    } else if (config.env === "development") {
-        images = Object.keys(imagesResponse).map(imageName => config.server + imagesResponse[imageName].location);
-    }
+    const images = Object.keys(imagesResponse).map(imageName => imagesResponse[imageName].location);
 
     return images;
 
