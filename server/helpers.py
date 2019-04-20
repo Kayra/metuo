@@ -34,6 +34,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
     uploaded_image.seek(0)
 
     exif_data = _format_exif_data(image.getexif())
+    updated_categorised_tags = _update_tags_with_exif(exif_data, categorised_tags)
     image_name = _generate_image_name(uploaded_image.filename, exif_data)
 
     if os.getenv('FLASK_DEBUG') == '0':
@@ -42,7 +43,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
         _save_image_locally(image, image_name)
 
     db_image = Image(name=image_name, exif_data=exif_data)
-    db_image.add_tags(categorised_tags)
+    db_image.add_tags(updated_categorised_tags)
 
     db.session.add(db_image)
     db.session.commit()
@@ -103,3 +104,29 @@ def _format_exif_data(unformatted_exif_data):
         for exif_index, exif_data in unformatted_exif_data.items()
         if exif_index in ExifTags.TAGS
     }
+
+
+def _tags_from_exif(exif_data):
+
+    full_date = exif_data['DateTime']
+    date = full_date.split()[0]
+    time = full_date.split()[1]
+
+    tags = {
+        'Year': [date.split(':')[0]],
+        'Month': [date.split(':')[1]],
+        'Day': [date.split(':')[2]]
+    }
+
+    return tags
+
+
+def _update_tags_with_exif(exif_data, categorised_tags):
+
+    exif_tags = _tags_from_exif(exif_data)
+
+    for category, tags in exif_tags.items():
+        if category not in categorised_tags.keys():
+            categorised_tags[category] = tags
+
+    return categorised_tags
