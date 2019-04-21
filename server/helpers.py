@@ -1,6 +1,7 @@
 import os
 import io
 import uuid
+import calendar
 from typing import Dict, List
 
 import boto3
@@ -112,10 +113,15 @@ def _tags_from_exif(exif_data):
     date = full_date.split()[0]
     time = full_date.split()[1]
 
+    year = [date.split(':')[0]]
+    month = [date.split(':')[1]]
+    month_string = [calendar.month_name[month]]
+    day = [date.split(':')[2]]
+
     tags = {
-        'Year': [date.split(':')[0]],
-        'Month': [date.split(':')[1]],
-        'Day': [date.split(':')[2]]
+        'Year': year,
+        'Month': month_string,
+        'Day': day
     }
 
     return tags
