@@ -17,7 +17,6 @@ services:
       - RDS_DB_NAME=${RDS_DB_NAME}
       - RDS_HOSTNAME=${RDS_HOSTNAME}
       - RDS_PORT=${RDS_PORT}
-      - FLASK_APP=${FLASK_APP}
       - IMAGE_DIRECTORY=${IMAGE_DIRECTORY}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -29,9 +28,9 @@ services:
     restart: always
     image: postgres:alpine
     environment:
-      - RDS_USERNAME=${RDS_USERNAME}
-      - RDS_PASSWORD=${RDS_PASSWORD}
-      - RDS_DB_NAME=${RDS_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - ./postgres-data/postgres:/var/lib/postgresql/data
     ports:
