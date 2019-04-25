@@ -72,7 +72,7 @@ export default class Image extends React.Component {
 
   async componentDidUpdate(previousProps, previousState) {
 
-    if (previousProps.tags !== this.props.tags && this.props.tags.length) {
+    if (previousProps.tags !== this.props.tags) {
 
       const images = await getImages(this.props.tags);
       if (images.length) {
