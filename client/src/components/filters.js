@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getConfig } from '../helpers';
 import { getCategorisedTags } from '../requests';
 
 
@@ -149,9 +150,18 @@ export default class Filters extends React.Component {
 
     }
 
-    render() { 
+    determineFilterCategoriesToContruct = (filterCategories) => {
 
-        const filters = Object.keys(this.state.categorisedTags)
+        const homeCategories = getConfig().homeCategories;
+        return filterCategories.filter(filterCategory => homeCategories.includes(filterCategory.toLowerCase()));
+
+    }
+
+    render() { 
+        console.log(Object.keys(this.state.categorisedTags));
+        const filterCategoriesToContruct = this.determineFilterCategoriesToContruct(Object.keys(this.state.categorisedTags));
+
+        const filters = filterCategoriesToContruct
                         .map(filterCategory => this.filtersConstructor(filterCategory, this.state.categorisedTags[filterCategory]));
 
         return (
