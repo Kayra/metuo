@@ -1,3 +1,4 @@
 {
+    "homeCategories": ["colour", "year", "location", "season"],
     "server": "http://0.0.0.0:5000"
 }
