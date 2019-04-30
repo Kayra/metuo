@@ -4,27 +4,26 @@
 install:
 	-${MAKE} dotenv
 	docker-compose up
-	-${MAKE} database
+
+
+database:
+	@docker exec -it metuo_server_1 flask init-db
 
 
 start:
 	@docker-compose up
 
 
-restart-server:
+restart:
 	@docker-compose down; \
 	docker rmi -f metuo_server; \
 	docker-compose up --remove-orphans
 
 
-restart-client:
+restart:
 	@docker-compose down; \
 	docker rmi -f metuo_client; \
 	docker-compose up --remove-orphans
-
-
-database:
-	@docker exec -it metuo_server_1 flask init-db
 
 
 dotenv:
@@ -49,10 +48,6 @@ servershell:
 	@docker exec -it metuo_server_1 bash
 
 
-clientshell:
-	@docker exec -it metuo_client_1 /bin/sh
-
-
 psqlshell:
 	@docker exec -it metuo_postgres_1 psql metuo metuo
 
@@ -70,6 +65,6 @@ teste2e:
 
 
 testall:
-	make testunit
-	make testinteg
-	make teste2e
+	-${MAKE} testunit
+	-${MAKE} testinteg
+	-${MAKE} teste2e
