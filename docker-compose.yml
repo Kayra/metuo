@@ -35,13 +35,3 @@ services:
       - ./postgres-data/postgres:/var/lib/postgresql/data
     ports:
       - ${RDS_PORT}:${RDS_PORT}
-
-#  client:
-#    restart: always
-#    build: ./client
-#    ports:
-#      - 80:80
-#    volumes:
-#      - .:/client
-#    environment:
-#      - NODE_ENV=${NODE_ENV}
