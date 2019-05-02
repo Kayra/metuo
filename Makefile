@@ -18,13 +18,7 @@ restart:
 	@docker-compose down; \
 	docker rmi -f metuo_server; \
 	docker-compose up --remove-orphans
-
-
-restart:
-	@docker-compose down; \
-	docker rmi -f metuo_client; \
-	docker-compose up --remove-orphans
-
+	
 
 dotenv:
 	@printf "RDS_DB_NAME=metuo\n \
