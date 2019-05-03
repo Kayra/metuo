@@ -1,4 +1,4 @@
-# metuo (WIP - not yet live)
+# metuo (WIP - live but not v1 yet)
 
 **Photography portfolio site**
 
@@ -7,7 +7,7 @@ Features:
 * Shows pictures taken nearest to you first
 * No adverts
 * Looks hot
-* Navigation makes sense
+* Filtering makes sense
 
 ## Wireframe
 
@@ -15,44 +15,31 @@ Features:
 
 ## Development set up
 
-**Requires local installation of [docker-compose.](https://docs.docker.com/compose/install/)**
+**Requires local installation of [docker-compose](https://docs.docker.com/compose/install/) and [node/npm.](https://www.npmjs.com/get-npm)** 
 
-The Makefile contains useful helper commands for development workflows.
+The Makefile contains common workflow commands and is only used for local development.
+
+### Server installation
+
+From the project root folder, first run the **installation command**:
 
 ```bash
-# Set up and run the application
 make install
-
-# Start the application
-make start
-
-# Restart the application
-make restart
-
-# Create the database on existing server (can be used to dump and recreate the db)
-make database
-
-# Create the dotenv file required by docker-compose
-make dotenv
-
-# Connect to the api service via bash
-make servershell
-
-# Connect to the database via psql
-make psqlshell
-
-# Run unit tests
-make testunit
-
-# Run integration tests
-make testinteg
-
-# Run end-to-end tests
-make e2e
-
-# Run all tests
-make testall
 ```
+
+While the docker container is running, in another shell run the **database creation command**:
+
+```bash
+make database
+```
+
+### Client installation
+
+### Common workflows
+
+#### Restarting and recreating
+
+#### Testing s3 image uploading
 
 ## Server API Endpoints
 
