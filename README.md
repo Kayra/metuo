@@ -19,7 +19,7 @@ Features:
 
 The Makefile contains common workflow commands and is only used for local development.
 
-### Server installation
+### Server installation and start up
 
 From the project root folder, first run the **installation command**:
 
@@ -33,7 +33,28 @@ While the docker container is running, in another shell run the **database creat
 make database
 ```
 
-### Client installation
+This will create the required docker images and run their containers for the `api server` and the `postgres database`. 
+
+To simply start this environment in the future run the **start command**:
+
+```bash
+make start
+```
+
+### Client installation and start up
+
+Navigate to the `client` directory, and **install the node modules**:
+
+```bash
+cd client
+npm ci
+```
+
+Once the node modules have been installed, **start the client development server**:
+
+```
+npm run start
+```
 
 ### Common workflows
 
