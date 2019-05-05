@@ -52,13 +52,50 @@ npm ci
 
 Once the node modules have been installed, **start the client development server**:
 
-```
+```bash
 npm run start
 ```
 
 ### Common workflows
 
-#### Restarting and recreating
+#### Rebuilding the api server
+
+To rebuild and restart the flask api server **run the restart command**:
+
+```bash
+make restart
+```
+
+#### Recreating the development environment
+
+To recreate the development environment from scratch, **first remove the `postgres-data` directory and it's contents**:
+
+```bash
+rm -rf postgres-data
+```
+
+Then **remove the docker images**:
+
+```bash
+> docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+metuo_server        latest              377b22651d7d        18 hours ago        1.02GB
+postgres            alpine              ecb176ff304a        2 weeks ago         151MB
+python              3.7                 f66befd33669        6 weeks ago         919MB
+> docker rmi -f 377b22651d7d ecb176ff304a f66befd33669
+```
+
+Then run the **installation command**:
+
+```bash
+make install
+```
+
+Finally, while the docker container is running, in another shell run the **database creation command**:
+
+```bash
+make database
+```
 
 #### Testing s3 image uploading
 
