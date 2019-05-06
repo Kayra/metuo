@@ -41,6 +41,8 @@ To simply start this environment in the future run the **start command**:
 make start
 ```
 
+**The server should be accessible at `http://0.0.0.0:5000/`**
+
 ### Client installation and start up
 
 Navigate to the `client` directory, and **install the node modules**:
@@ -55,6 +57,8 @@ Once the node modules have been installed, **start the client development server
 ```bash
 npm run start
 ```
+
+**The client should be accessible at `http://0.0.0.0:3000/`**
 
 ### Common workflows
 
@@ -98,6 +102,22 @@ make database
 ```
 
 #### Testing s3 image uploading
+
+To save images to s3 from the development environment rather than locally, **change the following environment variables in the `.env` file**:
+
+* `IMAGE_DIRECTORY` - Change this to the bucket name
+* `AWS_ACCESS_KEY_ID` - Update this with a key ID that is authorised to interact with the bucket
+* `AWS_SECRET_ACCESS_KEY` - Update this with a key secret that is authorised to interact with the bucket
+* `FLASK_DEBUG` - Change this to `0` (alternatively, change all references in the code to expect this to be `1` to keep development debug messages and behaviours, **but do not commit this change**)
+
+Then **restart the server docker container**:
+
+```bash
+make restart
+```
+
+#### Environment introspection
+
 
 ## Server API Endpoints
 
