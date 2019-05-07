@@ -118,6 +118,10 @@ make restart
 
 #### Environment introspection
 
+The `Makefile` provides quick and easy access to the server and database:
+
+* `make servershell` creates an interactive terminal in the running api docker container
+* `make psqlshell` creates a connection to the api database
 
 ## Server API Endpoints
 
