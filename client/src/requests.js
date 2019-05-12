@@ -16,7 +16,6 @@ export async function getCategorisedTags() {
 export async function getImages(tags) {
 
     const config = getConfig();
-
     const requestUrl = config.server + '/images';
     var imagesResponse = {}
 
@@ -31,5 +30,16 @@ export async function getImages(tags) {
     const images = Object.keys(imagesResponse).map(imageName => imagesResponse[imageName].location);
 
     return images;
+
+}
+
+export async function getLocationInfo() {
+
+    const config = getConfig();
+    const apiKey = config.ipfindApiKey;
+    
+    const locationResponse = (await axios.get('https://api.ipfind.com/me?auth=' + apiKey)).data;
+
+    return locationResponse;
 
 }
