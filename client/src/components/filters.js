@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { getConfig } from '../helpers';
-import { getCategorisedTags } from '../requests';
+import { getConfig, currentLocationInLocationTags } from '../helpers';
+import { getCategorisedTags, getLocationInfo } from '../requests';
 
 
 export default class Filters extends React.Component {
@@ -17,6 +17,20 @@ export default class Filters extends React.Component {
 
         const categorisedTags = await getCategorisedTags();
         const categories = Object.keys(categorisedTags);
+
+        const location = await getLocationInfo();
+        const currentLocationTag = currentLocationInLocationTags(location, categorisedTags);
+
+        if (currentLocationTag) {
+
+            const categorisedCurrentLocationTag = {'Location': currentLocationTag}
+
+            this.setState({ 
+                toggledCategoryTags: categorisedCurrentLocationTag
+            });
+            this.props.updateTags(Object.values(categorisedCurrentLocationTag));
+
+        }
 
         this.setState({ 
             categories: categories,
@@ -158,7 +172,7 @@ export default class Filters extends React.Component {
     }
 
     render() { 
-        console.log(Object.keys(this.state.categorisedTags));
+
         const filterCategoriesToContruct = this.determineFilterCategoriesToContruct(Object.keys(this.state.categorisedTags));
 
         const filters = filterCategoriesToContruct
