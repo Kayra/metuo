@@ -19,7 +19,8 @@ export default class Filters extends React.Component {
         const categories = Object.keys(categorisedTags);
 
         const location = await getLocationInfo();
-        const currentLocationTag = currentLocationInLocationTags(location, categorisedTags);
+
+        const currentLocationTag = location ? currentLocationInLocationTags(location, categorisedTags) : null;
 
         if (currentLocationTag) {
 
