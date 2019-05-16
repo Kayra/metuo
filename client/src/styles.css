@@ -55,6 +55,10 @@ ul {
   font-family: FatAvenir;
 }
 
+button {
+  background-color: white;
+}
+
 /* Image component */
 
 .imageComponent {
