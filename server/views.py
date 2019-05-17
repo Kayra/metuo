@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 
 from server.models import Tag, Image
 from server.helpers import save_image, build_categorised_tags, load_image
@@ -37,12 +37,34 @@ def get_images():
 
     json_response = {}
     for image in images:
-        json_response[image.name] = {
+        json_response[image.id] = {
+            "name": image.name,
             "location": load_image(image.name),
             "categorised_tags": build_categorised_tags(image.tags)
         }
 
     return jsonify(json_response)
+
+
+@bp.route("/image", methods=["GET"])
+def get_image():
+
+    if request.args.get('id'):
+
+        image = Image.query.filter_by(id=request.args['id']).first()
+
+        response_json = {
+            image.id: {
+                'name': image.name,
+                'exif': image.exif_data,
+                "categorised_tags": build_categorised_tags(image.tags),
+                "location": load_image(image.name)
+            }
+        }
+
+        return jsonify(response_json)
+    else:
+        abort(404)
 
 
 @bp.route("/tags", methods=["GET"])
