@@ -37,11 +37,7 @@ def get_images():
 
     json_response = {}
     for image in images:
-        json_response[image.id] = {
-            "name": image.name,
-            "location": load_image(image.name),
-            "categorised_tags": build_categorised_tags(image.tags)
-        }
+        json_response.update(image.to_json())
 
     return jsonify(json_response)
 
@@ -50,19 +46,9 @@ def get_images():
 def get_image():
 
     if request.args.get('id'):
-
         image = Image.query.filter_by(id=request.args['id']).first()
-
-        response_json = {
-            image.id: {
-                'name': image.name,
-                'exif': image.exif_data,
-                "categorised_tags": build_categorised_tags(image.tags),
-                "location": load_image(image.name)
-            }
-        }
-
-        return jsonify(response_json)
+        return jsonify(image.to_json())
+    
     else:
         abort(404)
 

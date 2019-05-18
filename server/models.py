@@ -33,6 +33,17 @@ class Image(db.Model):
                 tag_object.category = category_object
                 self.tags.append(tag_object)
 
+    def to_json(self) -> Dict:
+        from server.helpers import build_categorised_tags, load_image
+        return {
+            self.id: {
+                'name': self.name,
+                'exif': self.exif_data,
+                "categorised_tags": build_categorised_tags(self.tags),
+                "location": load_image(self.name)
+            }
+        }
+
     def __repr__(self) -> str:
         return f'<Image {self.name}>'
 
