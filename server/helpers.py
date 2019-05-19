@@ -6,9 +6,9 @@ from typing import Dict, List
 
 import boto3
 from flask import url_for, current_app as app
-from werkzeug.datastructures import FileStorage
 from PIL import Image as PILImage, ExifTags
 from PIL.JpegImagePlugin import JpegImageFile
+from werkzeug.datastructures import FileStorage
 
 from server.models import Image, Tag, db
 
@@ -50,6 +50,22 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
     db.session.commit()
 
 
+def remove_image(image_id: str):
+
+    image = Image.query.filter_by(id=image_id).first()
+
+    if os.getenv('FLASK_DEBUG') == '0':
+        image_location = load_image(image.name)
+        _delete_image_in_s3_bucket(image_location)
+    else:
+        _delete_image_locally(image.name)
+
+    db.session.delete(image)
+    db.session.commit()
+
+    return image
+
+
 def load_image(image_name: str) -> str:
 
     if os.getenv('FLASK_DEBUG') == '0':
@@ -75,6 +91,12 @@ def _save_image_locally(image: JpegImageFile, image_name: str) -> None:
     image.save(image_location)
 
 
+def _delete_image_locally(image_location: str) -> None:
+    image_directory = app.config["IMAGE_DIRECTORY"]
+    image_location = os.path.join(image_directory, image_location)
+    os.remove(image_location)
+
+
 def _save_image_to_s3_bucket(image: FileStorage, image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
@@ -85,7 +107,26 @@ def _save_image_to_s3_bucket(image: FileStorage, image_name: str) -> None:
         s3_client = boto3.client('s3',
                                  aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                                  aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+
     response = s3_client.upload_fileobj(image, image_directory, image_name)
+
+    if response:
+        print(response)
+
+
+def _delete_image_in_s3_bucket(image_name: str) -> None:
+
+    image_directory = app.config["IMAGE_DIRECTORY"]
+
+    if os.getenv('FLASK_DEBUG') == '0':
+        s3_client = boto3.client('s3')
+    else:
+        s3_client = boto3.client('s3',
+                                 aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                                 aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+
+    print('bucket', image_directory, 'name', image_name)
+    response = s3_client.delete_object(Bucket=image_directory, Key=image_name)
 
     if response:
         print(response)
