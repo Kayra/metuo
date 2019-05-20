@@ -39,9 +39,6 @@ def create_app():
     with app.app_context():
         from server import views
         app.register_blueprint(views.bp)
-        app.add_url_rule('/upload', endpoint='upload_image')
-        app.add_url_rule('/images', endpoint='get_images')
-        app.add_url_rule('/tags', endpoint='get_tags')
 
     @app.route("/")
     @app.route("/health")
