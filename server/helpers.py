@@ -54,7 +54,7 @@ def remove_image(image_id: str):
 
     image = Image.query.filter_by(id=image_id).first()
 
-    if os.getenv('FLASK_DEBUG') == '0':
+    if is_production():
         image_location = load_image(image.name)
         _delete_image_in_s3_bucket(image_location)
     else:
@@ -68,7 +68,7 @@ def remove_image(image_id: str):
 
 def load_image(image_name: str) -> str:
 
-    if os.getenv('FLASK_DEBUG') == '0':
+    if is_production():
         return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
     else:
         return url_for("static", filename=image_name, _external=True)
@@ -101,7 +101,7 @@ def _save_image_to_s3_bucket(image: FileStorage, image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
 
-    if os.getenv('FLASK_DEBUG') == '0':
+    if is_production():
         s3_client = boto3.client('s3')
     else:
         s3_client = boto3.client('s3',
@@ -118,7 +118,7 @@ def _delete_image_in_s3_bucket(image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
 
-    if os.getenv('FLASK_DEBUG') == '0':
+    if is_production():
         s3_client = boto3.client('s3')
     else:
         s3_client = boto3.client('s3',
@@ -177,3 +177,11 @@ def _update_tags_with_exif(exif_data, categorised_tags):
             categorised_tags[category] = tags
 
     return categorised_tags
+
+
+def is_production():
+
+    if os.getenv('PYTHON_ENV') == 'production':
+        return True
+    else:
+        return False
