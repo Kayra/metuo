@@ -18,7 +18,7 @@ restart:
 	@docker-compose down; \
 	docker rmi -f metuo_server; \
 	docker-compose up --remove-orphans
-	
+
 
 dotenv:
 	@printf "RDS_DB_NAME=metuo\n \
@@ -33,7 +33,8 @@ dotenv:
              AWS_DEFAULT_REGION=eu-west-2\n \
              POSTGRES_DB=metuo\n \
              POSTGRES_USER=metuo\n \
-             POSTGRES_PASSWORD=local_insecure_password" \
+             POSTGRES_PASSWORD=local_insecure_password\n \
+             PYTHON_ENV=local" \
     | tr -d "[:blank:]" \
     > .env
 
