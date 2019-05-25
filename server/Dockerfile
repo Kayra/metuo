@@ -9,6 +9,7 @@ COPY . /server
 RUN pip install --no-cache-dir -r /server/requirements.txt
 
 ENV FLASK_DEBUG 0
+ENV PYTHON_ENV production
 ENV FLASK_APP server
 
 EXPOSE 5000
