@@ -20,7 +20,7 @@ class Image(db.Model):
     exif_data = db.Column(db.JSON)
 
     tags = db.relationship('Tag', secondary=association_table, lazy='subquery',
-                           backref=db.backref('images', lazy=True))
+                           backref=db.backref('images', lazy=True), cascade="all, delete-orphan", single_parent=True)
 
     def add_tags(self, category_tags: Dict) -> None:
 
@@ -29,9 +29,29 @@ class Image(db.Model):
             category_object = Category.get_or_create(category)
 
             for tag in tags:
-                tag_object = Tag.get_or_create(tag)
-                tag_object.category = category_object
-                self.tags.append(tag_object)
+                if tag not in [tag.name for tag in self.tags]:
+                    tag_object = Tag(name=tag)
+                    tag_object.category = category_object
+                    self.tags.append(tag_object)
+
+    def update_tags(self, category_tags_to_update: Dict) -> None:
+
+        tags_to_remove = []
+
+        for current_tag in self.tags:
+
+            if current_tag.name not in flatten(category_tags_to_update.values()):
+                tags_to_remove.append(current_tag)
+
+            elif current_tag.category not in category_tags_to_update.keys():
+                tags_to_remove.append(current_tag)
+
+        [self.tags.remove(tag_to_remove) for tag_to_remove in tags_to_remove]
+
+        self.add_tags(category_tags_to_update)
+
+        db.session.add(self)
+        db.session.commit()
 
     def to_json(self) -> Dict:
         from server.helpers import build_categorised_tags, load_image
