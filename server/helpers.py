@@ -38,7 +38,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
     updated_categorised_tags = _update_tags_with_exif(exif_data, categorised_tags)
     image_name = _generate_image_name(uploaded_image.filename, exif_data)
 
-    if os.getenv('FLASK_DEBUG') == '0':
+    if is_production():
         _save_image_to_s3_bucket(uploaded_image, image_name)
     else:
         _save_image_locally(image, image_name)
@@ -55,8 +55,7 @@ def remove_image(image_id: str):
     image = Image.query.filter_by(id=image_id).first()
 
     if is_production():
-        image_location = load_image(image.name)
-        _delete_image_in_s3_bucket(image_location)
+        _delete_image_in_s3_bucket(image.name)
     else:
         _delete_image_locally(image.name)
 
@@ -125,7 +124,6 @@ def _delete_image_in_s3_bucket(image_name: str) -> None:
                                  aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                                  aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 
-    print('bucket', image_directory, 'name', image_name)
     response = s3_client.delete_object(Bucket=image_directory, Key=image_name)
 
     if response:
