@@ -55,6 +55,22 @@ def get_image(image_id):
     return abort(405)
 
 
+@bp.route("/image/update-tags/<image_id>", methods=["PUT"])
+def update_image_tags(image_id):
+
+    tags_to_update = request.get_json()
+
+    if image_id and tags_to_update:
+        image = Image.query.filter_by(id=image_id).first()
+        if image:
+            image.update_tags(tags_to_update)
+            return jsonify(image.to_json())
+        else:
+            return abort(404)
+
+    return abort(405)
+
+
 @bp.route("/image/delete/<image_id>", methods=["DELETE"])
 def delete_image(image_id):
 
