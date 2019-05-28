@@ -77,8 +77,8 @@ def delete_image(image_id):
     if image_id:
 
         if Image.query.filter_by(id=image_id).scalar():
-            removed_image = remove_image(image_id)
-            image_json = removed_image.to_json()
+            image_json = Image.query.filter_by(id=image_id).first().to_json()
+            remove_image(image_id)
             return make_response(json.dumps({"Image deleted": image_json}), 200)
         else:
             return make_response(f"Couldn't find image {image_id}", 404)
