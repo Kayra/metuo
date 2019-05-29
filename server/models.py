@@ -30,7 +30,7 @@ class Image(db.Model):
 
             for tag in tags:
                 if tag not in [tag.name for tag in self.tags]:
-                    tag_object = Tag(name=tag)
+                    tag_object = Tag.get_or_create(tag)
                     tag_object.category = category_object
                     self.tags.append(tag_object)
 
