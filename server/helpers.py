@@ -50,7 +50,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
     db.session.commit()
 
 
-def remove_image(image_id: str):
+def remove_image(image_id: str) -> None:
 
     image = Image.query.filter_by(id=image_id).first()
 
@@ -61,8 +61,6 @@ def remove_image(image_id: str):
 
     db.session.delete(image)
     db.session.commit()
-
-    return image
 
 
 def load_image(image_name: str) -> str:
