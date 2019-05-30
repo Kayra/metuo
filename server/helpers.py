@@ -66,7 +66,8 @@ def remove_image(image_id: str) -> None:
 def load_image(image_name: str) -> str:
 
     if is_production():
-        return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
+        # return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
+        return f"http://d1sq2bjn8ziqtj.cloudfront.net/{image_name}"
     else:
         return url_for("static", filename=image_name, _external=True)
 
@@ -136,7 +137,7 @@ def _hex_to_image(image_hex_bytes) -> JpegImageFile:
     return image
 
 
-def _format_exif_data(unformatted_exif_data):
+def _format_exif_data(unformatted_exif_data) -> Dict:
     return {
         ExifTags.TAGS[exif_index]: str(exif_data, 'utf-8') if isinstance(exif_data, bytes) else exif_data
         for exif_index, exif_data in unformatted_exif_data.items()
@@ -144,7 +145,7 @@ def _format_exif_data(unformatted_exif_data):
     }
 
 
-def _tags_from_exif(exif_data) -> Dict:
+def _tags_from_exif(exif_data: Dict) -> Dict:
 
     full_date = exif_data['DateTime']
     date = full_date.split()[0]
@@ -164,7 +165,7 @@ def _tags_from_exif(exif_data) -> Dict:
     return tags
 
 
-def _update_tags_with_exif(exif_data, categorised_tags):
+def _update_tags_with_exif(exif_data: Dict, categorised_tags: Dict) -> Dict:
 
     exif_tags = _tags_from_exif(exif_data)
 
@@ -175,7 +176,7 @@ def _update_tags_with_exif(exif_data, categorised_tags):
     return categorised_tags
 
 
-def is_production():
+def is_production() -> bool:
 
     if os.getenv('PYTHON_ENV') == 'production':
         return True
