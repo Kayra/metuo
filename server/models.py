@@ -1,5 +1,7 @@
 from typing import Dict, List
 
+from sqlalchemy import event
+
 from server import db
 
 
@@ -20,7 +22,7 @@ class Image(db.Model):
     exif_data = db.Column(db.JSON)
 
     tags = db.relationship('Tag', secondary=association_table, lazy='subquery',
-                           backref=db.backref('images', lazy=True), cascade="all, delete-orphan", single_parent=True)
+                           backref=db.backref('images', lazy=True))
 
     def add_tags(self, category_tags: Dict) -> None:
 
@@ -66,6 +68,13 @@ class Image(db.Model):
 
     def __repr__(self) -> str:
         return f'<Image {self.name}>'
+
+
+@event.listens_for(db.Session, 'after_flush')
+def delete_tag_orphans(session, ctx):
+    session.query(Tag). \
+        filter(~Tag.images.any()). \
+        delete(synchronize_session=False)
 
 
 class Tag(db.Model):
