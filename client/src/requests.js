@@ -27,9 +27,7 @@ export async function getImages(tags) {
         imagesResponse = (await axios.get(requestUrl)).data;
     }
 
-    const images = Object.keys(imagesResponse).map(imageName => imagesResponse[imageName].location);
-
-    return images;
+    return imagesResponse;
 
 }
 
