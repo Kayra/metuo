@@ -33,7 +33,7 @@ def get_images():
         images = Tag.get_images(tags)
 
     else:
-        images = Image.query.limit(5).all()
+        images = Image.query.limit(20).all()
 
     json_response = {}
     for image in images:
