@@ -147,7 +147,7 @@ def _format_exif_data(unformatted_exif_data) -> Dict:
 
 def _tags_from_exif(exif_data: Dict) -> Dict:
 
-    full_date = exif_data['DateTime']
+    full_date = exif_data['DateTimeOriginal']
     date = full_date.split()[0]
     time = full_date.split()[1]
 
