@@ -38,6 +38,6 @@ export async function getLocationInfo() {
     
     const locationResponse = (await axios.get('https://api.ipfind.com/me?auth=' + apiKey).catch(() => null));
 
-    return locationResponse;
+    return locationResponse ? locationResponse['data'] : null;
 
 }
