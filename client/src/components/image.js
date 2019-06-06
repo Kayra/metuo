@@ -74,10 +74,11 @@ export default class Image extends React.Component {
 
     if (previousProps.tags !== this.props.tags) {
 
-      const images = await getImages(this.props.tags);
-      if (images.length) {
+      const imageResponses = await getImages(this.props.tags);
+
+      if (Object.keys(imageResponses).length) {
         clearTimeout(this.timeout);
-        this.buildImages(images);
+        this.buildImages(imageResponses);
         this.setState({ index: 0 });
         setTimeout(function(){}, 2000);
         this.loopImages();
@@ -94,7 +95,7 @@ export default class Image extends React.Component {
     ));
 
     this.setState({ images: imageEls });
-    
+
   }
 
   render() {
