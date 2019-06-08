@@ -1,3 +1,4 @@
+const _ = require("lodash")
 
 export function getConfig() {
 
@@ -24,4 +25,38 @@ export function currentLocationInLocationTags(location, categorisedTags) {
 
     return null;
 
+}
+
+export function urlParamsToToggledCategoryTags(urlParams, categorisedTags) {
+
+    const toggledCategoryTags = {};
+
+    for (const entry of urlParams.entries()) {
+
+        const urlCategory = titleCase(entry[0]);
+        const urlTag = titleCase(entry[1]);
+
+        if (Object.keys(categorisedTags).includes(urlCategory)) {
+
+            if (urlCategory in categorisedTags && categorisedTags[urlCategory].includes(urlTag)) {
+
+                Object.keys(toggledCategoryTags).includes(urlCategory) && console.warn(`Multiple url tags for category "${urlCategory}"`);
+                toggledCategoryTags[urlCategory] = urlTag;
+
+            } else {
+                console.warn(`Could not find tag "${urlTag}" (category "${urlCategory}") in categorised tags.`);
+            }
+
+        } else {
+            console.warn(`Could not find tag "${urlTag}" (category "${urlCategory}") in categorised tags.`);
+        }
+
+    }
+
+    return toggledCategoryTags;
+
+}
+
+function titleCase(str) {
+    return _.startCase(_.toLower(str));
 }
