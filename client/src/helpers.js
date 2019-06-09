@@ -13,6 +13,25 @@ export function getConfig() {
 
 }
 
+export function determineToggledCategoryTags(location, urlParams, categorisedTags) {
+
+    var toggledCategoryTags = {};
+
+    const currentLocationTag = location ? currentLocationInLocationTags(location, categorisedTags) : null;
+    const urlCategoryTags = urlParams ? urlParamsToCategoryTags(urlParams, categorisedTags) : null;
+
+    if (currentLocationTag) {
+        toggledCategoryTags['Location'] = currentLocationTag;
+    }
+
+    if (urlCategoryTags) {
+        toggledCategoryTags = Object.assign({}, toggledCategoryTags, urlCategoryTags);
+    }
+
+    return toggledCategoryTags;
+
+}
+
 export function currentLocationInLocationTags(location, categorisedTags) {
 
     const locationsToCheck = ['country', 'city', 'region', 'county']
@@ -27,7 +46,7 @@ export function currentLocationInLocationTags(location, categorisedTags) {
 
 }
 
-export function urlParamsToToggledCategoryTags(urlParams, categorisedTags) {
+export function urlParamsToCategoryTags(urlParams, categorisedTags) {
 
     const toggledCategoryTags = {};
 
