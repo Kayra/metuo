@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getConfig, currentLocationInLocationTags } from '../helpers';
+import { getConfig, currentLocationInLocationTags, urlParamsToCategoryTags, determineToggledCategoryTags } from '../helpers';
 import { getCategorisedTags, getLocationInfo } from '../requests';
 
 
@@ -20,16 +20,17 @@ export default class Filters extends React.Component {
 
         const location = await getLocationInfo();
 
-        const currentLocationTag = location ? currentLocationInLocationTags(location, categorisedTags) : null;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
 
-        if (currentLocationTag) {
+        const toggledCategoryTags = determineToggledCategoryTags(location, urlParams, categorisedTags);
 
-            const categorisedCurrentLocationTag = {'Location': currentLocationTag}
+        if (toggledCategoryTags) {
 
             this.setState({ 
-                toggledCategoryTags: categorisedCurrentLocationTag
+                toggledCategoryTags: toggledCategoryTags
             });
-            this.props.updateTags(Object.values(categorisedCurrentLocationTag));
+            this.props.updateTags(Object.values(toggledCategoryTags));
 
         }
 
