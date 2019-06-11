@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getConfig, currentLocationInLocationTags, urlParamsToCategoryTags, determineToggledCategoryTags } from '../helpers';
+import { getConfig, determineToggledCategoryTags } from '../helpers';
 import { getCategorisedTags, getLocationInfo } from '../requests';
 
 
