@@ -13,6 +13,19 @@ export function getConfig() {
 
 }
 
+export function updateUrlParamsWithToggledCategoryTags(toggledCategoryTags) {
+ 
+    var urlParams = categorisedTagsToUrlParams(toggledCategoryTags);
+    urlParams ? window.history.replaceState({}, "metuo", '?' + urlParams) : window.history.replaceState({}, "metuo", '/');
+}
+
+
+function categorisedTagsToUrlParams(categoryTags) {
+
+    return Object.entries(categoryTags).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+
+}
+
 export function determineToggledCategoryTags(location, urlParams, categorisedTags) {
 
     var toggledCategoryTags = {};
