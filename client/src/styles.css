@@ -43,11 +43,11 @@ ul {
 .filtersComponent .filterCategory li {
   text-align: center;
   display: inline;
-  padding: 0 8%;
+  padding: 0 5%;
 }
 
 .filterList {
-  padding: 0 8%;
+  padding: 0 5%;
   text-align: center;
 }
 
