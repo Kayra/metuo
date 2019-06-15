@@ -1,44 +1,25 @@
 import React from 'react';
 
-import { getConfig, determineToggledCategoryTags, updateUrlParamsWithToggledCategoryTags } from '../helpers';
-import { getCategorisedTags, getLocationInfo } from '../requests';
+import { getConfig, updateUrlParamsWithToggledCategoryTags } from '../helpers';
 
 
 export default class Filters extends React.Component {
     
     state = {
             categories: [],
-            categorisedTags: {},
             toggledCategories: [],
             toggledCategoryTags: {}
     };
 
-    async componentDidMount() {
+    loadedInitialCategoryTags = false;
 
-        const categorisedTags = await getCategorisedTags();
-        const categories = Object.keys(categorisedTags);
-
-        const location = await getLocationInfo();
-
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-
-        const toggledCategoryTags = determineToggledCategoryTags(location, urlParams, categorisedTags);
-
-        if (toggledCategoryTags) {
-
+    componentDidUpdate() {
+        if (!this.loadedInitialCategoryTags && this.props.toggledCategoryTags) {
             this.setState({ 
-                toggledCategoryTags: toggledCategoryTags
+                toggledCategoryTags: this.props.toggledCategoryTags
             });
-            this.props.updateTags(Object.values(toggledCategoryTags));
-
+            this.loadedInitialCategoryTags = true;
         }
-
-        this.setState({ 
-            categories: categories,
-            categorisedTags: categorisedTags
-        });
-
     }
 
     filterIsSelected = (filter) => {
@@ -179,10 +160,10 @@ export default class Filters extends React.Component {
 
     render() { 
 
-        const filterCategoriesToContruct = this.determineFilterCategoriesToContruct(Object.keys(this.state.categorisedTags));
+        const filterCategoriesToContruct = this.determineFilterCategoriesToContruct(Object.keys(this.props.categorisedTags));
 
         const filters = filterCategoriesToContruct
-                        .map(filterCategory => this.filtersConstructor(filterCategory, this.state.categorisedTags[filterCategory]));
+                        .map(filterCategory => this.filtersConstructor(filterCategory, this.props.categorisedTags[filterCategory]));
 
         return (
             <nav className="filtersComponent">
