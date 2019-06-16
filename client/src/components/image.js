@@ -62,10 +62,6 @@ export default class Image extends React.Component {
 
   async componentDidMount() {
 
-    const images = await getImages();
-    this.buildImages(images);
-    this.loopImages();
-
     document.addEventListener("keydown", this.keyDown.bind(this));
 
   }
