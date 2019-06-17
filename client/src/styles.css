@@ -68,12 +68,13 @@ button {
 }
 
 .imageComponent button {
-  margin-top: 30%;
+  margin-top: 32%;
   position: absolute;
-  color: gray;
-  transform: scale(0.6, 1.5);
+  color: white;
+  transform: scale(0.8, 1);
   font-size: 1.5em;
   z-index: 99;
+  transition: 0.5s ease;
 }
 
 .imageComponent button:hover {
@@ -93,4 +94,8 @@ button {
   opacity: 1;
   width: 100%;
   position: absolute;
+}
+
+.imageComponent:hover button {
+  color: gray;
 }
