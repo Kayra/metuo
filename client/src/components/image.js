@@ -1,6 +1,7 @@
 import React from "react";
 import { Transition, animated } from "react-spring/renderprops";
 
+import { shuffleArray } from "../helpers";
 import { getImages } from "../requests";
 
 
@@ -86,7 +87,9 @@ export default class Image extends React.Component {
 
   buildImages(images) {
 
-    const imageEls = Object.keys(images).map(imageKey => style => (
+    const shuffledKeys = shuffleArray(Object.keys(images));
+
+    const imageEls = shuffledKeys.map(imageKey => style => (
       <animated.img style={style} src={images[imageKey]['location']} alt={imageKey} />
     ));
 
