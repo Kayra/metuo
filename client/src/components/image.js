@@ -102,14 +102,8 @@ export default class Image extends React.Component {
     return (
 
       <div className="imageComponent">
-        <button type="button" className="btn btn-default left" aria-label="Left Align" onClick={() => this.previousImage()}>
-            <span className="oi oi-chevron-left" title="chevron-left" aria-hidden="true"></span>
-        </button>
-        <button type="button" className="btn btn-default right" aria-label="Left Align" onClick={() => this.nextImage()}>
-            <span className="oi oi-chevron-right" title="chevron-right" aria-hidden="true"></span>
-        </button>
 
-        <div style={{ marginTop: 10 }}>
+        <div className="imageComponent__image">
           <Transition
             native
             reset
@@ -123,6 +117,14 @@ export default class Image extends React.Component {
             {index => this.state.images && this.state.images[index]}
           </Transition>
         </div>
+
+        <button type="button" className="btn btn-default left" aria-label="Left Align" onClick={() => this.previousImage()}>
+            <span className="oi oi-chevron-left" title="chevron-left" aria-hidden="true"></span>
+        </button>
+        <button type="button" className="btn btn-default right" aria-label="Left Align" onClick={() => this.nextImage()}>
+            <span className="oi oi-chevron-right" title="chevron-right" aria-hidden="true"></span>
+        </button>
+
       </div>
 
     );
