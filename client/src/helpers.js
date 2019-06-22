@@ -33,7 +33,7 @@ export function determineToggledCategoryTags(location, urlParams, categorisedTag
     const currentLocationTag = location ? currentLocationInLocationTags(location, categorisedTags) : null;
     const urlCategoryTags = urlParams ? urlParamsToCategoryTags(urlParams, categorisedTags) : null;
 
-    if (currentLocationTag) {
+    if (currentLocationTag && !urlCategoryTags) {
         toggledCategoryTags['Location'] = currentLocationTag;
     }
 
