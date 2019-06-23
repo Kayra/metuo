@@ -19,17 +19,20 @@ ul {
 /* Filters component */
 
 .filtersComponent {
-  padding-top: 70%;
   padding-bottom: 10%;
   font-size: 2em;
   font-family: Avenir;
   text-align: center;
   list-style: none;
   white-space: nowrap;
+  float: left;
+  width: 100%;
 }
 
 .filtersComponent button {
   border: 0;
+  width: 100%;
+  background-color: white;
 }
 
 .filtersComponent li {
@@ -37,43 +40,61 @@ ul {
 }
 
 .filtersComponent div {
-  display: inline;
+  display: inline-block;
+  width: 25%;
+  position: relative;
 }
 
 .filtersComponent .filterCategory li {
   text-align: center;
   display: inline;
-  padding: 0 5%;
 }
 
 .filterList {
-  padding: 0 5%;
+  width: 100%;
   text-align: center;
+  max-height: 130px;
+  overflow: scroll;
+  top: 0;
+  left: 0;
+}
+
+.filterList button {
+  background-color: rgb(250, 250, 250);
 }
 
 .selectedFilter {
   font-family: FatAvenir;
 }
 
-button {
-  background-color: white;
-}
 
 /* Image component */
 
 .imageComponent {
-  margin-top: 7%;
   position: relative;
+  float: left;
+  height: 100%;
   width: 100%;
+  height: 0;
+  margin-bottom: 40px;
+  margin-top: 9%;
+  padding-bottom: 67%;
+}
+
+.imageComponent__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .imageComponent button {
-  margin-top: 32%;
+  top: 50%;
   position: absolute;
   color: white;
   transform: scale(0.8, 1);
   font-size: 1.5em;
-  z-index: 99;
   transition: 0.5s ease;
 }
 
@@ -82,18 +103,22 @@ button {
 }
 
 .imageComponent .left {
-  left: -7%;
+  left: -10%;
 }
 
 .imageComponent .right {
-  right: -7%; 
+  right: -10%; 
 }
 
 .imageComponent img {
-  top: 10%;
   opacity: 1;
   width: 100%;
+  vertical-align: bottom;
+  height: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
 }
 
 .imageComponent:hover button {
