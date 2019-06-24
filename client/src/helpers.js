@@ -33,7 +33,9 @@ export function determineToggledCategoryTags(location, urlParams, categorisedTag
     const currentLocationTag = location ? currentLocationInLocationTags(location, categorisedTags) : null;
     const urlCategoryTags = urlParams ? urlParamsToCategoryTags(urlParams, categorisedTags) : null;
 
-    if (currentLocationTag && !urlCategoryTags) {
+    const urlCategoryTagsIsEmpty = Object.keys(urlCategoryTags).length === 0;
+
+    if (currentLocationTag && urlCategoryTagsIsEmpty) {
         toggledCategoryTags['Location'] = currentLocationTag;
     }
 
