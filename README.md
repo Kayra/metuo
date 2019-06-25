@@ -1,4 +1,4 @@
-# metuo (WIP - live but not v1 yet)
+# metuo
 
 **Photography portfolio site**
 
@@ -6,8 +6,8 @@ Features:
 
 * Shows pictures taken nearest to you first
 * No adverts
-* Looks hot
-* Filtering makes sense
+* Looks  a e s t h e t i c
+* Filtering makes sense (to me)
 
 ## Wireframe
 
