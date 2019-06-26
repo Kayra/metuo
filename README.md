@@ -13,6 +13,16 @@ Features:
 
 ![wireframe](wireframe.png)
 
+## Todo
+
+- [ ] Refactor server
+- [ ] Refactor client
+- [ ] Add server tests
+- [ ] Add client tests
+- [ ] Add mobile styles
+- [ ] Create upload page
+- [ ] Create archive page
+
 ## Development set up
 
 **Requires local installation of [docker-compose](https://docs.docker.com/compose/install/) and [node/npm.](https://www.npmjs.com/get-npm)** 
