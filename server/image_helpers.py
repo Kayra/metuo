@@ -23,3 +23,17 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
 
     db.session.add(db_image)
     db.session.commit()
+
+
+def remove_image(image_id: str) -> None:
+
+    image = Image.query.filter_by(id=image_id).first()
+
+    if is_production():
+        _delete_image_in_s3_bucket(image.name)
+    else:
+        _delete_image_locally(image.name)
+
+    db.session.delete(image)
+    db.session.commit()
+
