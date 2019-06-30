@@ -37,3 +37,11 @@ def remove_image(image_id: str) -> None:
     db.session.delete(image)
     db.session.commit()
 
+
+def load_image(image_name: str) -> str:
+
+    if is_production():
+        # return f"https://metuo-server.s3.eu-west-2.amazonaws.com/{image_name}"
+        return f"http://d1sq2bjn8ziqtj.cloudfront.net/{image_name}"
+    else:
+        return url_for("static", filename=image_name, _external=True)
