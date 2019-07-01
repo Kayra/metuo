@@ -45,3 +45,13 @@ def load_image(image_name: str) -> str:
         return f"http://d1sq2bjn8ziqtj.cloudfront.net/{image_name}"
     else:
         return url_for("static", filename=image_name, _external=True)
+
+
+def _generate_image_name(file_name: str, exif_data: Dict) -> str:
+
+    string_to_hash = file_name + exif_data['DateTimeOriginal']
+    file_extension = file_name.split('.')[-1]
+    file_name_hash = str(uuid.uuid5(uuid.NAMESPACE_DNS, string_to_hash))
+
+    return file_name_hash + '.' + file_extension
+
