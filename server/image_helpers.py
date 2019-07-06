@@ -69,3 +69,10 @@ def _delete_image_locally(image_location: str) -> None:
     image_location = os.path.join(image_directory, image_location)
     os.remove(image_location)
 
+
+def _hex_to_image(image_hex_bytes) -> JpegImageFile:
+
+    image_stream = io.BytesIO(image_hex_bytes)
+    image = PILImage.open(image_stream)
+
+    return image
