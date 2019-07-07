@@ -76,3 +76,11 @@ def _hex_to_image(image_hex_bytes) -> JpegImageFile:
     image = PILImage.open(image_stream)
 
     return image
+
+
+def _format_exif_data(unformatted_exif_data) -> Dict:
+    return {
+        ExifTags.TAGS[exif_index]: str(exif_data, 'utf-8') if isinstance(exif_data, bytes) else exif_data
+        for exif_index, exif_data in unformatted_exif_data.items()
+        if exif_index in ExifTags.TAGS
+    }
