@@ -56,15 +56,7 @@ def _generate_image_name(file_name: str, exif_data: Dict) -> str:
     return file_name_hash + '.' + file_extension
 
 
-def _save_image_locally(image: JpegImageFile, image_name: str) -> None:
-
-    image_directory = app.config["IMAGE_DIRECTORY"]
-    image_location = os.path.join(image_directory, image_name)
-
-    image.save(image_location)
-
-
-def _delete_image_locally(image_location: str) -> None:
+def _delete_image_file_locally(image_location: str) -> None:
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_location = os.path.join(image_directory, image_location)
     os.remove(image_location)
