@@ -56,12 +56,6 @@ def _generate_image_name(file_name: str, exif_data: Dict) -> str:
     return file_name_hash + '.' + file_extension
 
 
-def _delete_image_file_locally(image_location: str) -> None:
-    image_directory = app.config["IMAGE_DIRECTORY"]
-    image_location = os.path.join(image_directory, image_location)
-    os.remove(image_location)
-
-
 def _hex_to_image(image_hex_bytes) -> JpegImageFile:
 
     image_stream = io.BytesIO(image_hex_bytes)
