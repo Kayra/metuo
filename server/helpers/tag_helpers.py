@@ -18,3 +18,14 @@ def _tags_from_exif(exif_data: Dict) -> Dict:
     }
 
     return tags
+
+
+def _update_tags_with_exif(exif_data: Dict, categorised_tags: Dict) -> Dict:
+
+    exif_tags = _tags_from_exif(exif_data)
+
+    for category, tags in exif_tags.items():
+        if category not in categorised_tags.keys():
+            categorised_tags[category] = tags
+
+    return categorised_tags
