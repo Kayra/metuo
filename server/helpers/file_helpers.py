@@ -1,6 +1,14 @@
+import os
+
+import boto3
+from flask import current_app as app
+from PIL.JpegImagePlugin import JpegImageFile
+from werkzeug.datastructures import FileStorage
+
+from server.helpers.app_helpers import is_production
 
 
-def _save_image_file_locally(image: JpegImageFile, image_name: str) -> None:
+def save_image_file_locally(image: JpegImageFile, image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_location = os.path.join(image_directory, image_name)
@@ -8,13 +16,13 @@ def _save_image_file_locally(image: JpegImageFile, image_name: str) -> None:
     image.save(image_location)
 
 
-def _delete_image_file_locally(image_location: str) -> None:
+def delete_image_file_locally(image_location: str) -> None:
     image_directory = app.config["IMAGE_DIRECTORY"]
     image_location = os.path.join(image_directory, image_location)
     os.remove(image_location)
 
 
-def _save_image_file_to_s3_bucket(image: FileStorage, image_name: str) -> None:
+def save_image_file_to_s3_bucket(image: FileStorage, image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
 
@@ -31,7 +39,7 @@ def _save_image_file_to_s3_bucket(image: FileStorage, image_name: str) -> None:
         print(response)
 
 
-def _delete_image_in_s3_bucket(image_name: str) -> None:
+def delete_image_file_in_s3_bucket(image_name: str) -> None:
 
     image_directory = app.config["IMAGE_DIRECTORY"]
 
