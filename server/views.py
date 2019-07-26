@@ -3,7 +3,8 @@ import json
 from flask import Blueprint, request, jsonify, abort, make_response
 
 from server.models import Tag, Image
-from server.helpers import save_image, build_categorised_tags, remove_image
+from server.helpers.image_helpers import save_image, remove_image
+from server.helpers.tag_helpers import build_categorised_tags
 
 
 bp = Blueprint('images', __name__)
