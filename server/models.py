@@ -56,7 +56,8 @@ class Image(db.Model):
         db.session.commit()
 
     def to_json(self) -> Dict:
-        from server.helpers import build_categorised_tags, load_image
+        from server.helpers.tag_helpers import build_categorised_tags
+        from server.helpers.image_helpers import load_image
         return {
             self.id: {
                 'name': self.name,
