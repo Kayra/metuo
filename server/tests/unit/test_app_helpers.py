@@ -1,15 +1,16 @@
-from unittest import mock
-
-import pytest
-from PIL.JpegImagePlugin import JpegImageFile
-
-from server.helpers import save_image, _hex_to_image, _format_exif_data
+import os
 
 
-class TestHelpers:
+from server.helpers.app_helpers import is_production
 
-    def test_hex_to_image(self):
+
+class TestAppHelpers:
+
+    def test_is_production(self):
         pass
 
-    def test_format_exif_data(self):
+    def test_is_not_production(self):
+        pass
+
+    def test_is_dev(self):
         pass
