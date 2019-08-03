@@ -13,7 +13,13 @@ class TestAppHelpers:
         assert is_production() is True
 
     def test_is_not_production(self):
-        pass
+
+        os.environ['PYTHON_ENV'] = 'definitely_not_production'
+
+        assert is_production() is False
 
     def test_is_dev(self):
+        pass
+
+    def test_is_production_no_env_set(self):
         pass
