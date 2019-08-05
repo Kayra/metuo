@@ -19,4 +19,4 @@ class TestAppHelpers:
         assert is_production() is False
 
     def test_is_production_no_env_set(self):
-        pass
+        assert is_production() is False
