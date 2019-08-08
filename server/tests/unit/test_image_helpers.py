@@ -11,3 +11,15 @@ class TestLoadImage:
 
     def test_load_image_not_production(self):
         pass
+
+
+class TestGenerateImageName:
+
+    def test_generate_image_name(self):
+        pass
+
+    def test_generate_image_name_bad_exif(self):
+        pass
+
+    def test_generate_image_name_uniqueness(self):
+        pass
