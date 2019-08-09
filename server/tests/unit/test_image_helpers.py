@@ -23,3 +23,12 @@ class TestGenerateImageName:
 
     def test_generate_image_name_uniqueness(self):
         pass
+
+
+class TestHexToImage:
+
+    def test_hex_to_image(self):
+        pass
+
+    def test_hex_to_image_invalid_hex(self):
+        pass
