@@ -1,6 +1,5 @@
 import os
 
-
 from server.helpers.image_helpers import load_image, _generate_image_name, _hex_to_image, _format_exif_data
 
 
@@ -31,4 +30,13 @@ class TestHexToImage:
         pass
 
     def test_hex_to_image_invalid_hex(self):
+        pass
+
+
+class TestFormatExifData:
+
+    def test_format_exif_data(self):
+        pass
+
+    def test_format_exif_data_invalid_exif_data(self):
         pass
