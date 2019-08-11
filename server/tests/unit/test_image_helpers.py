@@ -1,12 +1,18 @@
 import os
 
-from server.helpers.image_helpers import load_image, _generate_image_name, _hex_to_image, _format_exif_data
+from server.helpers.image_helpers import load_image, generate_hashed_image_name, _hex_to_image, _format_exif_data
 
 
 class TestLoadImage:
 
     def test_load_image_production(self):
-        pass
+
+        os.environ['PYTHON_ENV'] = 'production'
+        image_name = 'test_image.jpg'
+        expected_loaded_image_location = f'http://d1sq2bjn8ziqtj.cloudfront.net/{image_name}'
+
+        assert expected_loaded_image_location == load_image(image_name)
+
 
     def test_load_image_not_production(self):
         pass

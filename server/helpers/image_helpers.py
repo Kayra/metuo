@@ -24,7 +24,7 @@ def save_image(uploaded_image: FileStorage, categorised_tags: Dict):
 
     exif_data = _format_exif_data(image.getexif())
     updated_categorised_tags = update_categorised_tags_with_exif_data(exif_data, categorised_tags)
-    image_name = _generate_image_name(uploaded_image.filename, exif_data)
+    image_name = generate_hashed_image_name(uploaded_image.filename, exif_data)
 
     if is_production():
         save_image_file_to_s3_bucket(uploaded_image, image_name)
@@ -60,7 +60,7 @@ def load_image(image_name: str) -> str:
         return url_for("static", filename=image_name, _external=True)
 
 
-def _generate_image_name(file_name: str, exif_data: Dict) -> str:
+def generate_hashed_image_name(file_name: str, exif_data: Dict) -> str:
 
     string_to_hash = file_name + exif_data['DateTimeOriginal']
     file_extension = file_name.split('.')[-1]
