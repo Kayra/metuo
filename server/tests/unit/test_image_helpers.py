@@ -13,9 +13,13 @@ class TestLoadImage:
 
         assert expected_loaded_image_location == load_image(image_name)
 
+    def test_load_image_not_production(self, flask_app):
 
-    def test_load_image_not_production(self):
-        pass
+        os.environ['PYTHON_ENV'] = 'not_production'
+        image_name = 'test_image.jpg'
+        expected_loaded_image_location = f'http://localhost/static/{image_name}'
+
+        assert expected_loaded_image_location == load_image(image_name)
 
 
 class TestGenerateImageName:
