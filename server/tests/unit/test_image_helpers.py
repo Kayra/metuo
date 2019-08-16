@@ -1,4 +1,7 @@
 import os
+import copy
+
+import pytest
 
 from server.helpers.image_helpers import load_image, generate_hashed_image_name, _hex_to_image, _format_exif_data
 
@@ -27,12 +30,18 @@ class TestGenerateImageName:
     def test_generate_image_name(self, valid_exif_dict):
 
         image_name = 'test_image.jpg'
-        expected_generated_image_name = 'e9ca750e-2055-5bc8-9f82-c7dce4f164aa.jpg   '
+        expected_generated_image_name = 'e9ca750e-2055-5bc8-9f82-c7dce4f164aa.jpg'
 
         assert expected_generated_image_name == generate_hashed_image_name(image_name, valid_exif_dict)
 
-    def test_generate_image_name_bad_exif(self):
-        pass
+    def test_generate_image_name_bad_exif(self, valid_exif_dict):
+
+        image_name = 'test_image.jpg'
+        invalid_exif_dict = copy.deepcopy(valid_exif_dict)
+        del invalid_exif_dict['DateTimeOriginal']
+
+        with pytest.raises(KeyError):
+            generate_hashed_image_name(image_name, invalid_exif_dict)
 
     def test_generate_image_name_uniqueness(self):
         pass
