@@ -43,8 +43,15 @@ class TestGenerateImageName:
         with pytest.raises(KeyError):
             generate_hashed_image_name(image_name, invalid_exif_dict)
 
-    def test_generate_image_name_uniqueness(self):
-        pass
+    def test_generate_image_name_file_name_uniqueness(self, valid_exif_dict):
+
+        image_name_1 = 'test_image_one.jpg'
+        image_name_2 = 'test_image_two.jpg'
+
+        generated_name_1 = generate_hashed_image_name(image_name_1, valid_exif_dict)
+        generated_name_2 = generate_hashed_image_name(image_name_2, valid_exif_dict)
+
+        assert generated_name_1 != generated_name_2
 
 
 class TestHexToImage:
