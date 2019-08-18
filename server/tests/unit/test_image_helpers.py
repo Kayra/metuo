@@ -53,6 +53,21 @@ class TestGenerateImageName:
 
         assert generated_name_1 != generated_name_2
 
+    def test_generate_image_name_exif_data_uniqueness(self, valid_exif_dict):
+
+        image_name = 'test_image.jpg'
+
+        exif_dict_1 = copy.deepcopy(valid_exif_dict)
+        exif_dict_1['DateTimeOriginal'] = '2020:01:26 02:54:31'
+
+        exif_dict_2 = copy.deepcopy(valid_exif_dict)
+        exif_dict_2['DateTimeOriginal'] = '2020:01:27 02:54:31'
+
+        generated_name_1 = generate_hashed_image_name(image_name, exif_dict_1)
+        generated_name_2 = generate_hashed_image_name(image_name, exif_dict_2)
+
+        assert generated_name_1 != generated_name_2
+
 
 class TestHexToImage:
 
