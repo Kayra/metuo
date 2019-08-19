@@ -3,7 +3,7 @@ import copy
 
 import pytest
 
-from server.helpers.image_helpers import load_image, generate_hashed_image_name, _hex_to_image, _format_exif_data
+from server.helpers.image_helpers import load_image, generate_hashed_image_name
 
 
 class TestLoadImage:
@@ -70,18 +70,10 @@ class TestGenerateImageName:
 
 
 class TestHexToImage:
-
-    def test_hex_to_image(self):
-        pass
-
-    def test_hex_to_image_invalid_hex(self):
-        pass
+    """Consciously not testing 'private' function to allow flexibility in code development."""
+    pass
 
 
 class TestFormatExifData:
-
-    def test_format_exif_data(self):
-        pass
-
-    def test_format_exif_data_invalid_exif_data(self):
-        pass
+    """Consciously not testing 'private' function to allow flexibility in code development."""
+    pass
