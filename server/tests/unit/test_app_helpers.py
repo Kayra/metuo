@@ -4,7 +4,7 @@ import os
 from server.helpers.app_helpers import is_production
 
 
-class TestAppHelpers:
+class TestIsProduction:
 
     def test_is_production(self):
         os.environ['PYTHON_ENV'] = 'production'
@@ -19,4 +19,6 @@ class TestAppHelpers:
         assert is_production() is False
 
     def test_is_production_no_env_set(self):
+        assert is_production() is False
+        os.environ['PYTHON_ENV'] = ''
         assert is_production() is False
