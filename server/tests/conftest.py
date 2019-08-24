@@ -107,3 +107,22 @@ def valid_exif_dict() -> Dict:
         "DateTime": "2020:08:19 17:19:22",
         "ExifOffset": 216
     }
+
+
+@pytest.fixture()
+def valid_category_tags() -> Dict:
+
+    yield {
+        "Location": [
+            "Japan"
+        ],
+        "City": [
+            "Tokyo"
+        ],
+        "Colour": [
+            "White"
+        ],
+        "People": [
+            "Rie"
+        ]
+    }
