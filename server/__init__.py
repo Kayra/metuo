@@ -4,11 +4,13 @@ from pathlib import Path
 import click
 from flask import Flask
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
 
 def create_app():
