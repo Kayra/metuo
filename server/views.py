@@ -2,7 +2,7 @@ import json
 
 from flask import Blueprint, request, jsonify, abort, make_response
 
-from server.models import Tag, Image
+from server.models import Tag, Image, User
 from server.helpers.image_helpers import save_image, remove_image
 from server.helpers.tag_helpers import build_categorised_tags
 
@@ -94,3 +94,20 @@ def get_categorised_tags():
     categorised_tags = build_categorised_tags(tags)
 
     return jsonify(categorised_tags)
+
+
+@bp.route("/create_user", methods=["POST"])
+def create_user():
+
+    parameters = request.json
+    username = parameters['username']
+    password = parameters['password']
+
+    if not User.exists(username):
+
+        user = User(username=username, password=password)
+        user.save()
+        return f"Created user {username}"
+
+    else:
+        return f"User {username} exists"
