@@ -1,8 +1,9 @@
 from typing import Dict, List
 
 from sqlalchemy import event
+from sqlalchemy.ext.hybrid import hybrid_property
 
-from server import db
+from server import db, bcrypt
 
 
 association_table = db.Table('image_tag_association',
@@ -133,3 +134,31 @@ class Category(db.Model):
 
     def __repr__(self) -> str:
         return f'<Category {self.name}>'
+
+
+class User(db.Model):
+
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    _password = db.Column(db.String)
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext)
+
+    def is_correct_password(self, plaintext):
+        return bcrypt.check_password_hash(self._password, plaintext)
+
+    @classmethod
+    def exists(cls, username: str) -> bool:
+        return bool(cls.query.filter_by(username=username).scalar())
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
