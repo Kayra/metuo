@@ -99,9 +99,8 @@ def get_categorised_tags():
 @bp.route("/create_user", methods=["POST"])
 def create_user():
 
-    parameters = request.json
-    username = parameters['username']
-    password = parameters['password']
+    username = request.json['username']
+    password = request.json['password']
 
     if not User.exists(username):
 
@@ -111,3 +110,24 @@ def create_user():
 
     else:
         return f"User {username} exists"
+
+
+@bp.route("/authenticate_user", methods=["POST"])
+def authenticate_user():
+
+    username = request.json['username']
+    password = request.json['password']
+
+    if User.exists(username):
+
+        user = User.query.filter_by(username=username).first()
+        print(password)
+        print(type(password))
+
+        if user.is_correct_password(password):
+            return f"Authenticated {username}"
+        else:
+            return f"Incorrect password for user {username}"
+
+    else:
+        return f"User {username} does not exist"
