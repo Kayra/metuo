@@ -121,8 +121,6 @@ def authenticate_user():
     if User.exists(username):
 
         user = User.query.filter_by(username=username).first()
-        print(password)
-        print(type(password))
 
         if user.is_correct_password(password):
             return f"Authenticated {username}"
