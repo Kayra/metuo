@@ -6,7 +6,7 @@ ExifRead==2.1.2
 Flask==1.0.3
 Flask-Bcrypt==0.7.1
 Flask-Cors==3.0.8
-Flask-JWT==0.3.2
+Flask-JWT-Extended==3.24.1
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 importlib-metadata==0.18
