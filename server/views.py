@@ -1,6 +1,7 @@
 import json
 
 from flask import Blueprint, request, jsonify, abort, make_response
+from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
 from server.models import Tag, Image, User
 from server.helpers.image_helpers import save_image, remove_image
@@ -11,6 +12,7 @@ bp = Blueprint('images', __name__)
 
 
 @bp.route("/upload", methods=["POST"])
+@jwt_required
 def upload_image():
 
     if not request.files:
@@ -123,7 +125,8 @@ def authenticate_user():
         user = User.query.filter_by(username=username).first()
 
         if user.is_correct_password(password):
-            return f"Authenticated {username}"
+            access_token = create_access_token(identity=username)
+            return jsonify(access_token=access_token)
         else:
             return f"Incorrect password for user {username}"
 
