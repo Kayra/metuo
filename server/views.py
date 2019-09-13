@@ -11,21 +11,6 @@ from server.helpers.tag_helpers import build_categorised_tags
 bp = Blueprint('images', __name__)
 
 
-@bp.route("/upload", methods=["POST"])
-@jwt_required
-def upload_image():
-
-    if not request.files:
-        return "No image found"
-
-    image = request.files['image']
-    tags = json.loads(request.values['tags'])
-
-    save_image(image, tags)
-
-    return "Image uploaded"
-
-
 @bp.route("/images", methods=["GET"])
 def get_images():
 
@@ -58,7 +43,23 @@ def get_image(image_id):
     return abort(405)
 
 
+@bp.route("/upload", methods=["POST"])
+@jwt_required
+def upload_image():
+
+    if not request.files:
+        return "No image found"
+
+    image = request.files['image']
+    tags = json.loads(request.values['tags'])
+
+    save_image(image, tags)
+
+    return "Image uploaded"
+
+
 @bp.route("/image/update-tags/<image_id>", methods=["PUT"])
+@jwt_required
 def update_image_tags(image_id):
 
     tags_to_update = request.get_json()
@@ -75,6 +76,7 @@ def update_image_tags(image_id):
 
 
 @bp.route("/image/delete/<image_id>", methods=["DELETE"])
+@jwt_required
 def delete_image(image_id):
 
     if image_id:
