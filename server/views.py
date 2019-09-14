@@ -100,20 +100,21 @@ def get_categorised_tags():
     return jsonify(categorised_tags)
 
 
-@bp.route("/create_user", methods=["POST"])
-def create_user():
-
-    username = request.json['username']
-    password = request.json['password']
-
-    if not User.exists(username):
-
-        user = User(username=username, password=password)
-        user.save()
-        return f"Created user {username}"
-
-    else:
-        return f"User {username} exists"
+# Only uncomment to create a user, then re-comment - MVP ;)
+# @bp.route("/create_user", methods=["POST"])
+# def create_user():
+#
+#     username = request.json['username']
+#     password = request.json['password']
+#
+#     if not User.exists(username):
+#
+#         user = User(username=username, password=password)
+#         user.save()
+#         return f"Created user {username}"
+#
+#     else:
+#         return f"User {username} exists"
 
 
 @bp.route("/authenticate_user", methods=["POST"])
