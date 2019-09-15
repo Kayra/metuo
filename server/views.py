@@ -1,7 +1,7 @@
 import json
 
 from flask import Blueprint, request, jsonify, abort, make_response
-from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
+from flask_jwt_extended import jwt_required, create_access_token
 
 from server.models import Tag, Image, User
 from server.helpers.image_helpers import save_image, remove_image
