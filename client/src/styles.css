@@ -124,3 +124,41 @@ ul {
 .imageComponent:hover button {
   color: gray;
 }
+
+
+/* Tablet */
+@media all and (min-width: 481px) and (max-width: 992px) {
+
+}
+
+/* Phone */
+@media all and (min-width: 0) and (max-width: 480px) {
+
+  .imageComponent {
+    margin-top: 30%;
+  }
+
+  .imageComponent button {
+    display: none;
+  }
+
+  .filtersComponent div {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .filterList li {
+    width: auto;
+  }
+
+  .filterList button {
+    padding-right: 100%;
+  }
+
+  .filtersComponent button {
+    text-align: left;
+    padding-left: 0;
+  }
+
+}
