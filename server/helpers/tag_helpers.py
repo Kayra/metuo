@@ -6,7 +6,7 @@ from server.models import Tag
 
 def build_categorised_tags(tags: List[Tag]) -> Dict:
 
-    categorised_tags = {}
+    categorised_tags = dict()
 
     for tag in tags:
 
