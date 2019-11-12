@@ -1,4 +1,5 @@
 import calendar
+from datetime import datetime
 from typing import Dict, List
 
 from server.models import Tag
@@ -32,19 +33,15 @@ def update_categorised_tags_with_exif_data(exif_data: Dict, categorised_tags: Di
 
 def generate_categorised_tags_from_exif_data(exif_data: Dict) -> Dict:
 
-    full_date = exif_data['DateTimeOriginal']
-    date = full_date.split()[0]
-    time = full_date.split()[1]
+    exif_date = exif_data['DateTimeOriginal']
+    full_datetime = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
 
-    year = date.split(':')[0]
-    month = date.split(':')[1]
-    month_string = calendar.month_name[int(month)]
-    day = date.split(':')[2]
+    month_string = calendar.month_name[int(full_datetime.month)]
 
     tags = {
-        'Year': [year],
+        'Year': [str(full_datetime.year)],
         'Month': [month_string],
-        'Day': [day]
+        'Day': [str(full_datetime.day)]
     }
 
     return tags
