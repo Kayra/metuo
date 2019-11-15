@@ -6,22 +6,15 @@ Features:
 
 * Shows pictures taken nearest to you first
 * No adverts
-* Looks  a e s t h e t i c
-* Filtering makes sense (to me)
+* Simple design
+* Relevant filtering
+* URL parameter sharing
 
-## Wireframe
+## MVP Design
 
 ![wireframe](wireframe.png)
 
-## Todo
-
-- [ ] Refactor server
-- [ ] Refactor client
-- [ ] Add server tests
-- [ ] Add client tests
-- [ ] Add mobile styles
-- [ ] Create upload page
-- [ ] Create archive page
+![architecture](architecture.png)
 
 ## Development set up
 
@@ -70,9 +63,16 @@ npm run start
 
 **The client should be accessible at `http://0.0.0.0:3000/`**
 
-### Common workflows
+## Common workflows
 
-#### Rebuilding the api server
+### Environment introspection
+
+The `Makefile` provides quick and easy access to the server and database:
+
+* `make servershell` creates an interactive terminal in the running api docker container
+* `make psqlshell` creates a connection to the api database
+
+### Rebuilding the api server
 
 To rebuild and restart the flask api server **run the restart command**:
 
@@ -80,29 +80,18 @@ To rebuild and restart the flask api server **run the restart command**:
 make restart
 ```
 
-#### Recreating the development environment
+### Recreating the database
 
-To recreate the development environment from scratch, **first remove the `postgres-data` directory and it's contents**:
+To recreate the database, **first remove the `postgres-data` directory and it's contents**:
 
 ```bash
 rm -rf postgres-data
 ```
 
-Then **remove the docker images**:
+Then run the **run the restart command**:
 
 ```bash
-> docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-metuo_server        latest              377b22651d7d        18 hours ago        1.02GB
-postgres            alpine              ecb176ff304a        2 weeks ago         151MB
-python              3.7                 f66befd33669        6 weeks ago         919MB
-> docker rmi -f 377b22651d7d ecb176ff304a f66befd33669
-```
-
-Then run the **installation command**:
-
-```bash
-make install
+make restart
 ```
 
 Finally, while the docker container is running, in another shell run the **database creation command**:
@@ -111,9 +100,9 @@ Finally, while the docker container is running, in another shell run the **datab
 make database
 ```
 
-#### Testing s3 image uploading
+### Testing AWS S3 image uploading
 
-To save images to s3 from the development environment rather than locally, **change the following environment variables in the `.env` file**:
+To save images to S3 from the development environment rather than locally, **change the following environment variables in the `.env` file**:
 
 * `IMAGE_DIRECTORY` - Change this to the bucket name
 * `AWS_ACCESS_KEY_ID` - Update this with a key ID that is authorised to interact with the bucket
@@ -124,81 +113,4 @@ Then **restart the server docker container**:
 
 ```bash
 make restart
-```
-
-#### Environment introspection
-
-The `Makefile` provides quick and easy access to the server and database:
-
-* `make servershell` creates an interactive terminal in the running api docker container
-* `make psqlshell` creates a connection to the api database
-
-## Server API Endpoints
-
-### GET - /
-
-Returns `Alive`. Simple health check
-
-Example CURL:
-
-```bash
-curl --request GET \
-  --url http://0.0.0.0:5000/
-```
-
-### GET - /images
-
-Get a list of images. Response will include file name, static serving location and tags.
-
-Example CURL:
-
-```bash
-curl --request GET \
-  --url 'http://0.0.0.0:5000/images?tags=hey'
-```
-
-Example response:
-
-```bash
-{
-  "nyc.png": {
-    "location": "/static/nyc.png",
-    "tags": [
-      "hey"
-    ]
-  }
-}
-```
-
-### GET - /tags
-
-Get a list of all the tags in the DB
-
-Example CURL:
-
-```bash
-curl --request GET \
-  --url http://0.0.0.0:5000/tags
-```
-
-Example response:
-
-```bash
-[
-  "hey"
-]
-```
-
-### POST - /upload
-
-Saves static image file, and information (name/tags) to the DB.
-
-Example CURL:
-
-```bash
-curl --request POST \
-  --url http://127.0.0.1:5000/upload \
-  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' \
-  --form tags=hey \
-  --form image=path_to_image
 ```
