@@ -2,15 +2,15 @@
 
 **Photography portfolio site**
 
-Features:
+## MVP Design
+
+### Features:
 
 * Shows pictures taken nearest to you first
 * No adverts
 * Simple design
 * Relevant filtering
 * URL parameter sharing
-
-## MVP Design
 
 ![wireframe](wireframe.png)
 
