@@ -1,6 +1,6 @@
 # metuo
 
-**Photography portfolio site**
+**Photography portfolio [web application.](http://metuo.io/)**
 
 ## MVP Design
 
