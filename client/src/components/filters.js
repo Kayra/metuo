@@ -110,6 +110,8 @@ export default class Filters extends React.Component {
 
     filtersListConstructor = (filterCategory, filters) => {
 
+        if (filterCategory === 'Year') filters.reverse();
+
         const filterList = filters.map(filter => 
             <li key={filter}>
                 <button 
@@ -128,7 +130,7 @@ export default class Filters extends React.Component {
 
     filtersConstructor = (filterCategory, filters) => {
         
-        const filterList = this.filtersListConstructor(filterCategory, filters);
+        const filterList = this.filtersListConstructor(filterCategory, filters.sort());
 
         const filterCategoryList = this.filterCategoryListConstructor(filterCategory);
 

@@ -1,3 +1,4 @@
+import random
 from typing import Dict, List
 
 from sqlalchemy import event
@@ -108,6 +109,8 @@ class Tag(db.Model):
             tag_names = [tag.name for tag in image.tags]
             if all([tag in tag_names for tag in tags]):
                 images.append(image)
+
+        random.shuffle(images)
 
         return images
 

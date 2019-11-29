@@ -2,6 +2,7 @@ import json
 
 from flask import Blueprint, request, jsonify, abort, make_response
 from flask_jwt_extended import jwt_required, create_access_token
+from sqlalchemy.sql.expression import func
 
 from server.models import Tag, Image, User
 from server.helpers.image_helpers import save_image, remove_image
@@ -15,13 +16,13 @@ bp = Blueprint('images', __name__)
 def get_images():
 
     tag_string = request.args.get('tags')
-    tags = tag_string.split(',') if tag_string else None
 
-    if tags:
-        images = Tag.get_images(tags)
-
+    if tag_string:
+        images = Tag.get_images(tag_string.split(','))
     else:
-        images = Image.query.limit(20).all()
+        images = Tag.get_images(['Best'])
+        if not images:
+            images = Image.query.order_by(func.random()).limit(20).all()
 
     json_response = {}
     for image in images:
@@ -48,7 +49,7 @@ def get_image(image_id):
 def upload_image():
 
     if not request.files:
-        return "No image found"
+        return "No image file found"
 
     image = request.files['image']
     tags = json.loads(request.values['tags'])

@@ -1,8 +1,9 @@
-version: '2.1'
+version: '3.5'
 
 services:
 
   server:
+    container_name: metuo.server
     restart: always
     build: ./server
     ports:
@@ -11,6 +12,7 @@ services:
       - ./server:/server
       - ./image_uploads:/image_uploads
     environment:
+      - PYTHONUNBUFFERED=1
       - FLASK_DEBUG=${FLASK_DEBUG}
       - RDS_USERNAME=${RDS_USERNAME}
       - RDS_PASSWORD=${RDS_PASSWORD}
@@ -27,8 +29,9 @@ services:
       - postgres
 
   postgres:
+    container_name: metuo.postgres
     restart: always
-    image: postgres:alpine
+    image: postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

@@ -7,7 +7,7 @@ install:
 
 
 database:
-	@docker exec -it metuo_server_1 flask init-db
+	@docker exec -it metuo.server flask init-db
 
 
 start:
@@ -41,23 +41,23 @@ dotenv:
 
 
 servershell:
-	@docker exec -it metuo_server_1 bash
+	@docker exec -it metuo.server bash
 
 
 psqlshell:
-	@docker exec -it metuo_postgres_1 psql metuo metuo
+	@docker exec -it metuo.postgres psql metuo metuo
 
 
 testunit:
-	@docker exec -it metuo_server_1 pytest server/tests/unit -p no:warnings -vv
+	@docker exec -it metuo.server pytest server/tests/unit -p no:warnings -vv
 
 
 testinteg:
-	@docker exec -it metuo_server_1 pytest server/tests/integration -p no:warnings
+	@docker exec -it metuo.server pytest server/tests/integration -p no:warnings
 
 
 teste2e:
-	@docker exec -it metuo_server_1 pytest server/tests/e2e -p no:warnings
+	@docker exec -it metuo.server pytest server/tests/e2e -p no:warnings
 
 
 testall:

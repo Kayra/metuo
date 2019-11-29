@@ -6,7 +6,7 @@ ExifRead==2.1.2
 Flask==1.0.3
 Flask-Bcrypt==0.7.1
 Flask-Cors==3.0.8
-Flask-JWT-Extended==3.24.1
+Flask-JWT-Extended==3.25.0
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 importlib-metadata==0.18
@@ -19,7 +19,7 @@ Pillow==7.0.0
 pluggy==0.12.0
 psycopg2-binary==2.8.5
 py==1.8.0
-PyJWT==1.4.2
+PyJWT==1.7.1
 pyparsing==2.4.0
 pytest==5.0.1
 six==1.12.0
