@@ -145,7 +145,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
-    _password = db.Column(db.Binary)
+    _password = db.Column(db.LargeBinary)
 
     @hybrid_property
     def password(self):
