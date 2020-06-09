@@ -45,7 +45,7 @@ def get_image(image_id):
 
 
 @bp.route("/upload", methods=["POST"])
-@jwt_required
+@jwt_required()
 def upload_image():
 
     if not request.files:
@@ -60,7 +60,7 @@ def upload_image():
 
 
 @bp.route("/image/update-tags/<image_id>", methods=["PUT"])
-@jwt_required
+@jwt_required()
 def update_image_tags(image_id):
 
     tags_to_update = request.get_json()
@@ -77,7 +77,7 @@ def update_image_tags(image_id):
 
 
 @bp.route("/image/delete/<image_id>", methods=["DELETE"])
-@jwt_required
+@jwt_required()
 def delete_image(image_id):
 
     if image_id:
