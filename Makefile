@@ -48,7 +48,7 @@ psqlshell:
 
 
 testunit:
-	@docker exec -it metuo_server_1 pytest server/tests/unit -p no:warnings
+	@docker exec -it metuo_server_1 pytest server/tests/unit -p no:warnings -vv
 
 
 testinteg:

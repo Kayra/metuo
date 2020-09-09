@@ -19,7 +19,18 @@ def build_categorised_tags(tags: List[Tag]) -> Dict:
     return categorised_tags
 
 
-def tags_from_exif_data(exif_data: Dict) -> Dict:
+def update_categorised_tags_with_exif_data(exif_data: Dict, categorised_tags: Dict) -> Dict:
+
+    exif_tags = generate_categorised_tags_from_exif_data(exif_data)
+
+    for category, tags in exif_tags.items():
+        if category not in categorised_tags.keys():
+            categorised_tags[category] = tags
+
+    return categorised_tags
+
+
+def generate_categorised_tags_from_exif_data(exif_data: Dict) -> Dict:
 
     full_date = exif_data['DateTimeOriginal']
     date = full_date.split()[0]
@@ -37,14 +48,3 @@ def tags_from_exif_data(exif_data: Dict) -> Dict:
     }
 
     return tags
-
-
-def update_categorised_tags_with_exif_data(exif_data: Dict, categorised_tags: Dict) -> Dict:
-
-    exif_tags = tags_from_exif_data(exif_data)
-
-    for category, tags in exif_tags.items():
-        if category not in categorised_tags.keys():
-            categorised_tags[category] = tags
-
-    return categorised_tags
