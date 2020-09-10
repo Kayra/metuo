@@ -4,11 +4,14 @@ from pathlib import Path
 import click
 from flask import Flask
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
 
 def create_app():
@@ -16,6 +19,9 @@ def create_app():
     app = Flask(__name__)
 
     CORS(app)
+
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    JWTManager(app)
 
     postgres_user = os.getenv('RDS_USERNAME')
     postgres_password = os.getenv('RDS_PASSWORD')

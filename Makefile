@@ -34,7 +34,8 @@ dotenv:
              POSTGRES_DB=metuo\n \
              POSTGRES_USER=metuo\n \
              POSTGRES_PASSWORD=local_insecure_password\n \
-             PYTHON_ENV=local" \
+             PYTHON_ENV=local\n \
+             JWT_SECRET_KEY=dev_secret" \
     | tr -d "[:blank:]" \
     > .env
 

@@ -1,27 +1,14 @@
 import json
 
 from flask import Blueprint, request, jsonify, abort, make_response
+from flask_jwt_extended import jwt_required, create_access_token
 
-from server.models import Tag, Image
+from server.models import Tag, Image, User
 from server.helpers.image_helpers import save_image, remove_image
 from server.helpers.tag_helpers import build_categorised_tags
 
 
 bp = Blueprint('images', __name__)
-
-
-@bp.route("/upload", methods=["POST"])
-def upload_image():
-
-    if not request.files:
-        return "No image found"
-
-    image = request.files['image']
-    tags = json.loads(request.values['tags'])
-
-    save_image(image, tags)
-
-    return "Image uploaded"
 
 
 @bp.route("/images", methods=["GET"])
@@ -56,7 +43,23 @@ def get_image(image_id):
     return abort(405)
 
 
+@bp.route("/upload", methods=["POST"])
+@jwt_required
+def upload_image():
+
+    if not request.files:
+        return "No image found"
+
+    image = request.files['image']
+    tags = json.loads(request.values['tags'])
+
+    save_image(image, tags)
+
+    return "Image uploaded"
+
+
 @bp.route("/image/update-tags/<image_id>", methods=["PUT"])
+@jwt_required
 def update_image_tags(image_id):
 
     tags_to_update = request.get_json()
@@ -73,6 +76,7 @@ def update_image_tags(image_id):
 
 
 @bp.route("/image/delete/<image_id>", methods=["DELETE"])
+@jwt_required
 def delete_image(image_id):
 
     if image_id:
@@ -94,3 +98,40 @@ def get_categorised_tags():
     categorised_tags = build_categorised_tags(tags)
 
     return jsonify(categorised_tags)
+
+
+# Only uncomment to create a user, then re-comment - MVP ;)
+# @bp.route("/create_user", methods=["POST"])
+# def create_user():
+#
+#     username = request.json['username']
+#     password = request.json['password']
+#
+#     if not User.exists(username):
+#
+#         user = User(username=username, password=password)
+#         user.save()
+#         return f"Created user {username}"
+#
+#     else:
+#         return f"User {username} exists"
+
+
+@bp.route("/authenticate_user", methods=["POST"])
+def authenticate_user():
+
+    username = request.json['username']
+    password = request.json['password']
+
+    if User.exists(username):
+
+        user = User.query.filter_by(username=username).first()
+
+        if user.is_correct_password(password):
+            access_token = create_access_token(identity=username)
+            return jsonify(access_token=access_token)
+        else:
+            return f"Incorrect password for user {username}"
+
+    else:
+        return f"User {username} does not exist"
