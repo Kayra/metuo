@@ -1,4 +1,5 @@
 import io
+import os
 import uuid
 from typing import Dict
 
@@ -63,10 +64,10 @@ def load_image(image_name: str) -> str:
 def generate_hashed_image_name(file_name: str, exif_data: Dict) -> str:
 
     string_to_hash = file_name + exif_data['DateTimeOriginal']
-    file_extension = file_name.split('.')[-1]
+    file_extension = os.path.splitext(file_name)[1]
     file_name_hash = str(uuid.uuid5(uuid.NAMESPACE_DNS, string_to_hash))
 
-    return file_name_hash + '.' + file_extension
+    return file_name_hash + file_extension
 
 
 def _hex_to_image(image_hex_bytes) -> JpegImageFile:
