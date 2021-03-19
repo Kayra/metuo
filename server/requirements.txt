@@ -15,7 +15,7 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 more-itertools==7.1.0
 packaging==19.0
-Pillow==7.0.0
+Pillow==8.1.1
 pluggy==0.12.0
 psycopg2-binary==2.8.5
 py==1.8.0
