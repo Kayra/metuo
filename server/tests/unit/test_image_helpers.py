@@ -34,15 +34,6 @@ class TestGenerateImageName:
 
         assert expected_generated_image_name == generate_hashed_image_name(image_name, valid_exif_dict)
 
-    def test_generate_image_name_bad_exif(self, valid_exif_dict):
-
-        image_name = 'test_image.jpg'
-        invalid_exif_dict = copy.deepcopy(valid_exif_dict)
-        del invalid_exif_dict['DateTimeOriginal']
-
-        with pytest.raises(KeyError):
-            generate_hashed_image_name(image_name, invalid_exif_dict)
-
     def test_generate_image_name_file_name_uniqueness(self, valid_exif_dict):
 
         image_name_1 = 'test_image_one.jpg'

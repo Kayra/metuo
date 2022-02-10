@@ -9,7 +9,7 @@ from PIL.JpegImagePlugin import JpegImageFile
 from werkzeug.datastructures import FileStorage
 
 from server.models import Image, db
-from server.helpers.app_helpers import is_production
+from server.helpers.app_helpers import is_production, get_exif_datetime
 from server.helpers.tag_helpers import update_categorised_tags_with_exif_data
 from server.helpers.file_helpers import save_image_file_locally, \
                                         delete_image_file_locally, \
@@ -63,7 +63,8 @@ def load_image(image_name: str) -> str:
 
 def generate_hashed_image_name(file_name: str, exif_data: Dict) -> str:
 
-    string_to_hash = file_name + exif_data['DateTimeOriginal']
+    date_string = get_exif_datetime(exif_data)
+    string_to_hash = file_name + date_string
     file_extension = os.path.splitext(file_name)[1]
     file_name_hash = str(uuid.uuid5(uuid.NAMESPACE_DNS, string_to_hash))
 
@@ -79,8 +80,17 @@ def _hex_to_image(image_hex_bytes) -> JpegImageFile:
 
 
 def _format_exif_data(unformatted_exif_data) -> Dict:
-    return {
-        ExifTags.TAGS[exif_index]: str(exif_data, 'utf-8') if isinstance(exif_data, bytes) else exif_data
-        for exif_index, exif_data in unformatted_exif_data.items()
-        if exif_index in ExifTags.TAGS
-    }
+
+    cast_to_float = ['XResolution', 'YResolution']
+
+    clean_exif = {}
+    for exif_index, exif_data in unformatted_exif_data.items():
+
+        exif_index_label = ExifTags.TAGS[exif_index]
+
+        if exif_index in ExifTags.TAGS:
+            clean_exif[exif_index_label] = str(exif_data, 'utf-8') if isinstance(exif_data, bytes) else exif_data
+        if exif_index_label in cast_to_float:
+            clean_exif[exif_index_label] = float(unformatted_exif_data[exif_index])
+
+    return clean_exif

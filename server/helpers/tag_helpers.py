@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Dict, List
 
 from server.models import Tag
+from server.helpers.app_helpers import get_exif_datetime
 
 
 def build_categorised_tags(tags: List[Tag]) -> Dict:
@@ -33,7 +34,7 @@ def update_categorised_tags_with_exif_data(exif_data: Dict, categorised_tags: Di
 
 def generate_categorised_tags_from_exif_data(exif_data: Dict) -> Dict:
 
-    exif_date = exif_data['DateTimeOriginal']
+    exif_date = get_exif_datetime(exif_data)
     full_datetime = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
 
     month_string = calendar.month_name[int(full_datetime.month)]
